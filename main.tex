@@ -1,19 +1,77 @@
-\documentclass{amsart}
+\documentclass[11pt,twoside]{amsbook}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
 \usepackage{microtype}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0.4pt}
+\usepackage[autolang=hyphen]{biblatex}
+\addbibresource{ref.bib}
 
 \begin{document}
 \begin{titlepage}
-  \vspace*{5cm}
   \begin{center}
-    \bfseries\sffamily{\Huge Teoría de Categorías}
-    \vspace*{1.5cm}
-
-    {\Large Juan Marín Noguera}
-
     \vspace*{1cm}
-    Tutor: Alberto del Valle Robles
+    \Huge
+    \textbf{Teoría de Categorías}
+
+    \vspace{0.5cm}
+    \LARGE
+    Una visión general con aplicaciones a la computación
+
+    \vspace{1.5cm}
+    \textbf{Juan Marín Noguera}
+
+    \vfill
+    {\normalsize (Dibujo aquí)}  % TODO
+    \vfill
+
+    Trabajo Fin de Grado en Matemáticas
+
+    \vspace{0.8cm}
+    \Large
+    Tutor: Alberto del Valle Robles\\
+    Facultad de Matemáticas\\
+    Universidad de Murcia\\
+    Día de Mes de 2023  % TODO
   \end{center}
 \end{titlepage}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\begin{otherlanguage}{english}
+  \chapter*{Introduction}
+  % TODO
+  %\cite{joyofcats}
+  %\cite{maclane}
+\end{otherlanguage}
+
+\chapter{Categorías}
+% TODO
+
+\chapter{Funtores}
+% TODO
+
+\chapter{Límites}
+% TODO
+
+\chapter{Transformaciones naturales}
+% TODO
+
+\chapter{Adjunciones}
+% TODO
+
+\chapter{Mónadas}
+% TODO
+
+\appendix
+%\chapter{Bibliografía}
+% ... BibTeX stuff here
+\printbibliography
 \end{document}
 %%% Local Variables:
 %%% mode: latex

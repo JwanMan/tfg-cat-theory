@@ -1,0 +1,13 @@
+\#*\#
+auto/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.lof
+*.log
+*.lot
+*.pdf
+*.run.xml
+*.toc
+*~
