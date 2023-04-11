@@ -26,82 +26,276 @@ Este capítulo introduce las categorías y estudia sus propiedades de manera
 general, y se basa principalmente en \cite[caps. 3, 4 y 7]{joyofcats}.
 
 \begin{definition}
-  Una \emph{categoría} es una tupla $\cC$ formada por los siguientes elementos:
+  Una \conc{categoría} es una tupla $\cC$ formada por los siguientes elementos:
   \begin{enumerate}
-  \item Una clase $\Ob{\cC}$ de \emph{objetos}.
-  \item Una clase $\Mor{\cC}$ de \emph{morfismos}.
+  \item Una clase $\Ob{\cC}$ de \conc{objetos}.
+  \item Una clase $\Mor{\cC}$ de \conc{morfismos}.
   \item Dos funciones $\dom,\cod:\Mor{\cC}\to\Ob{\cC}$, llamadas
-    respectivamente \emph{dominio} y \emph{codominio}.
+    respectivamente \conc{dominio} y \conc{codominio}.
 
     Para $f\in\Mor{\cC}$, escribimos $f:a\to b$ si $\dom{f}=a$ y $\cod{f}=b$, y
     llamamos $\hom_{\cC}(a, b)$ o simplemente $\hom(a, b)$ a la clase de
     morfismos $f:a\to b$, que generalmente requeriremos que sea un conjunto.
   \item Una función
     $\circ:\bigcup_{a,b,c}(\hom(b,c)\times\hom(a,b))\to\Mor{\cC}$ que a cada
-    $f:a\to b$ y $g:b\to c$ le asigna su \emph{composición} $g\circ f:a\to c$, y
+    $f:a\to b$ y $g:b\to c$ le asigna su \conc{composición} $g\circ f:a\to c$, y
     que debe ser asociativa, es decir, para $f:a\to b$, $g:b\to c$ y $h:c\to d$,
     $h\circ(g\circ f) = (h\circ g)\circ f$.
   \item Una función $1:\Ob{\cC}\to\Mor{\cC}$ que a cada objeto $a$ le asigna la
-    \emph{identidad} $1_a:a\to a$, que cumple que, para $f:a\to b$,
+    \conc{identidad} $1_a:a\to a$, que cumple que, para $f:a\to b$,
     $f=1_b\circ f=f\circ 1_a$.
   \end{enumerate}
 \end{definition}
 
-\begin{example}
-  Quizá el ejemplo <<real>> más sencillo de categoría es $\bSet$, que tiene como
-  objetos todos los conjuntos y como morfismos todas las funciones, cualificadas
-  por su dominio y codominio, con la composición e identidad obvias.
+Es común en teoría de categorías representar situaciones con diagramas, como los
+usados en buena parte del álgebra, donde los vértices representan objetos y las
+flechas representan morfismos, y una flecha aparece punteada si su existencia se
+debe a la existencia de las otras flechas del diagrama. No se suelen representar
+las flechas identidad ni la composición de flechas que ya aparecen en el
+diagrama.
 
-  En el álgebra encontramos muchas categorías que se definen de manera similar:
+Un diagrama \conc{conmuta} si, dados dos caminos cualesquiera del diagrama con
+el mismo objeto de origen y de destino, la composición de los morfismos en cada
+camino coincide. Así, por ejemplo, los axiomas de la composición e identidad de
+categorías se pueden expresar como en la figura \ref{fig:cat-axiom}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{.45\textwidth}
+    \centering
+    \selectlanguage{english}
+    \begin{tikzpicture}
+      \draw[->] (0,2) node(A) {$a$} (2,2) node(B) {$b$}
+            (0,0) node(C) {$c$} (2,0) node(D) {$d$}
+            (A) -- node[above]{$f$} (B) -- node[right]{$h\circ g$} (D)
+            (A) -- node[left]{$g\circ f$} (C) -- node[below]{$h$} (D);
+    \end{tikzpicture}
+    \caption{Asociatividad}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.45\textwidth}
+    \centering
+    \selectlanguage{english}
+    \begin{tikzpicture}
+      \draw[->] (0,2) node(A){$a$} (2,2) node(AP){$a$}
+                (0,0) node(B){$b$} (2,0) node(BP){$b$}
+                (A) -- node[above]{$1_a$} (AP) -- node[right]{$f$} (BP)
+                (A) -- node[left]{$f$} (B) -- node[below]{$1_b$} (BP)
+                (A) -- node[above]{$f$} (BP);
+    \end{tikzpicture}
+    \caption{Elemento neutro}
+  \end{subfigure}
+  \caption{Axiomas de categoría}
+  \label{fig:cat-axiom}
+\end{figure}
+
+\begin{samepage}
+  \begin{example}
+    Ciertos conceptos fundacionales se pueden ver como categorías:
+    \begin{enumerate}
+    \item La categoría $\bSet$ tiene como objetos todos los conjuntos y como
+      morfismos todas las funciones, cualificadas por su dominio y codominio, con
+      la composición e identidad obvias.
+    \item Un \conc{preorden} es una relación reflexiva y transitiva, que se puede
+      ver intuitivamente como un orden parcial entre clases de equivalencia. Un
+      \conc{conjunto preordenado} es un conjunto con un preorden asociado, y
+      llamamos $\bPrord$ a la categoría de los conjuntos preordenados cuyos
+      morfismos son funciones que conservan el preorden, es decir, funciones
+      $f:(a,\preceq)\to(b,\preccurlyeq)$ tales que para $x,y\in a$,
+      $x\preceq y\implies f(x)\preccurlyeq f(y)$.
+    \item \label{enu:mot-subcat} La categoría $\bOrd$ tiene como objetos los
+      conjuntos parcialmente ordenados y como morfismos las funciones que
+      conservan en orden. $\bLat$ es similar pero los objetos son retículos y los
+      morfismos deben además preservar supremos e ínfimos de pares de elementos.
+    \item La categoría $\bGrph$ tiene como objetos los grafos dirigidos y como
+      morfismos las funciones entre los vértices de dos grafos que llevan ejes del
+      primer grafo a ejes del segundo.
+    \end{enumerate}
+  \end{example}
+\end{samepage}
+
+El apartado \ref{enu:mot-subcat} de la lista anterior lleva naturalmente al
+concepto de subcategoría.
+
+\begin{definition}
+  Una categoría $\cB$ es una \conc{subcategoría} de una $\cC$ si
+  $\Ob{\cB}\subseteq\Ob{\cC}$, $\Mor{\cB}\subseteq\Mor{\cC}$ y las
+  funciones dominio, codominio, composición e identidad son restricciones de
+  las correspondientes funciones de $\cC$, y es una \conc{subcategoría completa}
+  si además, para $a,b\in\Ob{\cB}$, $\hom_\cB(a,b)=\hom_\cC(a,b)$.
+\end{definition}
+
+Así, $\bLat$ es una subcategoría no completa de $\bOrd$, mientras que $\bOrd$ es
+una subcategoría completa de $\bPrord$, y esta a su vez es una subcategoría
+completa de $\bGrph$ si consideramos las relaciones como grafos dirigidos y
+permitimos ejes reflexivos.
+
+\section{Categorías algebraicas}
+
+\begin{example}\label{ex:variety}
+  En álgebra, muchas categorías se definen de manera similar:
   \begin{enumerate}
   \item $\bSmgrp$, la categoría de los semigrupos con las funciones que
     conservan su operación.
-  \item $\bMon$, la categoría de los monoides con las funciones que conservan su
-    operación y elemento identidad.
-  \item $\bGrp$, la categoría de grupos y homomorfismos de grupos.
-  \item $\bAb$, la categoría de grupos abelianos y sus homomorfismos.
+  \item $\bMon$, la subcategoría no completa de $\bSmgrp$ de los monoides con
+    las funciones que conservan su operación y elemento identidad.
+  \item $\bGrp$, la subcategoría completa de $\bMon$ formada por los grupos y
+    sus homomorfismos.
+  \item $\bAb$, la subcategoría de $\bGrp$ de grupos abelianos.
   \item $\bRing$, la categoría de anillos y sus homomorfismos.
   \end{enumerate}
-  En todas estas los objetos son conjuntos con una serie de operaciones y los
-  morfismos son funciones que conmutan con dichas operaciones. Esta idea es
-  captada por la siguiente definición.
 \end{example}
 
-\begin{definition}
+En todos estos casos los objetos son conjuntos con una serie de operaciones, y
+los morfismos son funciones que conmutan con estas. La lista de operaciones se
+puede modelar como sigue.\cite[p. 120]{maclane}
 
-  
+\begin{definition}
+  Un \conc{conjunto graduado} es un conjunto $I$ de \conc{operadores} junto con
+  una función $a:I\to\sNat$ llamada \conc{aridad}.  Una \conc{acción} de $I$ en
+  un conjunto $S$ es una familia $\{\mu_i : S^{a(i)} \to S\}_{i\in I}$ de
+  operaciones en $S$ asociadas a los operadores de $I$.
+\end{definition}
+
+Así, por ejemplo, los operadores en $\bAb$ serían $+$ de aridad 2, $-$
+de aridad 1 y $0$ de aridad 0. Queda definir las propiedades de los
+operadores.
+    
+\begin{definition} Sea $(I, a)$ un conjunto graduado:
   \begin{enumerate}
-  \item  Un \emph{conjunto graduado} es un conjunto $I$ de \emph{operadores} junto con
-    una función $a:I\to\sNat$ llamada \emph{aridad}.
-  \item    El conjunto de \emph{operadores derivados}
-    de $I$ es el conjunto graduado $\Lambda$ formado por las siguientes expresiones:
+  \item El conjunto de \conc{operadores derivados} de $I$ es el conjunto
+    graduado $\Lambda$ formado por las siguientes expresiones:
     \begin{enumerate}
-    \item La \emph{identidad}, $1$, de aridad 1.
+    \item El \conc{operador identidad}, $id$, de aridad 1.
     \item Todos los operadores de $I$ con su aridad en $I$.
-    \item Para $\omega\in\Lambda$ de aridad $n$ e $i_1,\dots,i_n\in\Lambda$ de aridades $a_1,\dots,a_n$,
-      $\omega(i_1,\dots,i_n)$ de aridad $a_1+\dots+a_n$.
-    \item Para $\lambda\in \Lambda$ de aridad $n$ y $f:\{1,\dots,n\}\to\{1,\dots,m\}$,
-      $\lambda_f$ de aridad $m$.
+    \item Para $\omega\in\Lambda$ de aridad $n$ e $i_1,\dots,i_n\in\Lambda$ de
+      aridades $a_1,\dots,a_n$, $\omega(i_1,\dots,i_n)$ de aridad
+      $a_1+\dots+a_n$.
+    \item Para $\lambda\in \Lambda$ de aridad $n$ y
+      $f:\{1,\dots,n\}\to\{1,\dots,m\}$, $\lambda_f$ de aridad $m$.
     \end{enumerate}
-  \item Una \emph{acción} de $I$ en un conjunto $S$ es una familia
-    $\{\mu_i : S^{a(i)} \to S\}_{i\in I}$ de operaciones en $S$ asociadas a los
-    operadores de $I$, y se puede extender a una acción de $\Lambda$ definiendo
-    $\mu_1(x)\coloneqq x$,
-    $\mu_{\omega(i_1,\dots,i_n)}(x_{11},\dots,x_{1a_1},\dots,x_{n1},\dots,x_{na_n})\coloneqq\mu_\omega(\mu_{i_1}(x_{11},\dots,x_{1a_1}),\dots,\mu_{i_n}(x_{n1},\dots,x_{na_n}))$
+  \item Si $\mu$ es una acción sobre $I$, la extensión de $\mu$ a $\Lambda$ es
+    la acción $\nu$ sobre $\Lambda$ dada por $\nu_i=\mu_i$ para $i\in I$,
+    $nmu_{id}(x)\coloneqq x$,
+    $\nu_{\omega(i_1,\dots,i_n)}(x_{11},\dots,x_{1a_1},\dots,x_{n1},\dots,x_{na_n})\coloneqq\nu_\omega(\nu_{i_1}(x_{11},\dots,x_{1a_1}),\dots,\nu_{i_n}(x_{n1},\dots,x_{na_n}))$
     y
-    $\mu_{\lambda_f}(x_1,\dots,x_m)\coloneqq\mu_\lambda(x_{f(1)},\dots,x_{f(n)})$.
-  \item Una \emph{identidad} sobre $I$ es un par $(\lambda,\sigma)$ de
-    operadores derivados de los de $I$ con la misma aridad, y decimos que una
-    acción $\mu$ sobre $I$ \emph{satisface} la identidad $(\lambda, \sigma)$ si
-    $\mu_\lambda=\mu_\sigma$.
-  \item Dados un conjunto graduado finito $\Omega$ y un conjunto finito de igualdades
-    $E$, una \emph{variedad algebraica} es una categoría $(\Omega,E)\dash\bAlg$ cuyos
-    objetos son \emph{$(\Omega,E)$-álgebras}, o pares $(S,\mu)$ formados por un conjunto
-    $S$ y una acción $\mu$ de $\Omega$ sobre $S$ que satisface las igualdades en $E$, y cuyos morfismos
-    $(S,\mu)\to(S',\mu')$ son funciones $f:S\to S'$ tales que, para $\omega\in\Omega$ de
-    aridad $n$ y $x_1,\dots,x_n\in S$, $f(\mu_\omega(x_1,\dots,x_n))=\mu'_\omega(f(x_1),\dots,f(x_n))$.
+    $\nu_{\lambda_f}(x_1,\dots,x_m)\coloneqq\nu_\lambda(x_{f(1)},\dots,x_{f(n)})$.
+  \item Una \conc{identidad} sobre $I$ es un par $(\lambda,\sigma)$ de
+    operadores $\Lambda$ de igual aridad.
+  \item Una acción $\mu$ sobre $I$ \conc{satisface} una identidad
+    $(\lambda, \sigma)$ sobre $I$ si $\nu_\lambda=\nu_\sigma$, donde $\nu$ es la
+    extensión de $\mu$ a $\Lambda$.
   \end{enumerate}
 \end{definition}
+
+Normalmente las identidades $(\lambda, \sigma)$ se representan como igualdades
+$\lambda=\sigma$, y $\lambda$ y $\sigma$ se representan de forma obvia como
+expresiones que dependen de los operadores base y una serie de parámetros de
+entrada, de modo que las propiedades de $\bAb$ son $(x+y)+z=x+(y+z)$, $0+x=x$,
+$x+(-x)=0$ y $x+y=y+x$.
+
+\begin{definition}
+  Sean $\Omega$ un conjunto graduado finito y $E$ un conjunto finito de identidades
+  sobre $\Omega$:
+  \begin{enumerate}
+  \item Una $(\Omega,E)$-álgebra es un par $(S,\mu)$ formado por un conjunto $S$ y
+    una acción $\mu$ de $\Omega$ sobre $S$ que satisface las identidades en $E$.
+  \item Una \conc{variedad algebraica} es una categoría $(\Omega,E)\dash\bAlg$
+    cuyos objetos son las $(\Omega,E)$-álgebras y cuyos morfismos
+    $(A,\mu)\to (B,\nu)$ son las funciones $f:A\to B$ tales que, para
+    $\omega\in\Omega$ de aridad $n$ y $x_1,\dots,x_n\in A$,
+    $f(\mu_\omega(x_1,\dots,x_n))=\nu_\omega(f(x_1),\dots,f(x_n))$.
+  \end{enumerate}
+\end{definition}
+
+Claramente todas las categorías del ejemplo \ref{ex:variety} son variedades
+algebraicas, y de hecho podemos ver $\bSet$ como
+$(\emptyset,\emptyset)\dash\bAlg$, pero sin embargo $\bField$, la subcategoría
+completa de $\bRing$ de los cuerpos, no es una variedad algebraica, ya que
+requiere una propiedad de la inversa del producto, que no está definida en el 0.
+
+Otra categoría interesante es $R\dash\bMod$, la clase de módulos de un anillo
+conmutativo $R$ y homomorfismos de $R$-módulos. $\sInt\dash\bMod$ es
+esencialmente $\bAb$ y, para un cuerpo $K$, $K\dash\bMod$ es la categoría de
+$K$-espacios vectoriales, por lo que la escribimos como $K\dash\bVec$ o
+simplemente $\bVec$ si $K=\sReal$.
+
+\section{Categorías abstractas}
+
+Hasta ahora, en todas las categorías que hemos visto, los objetos son conjuntos
+con estructura y los morfismos son funciones entre ellos. Las categorías de esta
+forma se llaman \emph{constructos}, concepto que formalizaremos más adelante, y
+aunque son muy comunes, también hay muchas categorías relevantes que no son
+constructos.
+
+\begin{example}
+  Para un anillo $R$, la categoría $R\dash\bMat$ tiene como objetos los números
+  naturales, como morfismos de $n$ a $m$ las matrices de tamaño $n\times m$,
+  como composición el producto de matrices y como identidad la matriz identidad
+  del tamaño correspondiente.
+\end{example}
+
+\begin{example}
+  Algunas estructuras matemáticas se pueden ver como categorías.
+  \begin{enumerate}
+  \item Una categoría es \conc{discreta} si sólo tiene los morfismos
+    identidad. Un conjunto, o en general una clase, se puede ver como una
+    categoría discreta cuyos objetos son los elementos del conjunto.
+  \item Una categoría es \conc{fina} si sus \conc{conjuntos hom} (conjuntos de
+    la forma $hom(a,b)$) tienen como máximo un elemento. Un conjunto preordenado
+    $(X,\preceq)$ se puede ver como una categoría fina cuyos objetos son los
+    elementos del conjunto y tal que, para $x,y\in X$, $\hom(x,y)$ está habitado
+    si y sólo si $x\preceq y$.
+  \item Un monoide se puede ver como una categoría con un solo objeto, cuyos
+    morfismos son los elementos del monoide, la identidad es su elemento neutro
+    y la composición es el producto.
+  \end{enumerate}
+\end{example}
+
+\begin{example}
+  Las siguientes categorías se usan principalmente en el estudio de categorías
+  más complicadas:
+  \begin{enumerate}
+  \item La categoría vacía, $\bZero$, sin objetos.
+  \item La categoría discreta unipuntual, $\bOne$.
+  \item La categoría discreta de dos objetos, $\bTwo$.
+  \item La categoría $\bDown$, con dos objetos y una sola flecha de uno a otro ($\bullet\to\bullet$).
+  \end{enumerate}
+\end{example}
+
+
+\section{Categorías topológicas y analíticas}
+
+La principal categoría topológica es $\bTop$, formada por los espacios
+topológicos y las funciones continuas entre ellos.
+
+\begin{example}
+  Algunos constructos usados en topología tienen los mismos objetos pero
+  distintas clases de morfismos, permitiendo estudiar los objetos desde
+  distintas perspectivas. Por ejemplo, las siguientes tres categorías tienen
+  como objetos los espacios métricos:
+  \begin{enumerate}
+  \item $\bMetc$, con las funciones continuas.
+  \item $\bMetu$, con las funciones uniformemente continuas.
+  \item $\bMet$, con las contracciones, funciones que \emph{acercan} los puntos.
+  \end{enumerate}
+  Asimismo tenemos la categoría $\bBanb$ de los espacios de Banach con las formas
+  lineales acotadas y $\bBan$ con las contracciones lineales.
+\end{example}
+
+
+\begin{example}
+  Sea $X$ un espacio topológico.  Recordemos que, para $x,y\in X$, un camino de
+  $x$ a $y$ es una función continua $f:[0,1]\to X$ con $f(0)=x$ y $f(1)=y$, y
+  que dos caminos $f$ y $g$ de $x$ a $y$ son homotópicamente equivalentes si
+  existe $F:[0,1]\times[0,1]\to X$ tal que, para $s,t\in[0,1]$, $F(t,0)=f(t)$,
+  $F(t,1)=g(t)$, $F(0,s)=x$ y $F(1,s)=y$. Entonces el \conc{grupoide
+  fundamental}\cite[p. 20]{maclane} de $X$ es una categoría $\pi(X)$ cuyos
+  objetos son los puntos de $X$ y tal que $\hom(x,y)$ es el conjunto cociente de
+  caminos de $x$ a $y$ por equivalencia homotópica.
+
+  % TODO Relevancia
+\end{example}
 
 %% TODO Cambiar esto a una sección sobre categorías algebraicas para así separar la
 %% definición en varias y poder hacer comentarios en medio y con suerte que la definición

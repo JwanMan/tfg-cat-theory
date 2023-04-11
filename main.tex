@@ -14,9 +14,15 @@
 \usepackage[autolang=hyphen]{biblatex}
 \addbibresource{ref.bib}
 
+% Formatting
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+
 % Math packages
 \usepackage{mathtools}
 \usepackage{amsthm}
+\usepackage{amssymb}
 
 % Theorem styles
 \theoremstyle{definition}
@@ -25,27 +31,46 @@
 \newtheorem{example}{Ejemplo}
 
 % Math macros
-\def\dash{\text{-}}
-\def\dCat#1#2{\outer\def#1{{\mathbf{#2}}}}
+\newcommand{\dash}{\text{-}}
+\newcommand{\dCat}[2]{\newcommand{#1}{{\bf #2}}}
+\newcommand{\conc}[1]{\emph{#1}}
 \dCat{\bAlg}{Alg}
 \dCat{\bSet}{Set}
+\dCat{\bRel}{Rel}
+\dCat{\bPrord}{Prord}
+\dCat{\bOrd}{Ord}
+\dCat{\bLat}{Lat}
+\dCat{\bGrph}{Grph}
+\dCat{\bMat}{Mat}
 \dCat{\bSmgrp}{Smgrp}
 \dCat{\bMon}{Mon}
 \dCat{\bGrp}{Grp}
 \dCat{\bAb}{Ab}
 \dCat{\bRing}{Ring}
-\dCat{\bDom}{Dom}
 \dCat{\bField}{Field}
+\dCat{\bMod}{Mod}
 \dCat{\bVec}{Vec}
-\def\cC{\mathcal{C}}
-\def\cD{\mathcal{D}}
-\def\dKey#1#2{\outer\def#1{\text{#2}}}
-\def\dKeyPar#1#2{\outer\def#1##1{\text{#2}({##1})}}
+\dCat{\bTop}{Top}
+\dCat{\bMetc}{Met_c}
+\dCat{\bMetu}{Met_u}
+\dCat{\bMet}{Met}
+\dCat{\bBanu}{Ban}
+\dCat{\bBan}{Ban}
+\dCat{\bBanb}{Ban_b}
+\dCat{\bZero}{0}
+\dCat{\bOne}{1}
+\dCat{\bTwo}{2}
+\dCat{\bDown}{\downarrow}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\dKey}[2]{\newcommand{#1}{\text{#2}}}
+\newcommand{\dKeyPar}[2]{\newcommand{#1}[1]{\text{#2}({##1})}}
 \dKeyPar{\Ob}{Ob}
 \dKeyPar{\Mor}{Mor}
 \dKey{\dom}{dom}
 \dKey{\cod}{cod}
-\def\dStdSet#1#2{\outer\def#1{{\mathbb{#2}}}}
+\newcommand{\dStdSet}[2]{\newcommand{#1}{\mathbb{#2}}}
 \dStdSet{\sNat}{N}
 \dStdSet{\sInt}{Z}
 \dStdSet{\sRat}{Q}
