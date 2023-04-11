@@ -11,3 +11,5 @@ auto/
 *.run.xml
 *.toc
 *~
+_region_.tex
+prv_*.fmt

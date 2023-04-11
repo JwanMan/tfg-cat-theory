@@ -1,4 +1,6 @@
 \documentclass[11pt,twoside]{amsbook}
+
+% Style
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{microtype}
@@ -7,8 +9,50 @@
 \pagestyle{fancy}
 % \renewcommand{\headrulewidth}{0.4pt}
 % \renewcommand{\footrulewidth}{0.4pt}
+
+% Bibliography
 \usepackage[autolang=hyphen]{biblatex}
 \addbibresource{ref.bib}
+
+% Math packages
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% Theorem styles
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}
+\theoremstyle{remark}
+\newtheorem{example}{Ejemplo}
+
+% Math macros
+\def\dash{\text{-}}
+\def\dCat#1#2{\outer\def#1{{\mathbf{#2}}}}
+\dCat{\bAlg}{Alg}
+\dCat{\bSet}{Set}
+\dCat{\bSmgrp}{Smgrp}
+\dCat{\bMon}{Mon}
+\dCat{\bGrp}{Grp}
+\dCat{\bAb}{Ab}
+\dCat{\bRing}{Ring}
+\dCat{\bDom}{Dom}
+\dCat{\bField}{Field}
+\dCat{\bVec}{Vec}
+\def\cC{\mathcal{C}}
+\def\cD{\mathcal{D}}
+\def\dKey#1#2{\outer\def#1{\text{#2}}}
+\def\dKeyPar#1#2{\outer\def#1##1{\text{#2}({##1})}}
+\dKeyPar{\Ob}{Ob}
+\dKeyPar{\Mor}{Mor}
+\dKey{\dom}{dom}
+\dKey{\cod}{cod}
+\def\dStdSet#1#2{\outer\def#1{{\mathbb{#2}}}}
+\dStdSet{\sNat}{N}
+\dStdSet{\sInt}{Z}
+\dStdSet{\sRat}{Q}
+\dStdSet{\sReal}{R}
+\dStdSet{\sComplex}{C}
+\dStdSet{\sCirc}{S}
+\dStdSet{\sTorus}{T}
 
 \begin{document}
 \begin{titlepage}
@@ -51,7 +95,7 @@
 \end{otherlanguage}
 
 \chapter{Categorías}
-% TODO
+\input{ch1_cats}
 
 \chapter{Funtores}
 % TODO

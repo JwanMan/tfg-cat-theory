@@ -1,0 +1,126 @@
+Al estudiar distintas ramas de las matemáticas de manera formal es inevitable
+notar que existen ciertos patrones que se repiten. Todas empiezan con los
+axiomas que caracterizan los objetos de estudio, como pueden ser los grupos,
+espacios vectoriales, espacios topológicos, variedades, etc., y pese a que estos
+se definen de forma muy diferente, en la mayoría se pueden definir de manera
+natural conceptos como subobjetos, objetos producto u objetos cociente, entre
+otros. Además, estos objetos no se suelen estudiar de forma aislada, sino que se
+estudian funciones entre los objetos que cumplen ciertas propiedades, como
+pueden ser las aplicaciones lineales en el álgebra lineal, las aplicaciones
+continuas en la topología, las derivables en análisis y los homomorfismos del
+álgebra abstracta.
+
+Estos patrones no son una coincidencia, pues las propiedades generales que
+exhiben son las mismas en todos los casos. Por ejemplo, la clase de funciones
+<<destacables>> entre objetos es cerrada para la composición, y el producto de
+subobjetos de dos objetos es un subobjeto del producto de los objetos
+originales. Esto motiva el estudio de dichos patrones como otra área de las
+matemáticas, con el fin de obtener propiedades aplicables a muchas de las áreas
+de las matemáticas existentes o, incluso, a áreas desarrolladas posteriormente,
+como veremos que ocurre con la teoría de la computación. Así, en este área de
+las matemáticas los objetos de estudio son representaciones de los conceptos
+fundamentales de otras áreas, que podemos representar como la clase de los
+objetos de estudio junto con la clase de funciones destacables entre ellos,
+llamadas \emph{morfismos}, lo que da lugar al concepto de \emph{categoría}.
+Este capítulo introduce las categorías y estudia sus propiedades de manera
+general, y se basa principalmente en \cite[caps. 3, 4 y 7]{joyofcats}.
+
+\begin{definition}
+  Una \emph{categoría} es una tupla $\cC$ formada por los siguientes elementos:
+  \begin{enumerate}
+  \item Una clase $\Ob{\cC}$ de \emph{objetos}.
+  \item Una clase $\Mor{\cC}$ de \emph{morfismos}.
+  \item Dos funciones $\dom,\cod:\Mor{\cC}\to\Ob{\cC}$, llamadas
+    respectivamente \emph{dominio} y \emph{codominio}.
+
+    Para $f\in\Mor{\cC}$, escribimos $f:a\to b$ si $\dom{f}=a$ y $\cod{f}=b$, y
+    llamamos $\hom_{\cC}(a, b)$ o simplemente $\hom(a, b)$ a la clase de
+    morfismos $f:a\to b$, que generalmente requeriremos que sea un conjunto.
+  \item Una función
+    $\circ:\bigcup_{a,b,c}(\hom(b,c)\times\hom(a,b))\to\Mor{\cC}$ que a cada
+    $f:a\to b$ y $g:b\to c$ le asigna su \emph{composición} $g\circ f:a\to c$, y
+    que debe ser asociativa, es decir, para $f:a\to b$, $g:b\to c$ y $h:c\to d$,
+    $h\circ(g\circ f) = (h\circ g)\circ f$.
+  \item Una función $1:\Ob{\cC}\to\Mor{\cC}$ que a cada objeto $a$ le asigna la
+    \emph{identidad} $1_a:a\to a$, que cumple que, para $f:a\to b$,
+    $f=1_b\circ f=f\circ 1_a$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  Quizá el ejemplo <<real>> más sencillo de categoría es $\bSet$, que tiene como
+  objetos todos los conjuntos y como morfismos todas las funciones, cualificadas
+  por su dominio y codominio, con la composición e identidad obvias.
+
+  En el álgebra encontramos muchas categorías que se definen de manera similar:
+  \begin{enumerate}
+  \item $\bSmgrp$, la categoría de los semigrupos con las funciones que
+    conservan su operación.
+  \item $\bMon$, la categoría de los monoides con las funciones que conservan su
+    operación y elemento identidad.
+  \item $\bGrp$, la categoría de grupos y homomorfismos de grupos.
+  \item $\bAb$, la categoría de grupos abelianos y sus homomorfismos.
+  \item $\bRing$, la categoría de anillos y sus homomorfismos.
+  \end{enumerate}
+  En todas estas los objetos son conjuntos con una serie de operaciones y los
+  morfismos son funciones que conmutan con dichas operaciones. Esta idea es
+  captada por la siguiente definición.
+\end{example}
+
+\begin{definition}
+
+  
+  \begin{enumerate}
+  \item  Un \emph{conjunto graduado} es un conjunto $I$ de \emph{operadores} junto con
+    una función $a:I\to\sNat$ llamada \emph{aridad}.
+  \item    El conjunto de \emph{operadores derivados}
+    de $I$ es el conjunto graduado $\Lambda$ formado por las siguientes expresiones:
+    \begin{enumerate}
+    \item La \emph{identidad}, $1$, de aridad 1.
+    \item Todos los operadores de $I$ con su aridad en $I$.
+    \item Para $\omega\in\Lambda$ de aridad $n$ e $i_1,\dots,i_n\in\Lambda$ de aridades $a_1,\dots,a_n$,
+      $\omega(i_1,\dots,i_n)$ de aridad $a_1+\dots+a_n$.
+    \item Para $\lambda\in \Lambda$ de aridad $n$ y $f:\{1,\dots,n\}\to\{1,\dots,m\}$,
+      $\lambda_f$ de aridad $m$.
+    \end{enumerate}
+  \item Una \emph{acción} de $I$ en un conjunto $S$ es una familia
+    $\{\mu_i : S^{a(i)} \to S\}_{i\in I}$ de operaciones en $S$ asociadas a los
+    operadores de $I$, y se puede extender a una acción de $\Lambda$ definiendo
+    $\mu_1(x)\coloneqq x$,
+    $\mu_{\omega(i_1,\dots,i_n)}(x_{11},\dots,x_{1a_1},\dots,x_{n1},\dots,x_{na_n})\coloneqq\mu_\omega(\mu_{i_1}(x_{11},\dots,x_{1a_1}),\dots,\mu_{i_n}(x_{n1},\dots,x_{na_n}))$
+    y
+    $\mu_{\lambda_f}(x_1,\dots,x_m)\coloneqq\mu_\lambda(x_{f(1)},\dots,x_{f(n)})$.
+  \item Una \emph{identidad} sobre $I$ es un par $(\lambda,\sigma)$ de
+    operadores derivados de los de $I$ con la misma aridad, y decimos que una
+    acción $\mu$ sobre $I$ \emph{satisface} la identidad $(\lambda, \sigma)$ si
+    $\mu_\lambda=\mu_\sigma$.
+  \item Dados un conjunto graduado finito $\Omega$ y un conjunto finito de igualdades
+    $E$, una \emph{variedad algebraica} es una categoría $(\Omega,E)\dash\bAlg$ cuyos
+    objetos son \emph{$(\Omega,E)$-álgebras}, o pares $(S,\mu)$ formados por un conjunto
+    $S$ y una acción $\mu$ de $\Omega$ sobre $S$ que satisface las igualdades en $E$, y cuyos morfismos
+    $(S,\mu)\to(S',\mu')$ son funciones $f:S\to S'$ tales que, para $\omega\in\Omega$ de
+    aridad $n$ y $x_1,\dots,x_n\in S$, $f(\mu_\omega(x_1,\dots,x_n))=\mu'_\omega(f(x_1),\dots,f(x_n))$.
+  \end{enumerate}
+\end{definition}
+
+%% TODO Cambiar esto a una sección sobre categorías algebraicas para así separar la
+%% definición en varias y poder hacer comentarios en medio y con suerte que la definición
+%% de las acciones derivadas quepa, y poder poner ejemplos detrás. Quedaría como sigue:
+% - Ejemplos Set, Prord, Ord
+% - Subcategorías
+% 1.1 Categorías algebraicas
+% - Ejemplos de variedades
+% - Definiciones con comentarios
+% - Aplicación de la definición
+% - Categorías algebraicas que no son variedades
+% 1.2 Categorías topológicas
+% 1.3 Categorías puramente abstractas
+% 1.4 Objetos iniciales y finales
+% 1.5 Monomorfismos y epimorfismos (y secciones y retractos)
+% 1.6 Isomorfismos (y bimorfismos)
+% 1.7 Dualidad
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
