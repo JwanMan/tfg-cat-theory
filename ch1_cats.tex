@@ -290,12 +290,157 @@ topológicos y las funciones continuas entre ellos.
   que dos caminos $f$ y $g$ de $x$ a $y$ son homotópicamente equivalentes si
   existe $F:[0,1]\times[0,1]\to X$ tal que, para $s,t\in[0,1]$, $F(t,0)=f(t)$,
   $F(t,1)=g(t)$, $F(0,s)=x$ y $F(1,s)=y$. Entonces el \conc{grupoide
-  fundamental}\cite[p. 20]{maclane} de $X$ es una categoría $\pi(X)$ cuyos
+    fundamental}\cite[p. 20]{maclane} de $X$ es una categoría $\pi(X)$ cuyos
   objetos son los puntos de $X$ y tal que $\hom(x,y)$ es el conjunto cociente de
-  caminos de $x$ a $y$ por equivalencia homotópica.
+  caminos de $x$ a $y$ por equivalencia homotópica, tomando la concatenación de
+  (clases de) caminos como composición y la clase del camino constante como
+  morfismo identidad.
 
-  % TODO Relevancia
+  Para $x\in X$, $\hom(x,x)$ es un grupo con la composición, y si existe un
+  camino $f:x\to y$, $\hom(x,x)$ y $\hom(y,y)$ son isomorfos por el isomorfismo
+  $g\mapsto fgf^{-1}$, definiendo $f^{-1}$ de la forma obvia, con lo que si $X$
+  es conexo por arcos, $\hom(x,x)$ es el mismo para todo $x$ salvo
+  isomorfismo, y se llama \conc{grupo fundamental} de $X$. Esto permite tratar
+  espacios topológicos de manera algebraica.
 \end{example}
+
+\section{Isomorfismos}
+
+Ya hemos visto las categorías más importantes de distintas áreas, por lo que
+pasamos a ver algunas propiedades de sus objetos y morfismos. Un primer ejemplo
+es el de isomorfismo, que se suele definir como un homomorfismo biyectivo cuya
+inversa también es un homomorfismo. En topología tenemos también el concepto
+de homeomorfismo, que viene a ser lo mismo salvo por el cambio de terminología.
+
+\begin{definition}
+  Un morfismo $f:a\to b$ es un \conc{isomorfismo}, si existe otro morfismo
+  $g:b\to a$ tal que $g\circ f=1_a$ y $f\circ g=1_b$, en cuyo caso escribimos
+  $f:a\cong b$ y decimos que $a$ y $b$ son \conc{isomorfos}, $a\cong b$.
+\end{definition}
+
+Claramente el inverso de un isomorfismo es único, pues si $f:a\to b$ tiene
+inversos $g,h:b\to a$, entonces $g=g\circ 1_b=g\circ f\circ h=1_a\circ h=h$.
+Llamamos entonces $f^{-1}$ a la inversa de $f$.
+
+\begin{example}
+  Algunos isomorfismos:
+  \begin{enumerate}
+  \item En $\bSmgrp$, $\bMon$, $\bGrp$, $\bAb$, $\bRing$ y $R\dash\bMod$, el
+    concepto de isomorfismo categórico se corresponde con el concepto usual de
+    isomorfismo.
+  \item En $\bTop$ y $\bMetc$, los isomorfismos son los homeomorfismos.
+  \item En $\bBanb$, los isomorfismos son los isomorfismos topológicos, es
+    decir, los isomorfismos vectoriales que son homeomorfismos.
+  \item En $\bMet$ los isomorfismos son las isomorfías, mientras que en $\bBan$
+    son los isomorfismos isométricos.
+  \item En $\bSet$, los isomorfismos son las funciones biyectivas.
+  \item Un \conc{grupoide} es una categoría en la que todos los morfismos son
+    isomorfismos. Esto ocurre, por ejemplo, en el grupoide fundamental.
+  \item En un conjunto preordenado visto como categoría, dos objetos $a$ y $b$
+    son isomorfos si y sólo si $a\preceq b\preceq a$, por lo que en particular
+    un conjunto (parcialmente) ordenado visto como categoría no tiene
+    isomorfismos salvo la identidad.
+  \item En un monoide visto como categoría, los isomorfismos son los elementos
+    invertibles.
+  \item En $R\dash\bMat$, los isomorfismos son las matrices invertibles.
+  \end{enumerate}
+\end{example}
+
+\section{Objetos iniciales y finales}
+
+En álgebra, muchas categorías tienen un objeto trivial, como el cuerpo trivial,
+el grupo trivial o el espacio vectorial trivial. Sin embargo, a la hora de
+intentar definir la topología trivial nos encontramos que hay dos candidatos
+posibles, la topología vacía y la unipuntual, y ninguna es enteramente
+satisfactoria.  Esto se debe a que, al hablar de un objeto trivial estamos
+juntando dos propiedades: por un lado, el objeto trivial está contenido en todos
+los demás, y por otro, siempre es posible pasar de un objeto al objeto trivial
+por un morfismo.
+
+\begin{definition}
+  Un objeto $a$ es \conc{inicial} si para cualquier otro objeto $x$ existe un
+  único morfismo $f_x:a\to x$, es \conc{final} si para cualquier otro objeto $x$
+  existe un único morfismo $g_x:x\to a$, y es \conc{cero} si es inicial y final.
+\end{definition}
+
+\begin{example}
+  Veamos los objetos iniciales y finales de algunas categorías típicas.
+  \begin{enumerate}
+  \item En $\bMon$, $\bGrp$ y $\bAb$, el grupo trivial es un objeto cero; en
+    $\bRing$ y $\bField$ lo es el cuerpo trivial, y en $R\dash\bMod$ lo es el
+    módulo trivial.
+  \item En $\bSet$, el conjunto vacío $\emptyset$ es inicial, mientras que los
+    conjuntos unipuntuales $\{*\}$ son finales. Lo mismo ocurre en $\bTop$ y en
+    $\bOrd$ dotando a $\emptyset$ y $\{*\}$ de la única estructura posible en
+    cada caso.
+  \item En un conjunto ordenado visto como categoría, un objeto inicial es un
+    mínimo y un objeto final es un máximo. En particular el único conjunto
+    ordenado con un cero es el unipuntual.
+  \item En $R\dash\bMat$, el 0 es un cero, pues para cada $m$ hay una única
+    matriz de tamaño $0\times m$ y una de tamaño $m\times 0$.
+  \end{enumerate}
+\end{example}
+
+Podríamos preguntarnos si categorías como $\bSet$ o $\bTop$ tienen un cero.
+La respuesta es que no, como se deduce de las siguientes proposiciones.
+
+\begin{proposition}
+  Los objetos iniciales son únicos salvo isomorfismo:
+  \begin{enumerate}
+  \item Si $a$ y $b$ son objetos iniciales (de la misma categoría), entonces son
+    isomorfos.
+    \begin{proof}
+      Por hipótesis existen $f:a\to b$ y $g:b\to a$, pero como sólo hay un morfismo
+      $a\to a$, este debe ser $1_a$ y por tanto $g\circ f=1_a$, y análogamente
+      $f\circ g=1_b$, con lo que $f$ es un isomorfismo.
+    \end{proof}
+  \item Si $a\cong b$ y $a$ es inicial, entonces $b$ es inicial.
+    \begin{proof}
+      Sea $f:b\to a$ un isomorfismo y $x$ un objeto cualquiera, existe un único
+      $h:a\to x$ y por tanto $h\circ f$ es un morfismo de $b$ a $x$, que es
+      único ya que, para $k:b\to x$, $k\circ f^{-1}:a\to x$ y así
+      $k\circ f^{-1}=h$, con lo que $k=h\circ f$.
+    \end{proof}
+  \end{enumerate}
+\end{proposition}
+
+La siguiente proposición se prueba de forma análoga.
+
+\begin{proposition}
+  Los objetos finales son únicos salvo isomorfismo:
+  \begin{enumerate}
+  \item Si $a$ y $b$ son objetos finales, entonces son isomorfos.
+  \item Si $a\cong b$ y $a$ es final, entonces $b$ es final.
+  \end{enumerate}
+\end{proposition}
+
+Así, como $\emptyset$ y $\{*\}$ no son isomorfos en $\bSet$, $\bTop$ ni $\bOrd$
+(ni en ningún otro constructo), estas categorías no tienen objetos cero.  En
+general diremos que un objeto con una cierta propiedad es \conc{único salvo
+  isomorfismo} si los objetos que tienen esa propiedad son precisamente los que
+son isomorfos a dicho objeto.
+
+\begin{corollary}
+  En los grupoides no vacíos, las siguientes condiciones son equivalentes:
+  \begin{enumerate}
+  \item \label{enu:goid-initial} Existe un objeto inicial.
+  \item \label{enu:goid-final} Existe un objeto final.
+  \item \label{enu:goid-zero} Existe un objeto cero.
+  \item \label{enu:goid-all} Todos los objetos son cero.
+  \end{enumerate}
+  En particular, en el grupoide fundamental $\pi(X)$ (con $X$ no vacío), esto
+  ocurre si y sólo si $X$ es simplemente conexo.
+\end{corollary}
+\begin{proof}
+  La equivalencia (\ref{enu:goid-initial}$\iff$\ref{enu:goid-final}) se debe a
+  que, por unicidad del isomorfismo inverso, $\hom(a,b)=\hom(b,a)$ para
+  cualesquiera $a$ y $b$, y esto prueba la equivalencia con
+  (\ref{enu:goid-zero}). Ahora bien, si $a$ es cero y $x$ es otro objeto, el
+  único morfismo $a\to x$ es un isomorfismo, por lo que $x$ es cero y queda
+  probado (\ref{enu:goid-zero}$\iff$\ref{enu:goid-all}).  La última
+  observación es por definición.
+\end{proof}
+
 
 %% TODO Cambiar esto a una sección sobre categorías algebraicas para así separar la
 %% definición en varias y poder hacer comentarios en medio y con suerte que la definición
