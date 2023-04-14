@@ -224,9 +224,9 @@ simplemente $\bVec$ si $K=\sReal$.
 
 Hasta ahora, en todas las categorías que hemos visto, los objetos son conjuntos
 con estructura y los morfismos son funciones entre ellos. Las categorías de esta
-forma se llaman \emph{constructos}, concepto que formalizaremos más adelante, y
-aunque son muy comunes, también hay muchas categorías relevantes que no son
-constructos.
+forma se llaman \emph{constructos}\footnote{Veremos una definición más abstracta
+  de constructo cuando veamos los funtores.}, y aunque son muy comunes, también
+hay muchas categorías relevantes que no son constructos.
 
 \begin{example}
   Para un anillo $R$, la categoría $R\dash\bMat$ tiene como objetos los números
@@ -441,10 +441,96 @@ son isomorfos a dicho objeto.
   observación es por definición.
 \end{proof}
 
+\section{Monomorfismos y epimorfismos}
 
-%% TODO Cambiar esto a una sección sobre categorías algebraicas para así separar la
-%% definición en varias y poder hacer comentarios en medio y con suerte que la definición
-%% de las acciones derivadas quepa, y poder poner ejemplos detrás. Quedaría como sigue:
+En muchas ramas del álgebra llamamos monomorfismos a los morfismos inyectivos y
+epimorfismos a los morfismos suprayectivos. Esta definición depende de que los
+morfismos sean funciones, por lo que no nos sirve para categorías generales.
+
+Para los monomorfismos podemos basarnos en que, en $\bSet$, los elementos de un
+conjunto $S$ se identifican con los morfismos $\{*\}\to S$, con lo que la
+propiedad de que $f(x)=f(y)\implies x=y$ se puede traducir como sigue.
+
+\begin{definition}
+  Un morfismo $f:a\to b$ es un \conc{monomorfismo} (escrito $f:a\monicTo b$) si
+  es cancelable por la izquierda, es decir, si para cualesquiera $h,k:c\to a$
+  con $f\circ h=f\circ k$ se tiene $h=k$.
+\end{definition}
+
+\begin{example}[Monomorfismos en constructos]\;
+  % En el caso de $\bSet$, tomando $c=\{*\}$ se tiene por construcción que todo
+  % monomorfismo es inyectivo, y recíprocamente, si $f:X\to Y$ es una función
+  % inyectiva y $h,k:S\to X$ con $f\circ h=f\circ k$, entonces para $x\in S$ es
+  % $f(h(x))=f(k(x))$ y por tanto $h(x)=k(x)$, por lo que $h=k$ y $f$ es un
+  % monomorfismo. Veamos lo que ocurre en otros constructos.
+  \begin{enumerate}
+  \item En $\bSet$, por construcción, todo monomorfismo es inyectivo sin más que
+    tomar $c=\{*\}$ en la definición anterior. Lo mismo ocurre en $\bTop$,
+    $\bMet$, $\bOrd$ y otros constructos en que los elementos de un conjunto se
+    identifiquen con los morfismos $\{*\}\to S$.
+  \item En todos los constructos, los morfismos inyectivos son monomorfismos,
+    pues si $f:X\to Y$ es un morfismo inyectivo y $h,k:S\to X$ con
+    $f\circ h=f\circ k$, entonces para $x\in S$, $f(h(x))=f(k(x))$ y por tanto
+    $h(x)=k(x)$, de modo que $h=k$.
+  \item En $R\dash\bMod$, si $f:M\to N$ es un monomorfismo y $x,y\in M$ cumplen
+    $f(x)=f(y)$, los morfismos $R\to M$ dados por $a\mapsto ax$ y $a\mapsto ay$
+    quedan iguales al componerlos con $f$ y por tanto son iguales, por lo que
+    $x=1x=1y=y$ y los monomorfismos son inyectivos.
+  \item Aunque en la mayoría de constructos relevantes los monomorfismos son
+    precisamente los morfismos inyectivos, esto no es siempre así, como muestra
+    el constructo con objetos $\{*\}$, $\{\$\}$ y $\{x,y\}$ y como morfismos las
+    identidades, las funciones con codominio $\{\$\}$ y el morfismo
+    $*\mapsto x$, en el cual el morfismo $\{x,y\}\to\{\$\}$ es un monomorfismo
+    pero no es inyectivo.
+  \end{enumerate}
+\end{example}
+
+Hasta ahora para probar que los monomorfismos de un constructo son inyectivos
+hemos tomado un objeto $D$ y un objeto $*\in D$ tal que, para cualquier otro
+objeto $A$ y $a\in A$, podemos definir un morfismo $f:D\to A$ tal que $f(*)=a$.
+Para las variedades algebraicas, sin embargo, no es inmediato ver cuál es este
+objeto.
+
+\begin{definition}
+  Dados un conjunto graduado $\Omega=\{s_1,\dots,s_k\}$ donde cada $s_i$ tiene
+  aridad $n_i$ y un conjunto finito $E$ de identidades en $\Omega$, el
+  \conc{objeto libre} de $(\Omega,E)\dash\bAlg$ sobre el conjunto $X$ es el
+  objeto construído tomando el conjunto de los árboles con raíz cuyos nodos se
+  etiquetan con un $s_i$ y tienen $n_i$ hijos, o con un $x\in X$ y tienen 0
+  hijos, haciendo el conjunto cociente por reescritura según las identidades en
+  $E$, y definiendo las operaciones por construcción de árboles.
+\end{definition}
+
+\begin{example}[Objetos libres en variedades algebraicas comunes]\;
+  \begin{enumerate}
+  \item El monoide libre sobre $X$ está formado por las cadenas de elementos de
+    $X$ junto a la concatenación, mientras que el semigrupo libre es similar
+    pero excluyendo la cadena vacía.
+  \item El grupo libre sobre $X$ está formado por cadenas de símbolos de la
+    forma $x$ o $\overline x$ para $x\in X$, con la condición de que no aparecen
+    subsecuencias $x\overline x$ u $\overline xx$, y la operación es la
+    concatenación eliminando sucesivamente las subcadenas de esta forma.
+  \item El grupo abeliano libre sobre $X$ es $\mathbb{Z}^X$.
+  \item El anillo conmutativo libre sobre $\{x_1,\dots,x_n\}$ es el anillo de
+    polinomios $\mathbb{Z}[x_1,\dots,x_n]$.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}
+  En las variedades algebraicas, los monomorfismos son precisamente los
+  morfismos inyectivos.
+\end{proposition}
+\begin{proof}
+  Sean $f:A\to B$ un monomorfismo en $(\Omega,E)\dash\bAlg$ y $x,y\in A$ con
+  $f(x)=f(y)$. Si $F$ es la $(\Omega,E)$-álgebra libre sobre $\{*\}$, $h$ es el
+  único morfismo $F\to A$ con $h(*)=x$ y $k:F\to A$ es el único con $h(*)=y$,
+  para $c\in F$, $f(h(c))$ y $f(k(c))$ vienen dados por $f(h(*))$ y $f(k(*))$
+  siguiendo la estructura de $c$, por lo que $f\circ h=f\circ k$, $h=k$ y,
+  finalmente, $x=y$.
+\end{proof}
+
+% TODO Motivar y explicar epimorfismos
+
 % - Ejemplos Set, Prord, Ord
 % - Subcategorías
 % 1.1 Categorías algebraicas
