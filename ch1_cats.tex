@@ -332,7 +332,7 @@ Llamamos entonces $f^{-1}$ a la inversa de $f$.
   \item En $\bTop$ y $\bMetc$, los isomorfismos son los homeomorfismos.
   \item En $\bBanb$, los isomorfismos son los isomorfismos topológicos, es
     decir, los isomorfismos vectoriales que son homeomorfismos.
-  \item En $\bMet$ los isomorfismos son las isomorfías, mientras que en $\bBan$
+  \item En $\bMet$ los isomorfismos son las isometrías, mientras que en $\bBan$
     son los isomorfismos isométricos.
   \item En $\bSet$, los isomorfismos son las funciones biyectivas.
   \item Un \conc{grupoide} es una categoría en la que todos los morfismos son
@@ -496,7 +496,7 @@ objeto.
   Dados un conjunto graduado $\Omega=\{s_1,\dots,s_k\}$ donde cada $s_i$ tiene
   aridad $n_i$ y un conjunto finito $E$ de identidades en $\Omega$, el
   \conc{objeto libre} de $(\Omega,E)\dash\bAlg$ sobre el conjunto $X$ es el
-  objeto construído tomando el conjunto de los árboles con raíz cuyos nodos se
+  objeto construido tomando el conjunto de los árboles con raíz cuyos nodos se
   etiquetan con un $s_i$ y tienen $n_i$ hijos, o con un $x\in X$ y tienen 0
   hijos, haciendo el conjunto cociente por reescritura según las identidades en
   $E$, y definiendo las operaciones por construcción de árboles.
@@ -590,16 +590,17 @@ correspondiente para epimorfismos.
     $f(\frac xy)=\frac{f(x)}{f(y)}=\frac{(f\circ u)(x)}{(f\circ
       u)(y)}$, y lo mismo ocurre con $g$.
   \item En $\bMet$ y $\bMetc$, los epimorfismos son precisamente las
-    funciones con imagen densa. En efecto, si $f:X\to Y$ es un
-    morfismo con imagen densa y $g,h:Y\to Z$ son morfismos con
-    $g\circ f=h\circ f$, para $y\in Y$ existe una sucesión
-    $\{x_n\}_n\subseteq X$ con $y=\lim_nf(x_n)$, y por unicidad del
-    límite y continuidad, $g(y)=\lim_ng(f(x_n))=\lim_nh(f(x_n))=h(y)$.
-    Recíprocamente, si $f:X\to Y$ no tiene imagen densa, existen
-    $y_0\in Y$ y $r>0$ con $B(y_0,r)\cap\Img{f}=\emptyset$, por lo que
-    $g,h:Y\mapsto\sReal$ dadas por $g(y)\coloneqq r$ y
-    $h(y)\coloneqq\min\{d(y_0,y),r\}$ son retracciones continuas
-    distintas con $g\circ f=h\circ f$.
+    funciones con imagen densa.
+    \begin{proof}
+      Si $f:X\to Y$ es un morfismo con imagen densa y $g,h:Y\to Z$ son morfismos
+      con $g\circ f=h\circ f$, para $y\in Y$ existe una sucesión
+      $\{x_n\}_n\subseteq X$ con $y=\lim_nf(x_n)$, y por unicidad del límite y
+      continuidad, $g(y)=\lim_ng(f(x_n))=\lim_nh(f(x_n))=h(y)$.  Recíprocamente,
+      si $f:X\to Y$ no tiene imagen densa, existen $y_0\in Y$ y $r>0$ con
+      $B(y_0,r)\cap\Img{f}=\emptyset$, por lo que $g,h:Y\mapsto\sReal$ dadas por
+      $g(y)\coloneqq r$ y $h(y)\coloneqq\min\{d(y_0,y),r\}$ son retracciones
+      continuas distintas con $g\circ f=h\circ f$.
+    \end{proof}
   \end{enumerate}
 \end{example}
 
@@ -626,7 +627,168 @@ vez monomorfismos y epimorfismos son isomorfismos.
   \end{enumerate}
 \end{example}
 
+\section{Secciones y retracciones}
 
+Hemos estudiado los morfismos cancelables por uno de los lados, por lo que cabe
+preguntarse qué ocurre con los morfismos invertibles por uno de los
+lados. Claramente este es un concepto más fuerte, y de hecho es estrictamente
+más fuerte.
+
+\begin{definition}
+  Una \conc{sección} es un morfismo con inverso por la izquierda, y
+  una \conc{retracción} es un morfismo con inverso por la derecha.  Es
+  decir, si $f:a\to b$ y $g:b\to a$ son tales que $g\circ f=1_a$,
+  entonces $f$ es una sección y $g$ es una retracción.
+\end{definition}
+
+Claramente las secciones son monomorfismos y las retracciones son
+epimorfismos. Veamos algunos ejemplos.
+
+\begin{example}\;
+  \begin{enumerate}
+  \item En $\bSet$, las secciones son las funciones inyectivas salvo
+    las que van de un conjunto vacío a uno no vacío, y las
+    retracciones son las funciones suprayectivas. Es fácil ver que
+    esto último es equivalente al axioma de elección.
+  \item En $R\dash\bMod$, las secciones son los monomorfismos
+    $f:M\monicTo N$ en que $\Img{f}$ es un sumando directo de $N$, y
+    las retracciones son las proyecciones salvo isomorfismo, es decir,
+    los epimorfismos $f:M\epicTo N$ tales que existe un módulo $P$ y
+    un isomorfismo $h:M\cong N\times P$ con $f=p\circ h$, siendo
+    $p:N\times P\epicTo N$ la proyección (figura \ref{fig:mod-retract}).
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+        \selectlanguage{english}
+        \draw[->] (0,2) node(M){$M$}
+                  (1,2) node{$\cong$} node[above]{$h$}
+                  (2,2) node(NP){$N\times P$}
+                  (2,0) node(N){$N$}
+                  (M) -- node[left]{$f$} (N);
+        \draw[->] (NP) -- node[right]{$p$} (N);
+      \end{tikzpicture}
+      \label{fig:mod-retract}
+      \caption{Retracción en $R\dash\bMod$ vista como proyección
+        compuesta con un isomorfismo.}
+    \end{figure}
+    \begin{proof}
+      Claramente los monomorfismos cuya imagen es un sumando directo son
+      secciones y las proyecciones son retracciones. Para el recíproco, sean
+      $f:M\monicTo N$ y $g:N\epicTo M$ con $g\circ f=1_M$. Se tiene
+      $N=\Img{f}\oplus\ker{g}$, pues para $n\in N$,
+      $n_1\coloneqq f(g(n))\in\Img{f}$ y $n_2\coloneqq n-f(g(n))\in\ker{g}$
+      suman $n$ y, si $p_1\in\Img{f}$ y $p_2\in\ker{g}$ cumplen $n=p_1+p_2$, sea
+      $m_1\in M$ la preimagen de $p_1$ por $f$, entonces y
+      $g(n)=g(p_1+p_2)=g(f(m_1))+g(p_2)=m_1+0$ y $n_1=f(g(n))=g(m_1)=p_1$, con
+      lo que $n_2=p_2$. Entonces $\Img{f}$ es sumando directo de $N$ y, por ser
+      $f$ inyectiva, $f:M\to\Img{f}$ es un isomorfismo con inverso
+      $g|_{\Img{f}}$, con lo que
+      $n\mapsto(n_1,n_2)\mapsto (g(n_1), n_2)=(g(n),n_2)$ es un isomorfismo
+      $N\cong M\times\ker{g}$ que al componerlo con la proyección a $M$ se
+      obtiene $g$.
+    \end{proof}
+  \item En $K\dash\bVec$, como caso especial del apartando anterior, todos los
+    monomorfismos son secciones y todos los epimorfismos son retracciones.
+  \end{enumerate}
+\end{example}
+
+Las secciones y retracciones se conservan por composición del mismo modo que
+lo hacen los monomorfismos y epimorfismos:
+
+\begin{proposition}\;
+  \begin{enumerate}
+  \item La composición de secciones es una sección.
+    \begin{proof}
+      Si $f$ y $g$ son secciones con inversas por la izquierda respectivas
+      $\overline f$ y $\overline g$, entonces
+      $(\overline f\circ\overline g)\circ g\circ f=\overline f\circ f=1$.
+    \end{proof}
+  \item Si $g\circ f$ es una sección, $f$ es una sección.
+    \begin{proof}
+      Si $g\circ f$ es una sección con inversa por la izquierda $h$, entonces
+      $h\circ g\circ f=1$, y $h\circ g$ es inversa por la izquierda de $f$.
+    \end{proof}
+  \end{enumerate}
+\end{proposition}
+
+De forma análoga se prueba la siguiente proposición.
+
+\begin{proposition}\;
+  \begin{enumerate}
+  \item La composición de retracciones es una retracción.
+  \item Si $g\circ f$ es una retracción, $g$ es una retracción.
+  \end{enumerate}
+\end{proposition}
+
+Cabe preguntarse si un morfismo que es a la vez sección y retracción es
+invertible. La respuesta es que sí, y además esta condición se puede relajar.
+
+\begin{proposition}
+  Para un morfismo $f$, las siguientes afirmaciones son equivalentes:
+  \begin{enumerate}
+  \item \label{enu:sr-iso} $f$ es un isomorfismo.
+  \item \label{enu:sr-both} $f$ es una sección y una retracción.
+  \item \label{enu:sr-relax-left} $f$ es un monomorfismo y una retracción.
+  \item \label{enu:sr-relax-right} $f$ es una sección y un epimorfismo.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  Las implicaciones
+  (\ref{enu:sr-iso})$\implies$(\ref{enu:sr-both})$\implies$(\ref{enu:sr-relax-left}),
+  (\ref{enu:sr-relax-right}) son obvias.
+
+  Para (\ref{enu:sr-both})$\implies$(\ref{enu:sr-iso}), si $f:a\to b$ y
+  $g,h:b\to a$ son tales que $g\circ f=1_a$ y $f\circ h=1_b$, entonces
+  $g=g\circ 1_b=g\circ f\circ h=1_a\circ h=h$, y $g=h$ es la inversa de $f$.
+
+  Para (\ref{enu:sr-relax-left})$\implies$(\ref{enu:sr-iso}), sea $g$ un
+  morfismo con $f\circ g=1$, entonces $f\circ g\circ f=1\circ f=f\circ 1$, y
+  como $f$ es un monomorfismo, cancelando, $g\circ f=1$ y $f$ es un
+  isomorfismo.
+
+  De forma análoga (\ref{enu:sr-relax-right})$\implies$(\ref{enu:sr-iso}).
+\end{proof}
+
+\section{Dualidad}
+
+La mayoría de las propiedades que hemos visto hasta ahora vienen en pares con
+definiciones muy parecidas, y de hecho, cada vez que demostrábamos algo sobre
+una de los propiedades, la misma idea servía para demostrar algo similar sobre
+la otra. Esto ocurre mucho en teoría de categorías, y para sacar ventaja de esto
+definimos el concepto de dualidad.
+
+\begin{definition}
+  Dada una categoría $\cC$, su \conc{categoría dual} es una categoría
+  $\dual{\cC}$ con los mismos objetos y morfismos que $\cC$ y la misma función
+  identidad pero tal que, para todo morfismo $f$,
+  $\dom_{\dual{\cC}}{f}=\cod_{\cC}{f}$ y $\cod_{\dual{\cC}}{f}=\dom_{\cC}{f}$, y
+  la composición se define como $f\circ_{\dual{\cC}}g\coloneqq g\circ_{\cC}f$.
+\end{definition}
+
+\begin{example}
+  \begin{enumerate}
+  \item Si $(X,\preceq)$ es un conjunto preordenado, su dual visto como
+    categoría es $(X,\succeq)$.
+  \item El dual de una categoría discreta es ella misma.
+  \end{enumerate}
+\end{example}
+
+La principal utilidad de la categoría dual está en definir el dual de un
+concepto o propiedad.
+
+\begin{definition}
+  Si $P$ es un predicado aplicable a una o más categorías $\cC_1,\dots,\cC_n$,
+  su \conc{dual} es
+  $\dual{P}(\cC_1,\dots,\cC_n)\equiv P(\dual{\cC_1},\dots,\dual{\cC_n})$, y
+  decimos que $P$ es \conc{auto-dual} si $P\equiv\dual{P}$.
+\end{definition}
+
+En esencia, tomar la categoría dual consiste en invertir el sentido de las
+flechas en la categoría, y tomar el predicado dual consiste en invertir el
+sentido de los morfismos que se mencionan. En general al tratar un concepto
+categórico es conveniente fijarse en el dual del concepto, ya que suele ser un
+concepto relevante y, además, las propiedades de dicho concepto se derivan
+directamente de las del concepto original, sin necesidad de demostración aparte.
 
 % - Ejemplos Set, Prord, Ord
 % - Subcategorías
