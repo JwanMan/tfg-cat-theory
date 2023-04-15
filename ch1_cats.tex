@@ -277,7 +277,8 @@ topológicos y las funciones continuas entre ellos.
   \begin{enumerate}
   \item $\bMetc$, con las funciones continuas.
   \item $\bMetu$, con las funciones uniformemente continuas.
-  \item $\bMet$, con las contracciones, funciones que \emph{acercan} los puntos.
+  \item $\bMet$, con las contracciones, funciones continuas que
+    \emph{acercan} los puntos.
   \end{enumerate}
   Asimismo tenemos la categoría $\bBanb$ de los espacios de Banach con las formas
   lineales acotadas y $\bBan$ con las contracciones lineales.
@@ -529,7 +530,103 @@ objeto.
   finalmente, $x=y$.
 \end{proof}
 
-% TODO Motivar y explicar epimorfismos
+\begin{proposition}\label{prop:mono-comp}\;
+  \begin{enumerate}
+  \item La composición de monomorfismos es un monomorfismo.
+    \begin{proof}
+      Sean $f:A\to B$ y $g:B\to C$ monomorfismos y $h,k:D\to A$ con
+      $g\circ f\circ h=g\circ f\circ k$, entonces $f\circ h=f\circ k$
+      y por tanto $h=k$.
+    \end{proof}
+  \item Si $g\circ f$ es un monomorfismo, $f$ también lo es.
+    \begin{proof}
+      Si $g\circ f$ es un monomorfismo y $f\circ h=f\circ k$, entonces
+      $g\circ f\circ h=g\circ f\circ k$ y por tanto $h=k$.
+    \end{proof}
+  \end{enumerate}
+\end{proposition}
+
+Para caracterizar los epimorfismos vemos que, en $\bSet$, si $f:A\to B$ no
+es suprayectiva, sea $y\in B\setminus\Img{f}$, es posible crear dos funciones
+$g,h:B\to\{0,1\}$ con $g\circ f=h\circ f$ pero $g(y)=0$ y $h(y)=1$, mientras
+que fuera suprayectiva, $g\circ f=h\circ f$ implica claramente $g=h$.
+
+\begin{definition}
+  Un morfismo $f:a\to b$ es un \conc{epimorfismo}, $f:a\epicTo b$, si
+  es cancelable por la derecha, es decir, si para $g,h:b\to c$ con
+  $g\circ f=h\circ f$ se tiene $g=h$.
+\end{definition}
+
+La siguiente proposición se demuestra de forma similar que la
+correspondiente para epimorfismos.
+
+\begin{proposition}\label{prop:epi-comp}\;
+  \begin{enumerate}
+  \item La composición de epimorfismos es un epimorfismo.
+  \item Si $g\circ f$ es un epimorfismo, $g$ también lo es.
+  \end{enumerate}
+\end{proposition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item En los constructos, las funciones suprayectivas son
+    epimorfismos, por el mismo argumento que en $\bSet$.
+  \item En $\bSet$ los epimorfismos son precisamente las funciones
+    suprayectivas, pues para $f:A\to B$ no suprayectiva es fácil
+    encontrar $g,h:B\to\{0,1\}$ distintas con $g\circ f=h\circ f$. Lo
+    mismo ocurre en $\bTop$ dotando a $\{0,1\}$ de la topología
+    indiscreta y en $\bGrph$ usando el grafo completo de dos
+    elementos.
+  \item En $R\dash\bMod$, si $f:M\to N$ es un epimorfismo, sean
+    $p,z:N\to\frac{N}{\Img{f}}$ la proyección canónica y la función
+    constante en 0, respectivamente, entonces $p\circ f=z\circ f$,
+    luego $p=z$, $\frac{N}{\Img{f}}\cong0$ y así $\Img{f}=N$, con lo
+    que los epimorfismos son suprayectivos.
+  \item No en todas las variedades algebraicas los epimorfismos son
+    son suprayectivos. Por ejemplo, en $\bRing$, la inclusión
+    $u:\sInt\to\sRat$ es suprayectiva, pues si $f,g:\sRat\to R$
+    cumplen que $f\circ u=g\circ u:\sInt\to R$, entonces $f=g$ ya que
+    para $x,y\in\sInt$,
+    $f(\frac xy)=\frac{f(x)}{f(y)}=\frac{(f\circ u)(x)}{(f\circ
+      u)(y)}$, y lo mismo ocurre con $g$.
+  \item En $\bMet$ y $\bMetc$, los epimorfismos son precisamente las
+    funciones con imagen densa. En efecto, si $f:X\to Y$ es un
+    morfismo con imagen densa y $g,h:Y\to Z$ son morfismos con
+    $g\circ f=h\circ f$, para $y\in Y$ existe una sucesión
+    $\{x_n\}_n\subseteq X$ con $y=\lim_nf(x_n)$, y por unicidad del
+    límite y continuidad, $g(y)=\lim_ng(f(x_n))=\lim_nh(f(x_n))=h(y)$.
+    Recíprocamente, si $f:X\to Y$ no tiene imagen densa, existen
+    $y_0\in Y$ y $r>0$ con $B(y_0,r)\cap\Img{f}=\emptyset$, por lo que
+    $g,h:Y\mapsto\sReal$ dadas por $g(y)\coloneqq r$ y
+    $h(y)\coloneqq\min\{d(y_0,y),r\}$ son retracciones continuas
+    distintas con $g\circ f=h\circ f$.
+  \end{enumerate}
+\end{example}
+
+Los dos últimos ejemplos muestran que, al contrario de lo que ocurre
+en muchos campos del álgebra, no siempre los morfismos que son a la
+vez monomorfismos y epimorfismos son isomorfismos.
+
+\begin{definition}
+  Un \conc{bimorfismo} es un morfismo que es a la vez un monomorfismo
+  y un epimorfismo. Una categoría es \conc{equilibrada} si todo
+  bimorfismo es un isomorfismo.
+\end{definition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item En una categoría fina, todos los morfismos son bimorfismos,
+    pero en general no son isomorfismos.
+  \item En un monoide visto como categoría, los bimorfismos son los
+    elementos cancelables por ambos lados.
+  \item Las identidades son bimorfismos, y en particular los
+    isomorfismos son bimorfismos sin más que aplicar las proposiciones
+    \ref{prop:mono-comp} y \ref{prop:epi-comp} a la composición de un
+    isomorfismo con su inverso por ambos lados.
+  \end{enumerate}
+\end{example}
+
+
 
 % - Ejemplos Set, Prord, Ord
 % - Subcategorías
