@@ -1,0 +1,125 @@
+Buena parte del poder de la teoría de categorías se deriva de su reflexividad:
+las categorías son estructuras algebraicas y, como tales, es posible estudiarlas
+usando teoría de categorías. Para ello primero debemos ver cuáles son los
+morfismos entre categorías, los llamados \emph{funtores}. Este capítulo se
+basa principalmente en \cite[pp. 21--32]{joyofcats} y \cite[pp. 13--15]{maclane}.
+
+\begin{definition}
+  Un \conc{funtor} entre dos categorías $\cC$ y $\cD$ es un par de funciones
+  $T=(o:\Ob{\cC}\to\Ob{\cD},m:\Mor{\cC}\to\Mor{\cD})$ que preserva el dominio, el
+  codominio, las identidades y la composición, es decir, tal que:
+  \begin{enumerate}
+  \item Para cada morfismo $f:a\to b$ en $\cC$, $mf:oa\to ob$ en $\cD$.
+  \item Para $f:a\to b$ y $g:b\to c$ en $\cC$, $m(g\circ f)=mg\circ mf$.
+  \item Para cada objeto $c$ de $\cC$, $m(1_a)=1_{oa}$.
+  \end{enumerate}
+\end{definition}
+
+Nótese que la última condición determina unívocamente la función sobre los
+objetos a partir de la función sobre los morfismos, por lo que la primera es
+redundante. Si $\cC$ y $\cD$ son categorías, escribimos $T:\cC\to\cD$ para decir
+que $T$ es un funtor de $\cC$ a $\cD$, y usamos $T$ para referirnos
+indistintamente al funtor, a la función sobre los objetos y a la función sobre
+los morfismos.
+
+\begin{example}\;
+  \begin{enumerate}
+  \item Toda categoría $\cC$ admite un \conc{funtor identidad} $1_\cC:\cC\to\cC$
+    que asocia a cada objeto o morfismo el propio objeto o morfismo.
+  \item Dadas dos categorías $\cC$ y $\cD$ y $d\in\Ob{\cD}$, existe un
+    \conc{funtor constante} $C_d:\cC\to\cD$ que lleva todos los morfismos a $1_d$.
+  \item La operación <<conjunto potencia>> es un funtor $\power:\bSet\to\bSet$, que
+    lleva cada función $f:A\to B$ a la función $(\power f)(S)\coloneqq f[S]$,
+    que asocia a cada subconjunto de $A$ su \emph{imagen} por $f$.
+  \item De forma similar podemos definir el funtor \conc{conjunto potencia
+      contravariante}, $\copower:\bSet\to\dual{\bSet}$, que lleva un conjunto
+    $S$ a su potencia $\power{S}$ y una función $f:A\to B$ a la función
+    $(\copower f)(T)\coloneqq f^{-1}[T]$ que asocia a cada subconjunto de $B$ su
+    \emph{preimagen} por $f$.
+  \item Para $n\in\sNat$, existe un funtor $\text{GL}_n:\bCRng\to\bGrp$ que a
+    cada anillo conmutativo $C$ le asocia el grupo multiplicativo
+    $\text{GL}_n(C)$ de matrices regulares $n\times n$ con entradas en $C$. Los
+    homomorfismos de anillos se transforman en homomorfismos de grupos que
+    actúan componente a componente.
+  \item Sea $\bTop_*$ el constructo cuyos objetos son pares $(X,x)$ formados por
+    un espacio topológico $X$ y un punto destacado $x\in X$ y cuyos morfismos
+    son funciones continuas que conservan el punto destacado. Entonces podemos
+    definir un funtor grupo de homotopía $\pi:\bTop_*\to\bGrp$ que a cada
+    espacio topológico $X$ y cada punto $x\in X$ le asocia el grupo de homotopía
+    y a cada morfismo en $\bTop_*$ le asocia el correspondiente morfismo de
+    grupos.\cite[p. 13]{maclane}
+
+    \begin{proof}
+      Primero vemos que la operación sobre morfismos está bien definida. Sea
+      $f:(X,x)\to(Y,y)$ un morfismo en $\bTop_*$, y sean
+      $\gamma,\sigma:[0,1]\to X$ representantes de un mismo elemento
+      $\overline{\gamma}=\overline{\sigma}$ de $\pi(X,x)$, entonces existe una
+      homotopía $s:[0,1]\times[0,1]\to X$ de $\gamma$ a $\sigma$, con lo que
+      $f\circ s:[0,1]\times[0,1]\to Y$ es una homotopía de $f(\sigma)$ a
+      $f(\gamma)$ y $(\pi f)(\overline{\gamma})=(\pi f)(\overline{\sigma})$.
+      Además $\pi f$ es un morfismo de grupos, pues la composición con $f$ lleva
+      la curva constante en $x$ a la curva constante en $y$ y respeta la
+      concatenación de curvas. Finalmente, dados morfismos $f:(X,x)\to (Y,y)$ y
+      $g:(Y,y)\to(Z,z)$ en $\bTop_*$, es fácil ver que
+      $\pi(g\circ f)=\pi g\circ\pi f$ y que $\pi(1_{(X,x)})=1_{\pi(X,x)}$.
+    \end{proof}
+  \item Los funtores se pueden componer. Dados dos funtores $S:\cB\to\cC$ y
+    $T:\cC\to\cD$, el \conc{funtor composición} $T\circ S:\cB\to\cC$ viene dado
+    sobre los objetos como $a\mapsto S(Ta)$ y sobre los morfismos como
+    $f\mapsto S(Tf)$.
+  \end{enumerate}
+\end{example}
+
+\section{Categorías de categorías}
+
+En vista de los ejemplos anteriores sería razonable considerar una <<categoría
+de las categorías>>, pero esto plantea ciertos problemas. En primer lugar, esta
+categoría no se podría contener a sí misma por la paradoja de Russell. De hecho,
+sólo las categorías que son conjuntos pueden estar dentro de una categoría de
+categorías, pues las clases propias no pueden estar dentro de otras clases.
+
+\begin{definition}
+  Una categoría es \conc{pequeña} si es un conjunto, es decir, si tanto su
+  clase de objetos como su clase de morfismos son conjuntos. Llamamos $\bCat$
+  a la categoría de las categorías pequeñas y los funtores entre ellas.
+\end{definition}
+
+Esto no es del todo satisfactorio, pues la mayoría de las categorías no son
+pequeñas. Es por ello que en teoría de categorías es común usar extensiones de
+ZFC para lidiar con estos casos. MacLane\cite[pp. 21--26]{maclane} propone una
+extensión basada en universos de Grothendieck.
+
+\begin{definition}
+  Un \conc{universo} (\conc{de Grothendieck}) es un conjunto $\UNIVERSE$ tal que:
+  \begin{enumerate}
+  \item Si $x\in u\in\UNIVERSE$ entonces $x\in\UNIVERSE$.
+  \item Si $u,v\in\UNIVERSE$ entonces $\{u,v\}\in\UNIVERSE$.
+  \item Si $x\in\UNIVERSE$ entonces $\power{x},\bigcup{x}\in\UNIVERSE$.
+  \item Si $I\in\UNIVERSE$ y $f:I\to\UNIVERSE$ es una función, entonces
+    $\Img{f}\in\UNIVERSE$.
+  \item $\sNat\in\UNIVERSE$.
+  \end{enumerate}
+\end{definition}
+
+La idea es que un universo contendría todos los conjuntos con lo que uno
+trataría trabajar normalmente dentro de ZFC, como ilustran las siguientes
+propiedades fáciles de probar.
+
+\begin{proposition}
+  Sea $\UNIVERSE$ un universo:
+  \begin{enumerate}
+  \item Si $v\subseteq u\in\UNIVERSE$ entonces $v\in\UNIVERSE$.
+    \item Si $u,v\in\UNIVERSE$, entonces $(u,v),u\times v\in\UNIVERSE$.
+    \item Si $\{x_i\}_{i\in I}$ es una familia de elementos de $\UNIVERSE$ con $I\in\UNIVERSE$,
+      entonces $\prod_{i\in I}x_i,\bigcup_{i\in I}x_i,\bigcap_{i\in I}x_i\in\UNIVERSE$.
+    \item Si $a,b\in\UNIVERSE$, todas las funciones $f:a\to b$ cumplen $f\in\UNIVERSE$.
+    \item Si $a\in\UNIVERSE$ y $b\subseteq\UNIVERSE$ con $|a|=|b|$ entonces $b\in\UNIVERSE$.
+  \end{enumerate}
+\end{proposition}
+
+% TODO
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
