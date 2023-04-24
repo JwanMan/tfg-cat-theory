@@ -22,16 +22,22 @@
 % Math packages
 \usepackage{mathtools}
 \usepackage{amsthm}
+%\usepackage{thmtools}
 \usepackage{amssymb}
 
 % Theorem styles
-\theoremstyle{plain}
+%\declaretheorem[name=Proposición,numberwithin=chapter]{proposition}
+%\declaretheorem[name=Corolario,numberlike=proposition]{corollary}
+%\declaretheorem[name=Definición,style=definition,numberlike=proposition]{definition}
+%\declaretheorem{name=Ejemplo,style=remark,numberlike=proposition]{example}
+%\theoremstyle{plain}
 \newtheorem{proposition}{Proposición}
-\newtheorem{corollary}{Corolario}
+\newtheorem{corollary}[proposition]{Corolario}
 \theoremstyle{definition}
-\newtheorem{definition}{Definición}
+\newtheorem{definition}[proposition]{Definición}
+\newtheorem{axiom}[proposition]{Axioma}
 \theoremstyle{remark}
-\newtheorem{example}{Ejemplo}
+\newtheorem{example}[proposition]{Ejemplo}
 
 % Math macros
 \newcommand{\dash}{\text{-}}
@@ -51,6 +57,7 @@
 \dCat{\bAb}{Ab}
 \dCat{\bRing}{Rng} % Backwards compat
 \dCat{\bRng}{Rng}
+\dCat{\bCRng}{CRng}
 \dCat{\bField}{Field}
 \dCat{\bMod}{Mod}
 \dCat{\bVec}{Vec}
@@ -85,6 +92,7 @@
 \dStdSet{\sTorus}{T}
 \newcommand{\monicTo}{\rightarrowtail}
 \newcommand{\epicTo}{\twoheadrightarrow}
+\newcommand{\inTo}{\hookrightarrow}
 \renewcommand{\mapsto}{\rightsquigarrow}
 \renewcommand{\Im}{\error{You probably meant \backslash{}Im}}
 \newcommand{\dual}[1]{#1^{\text{op}}}
@@ -107,7 +115,7 @@
     {\normalsize (Dibujo aquí)}  % TODO
     \vfill
 
-    Trabajo Fin de Grado en Matemáticas
+    Trabajo de Fin de Grado en Matemáticas
 
     \vspace{0.8cm}
     \Large

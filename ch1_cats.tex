@@ -1,14 +1,15 @@
-Al estudiar distintas ramas de las matemáticas de manera formal es inevitable
-notar que existen ciertos patrones que se repiten. Todas empiezan con los
-axiomas que caracterizan los objetos de estudio, como pueden ser los grupos,
-espacios vectoriales, espacios topológicos, variedades, etc., y pese a que estos
-se definen de forma muy diferente, en la mayoría se pueden definir de manera
-natural conceptos como subobjetos, objetos producto u objetos cociente, entre
-otros. Además, estos objetos no se suelen estudiar de forma aislada, sino que se
-estudian funciones entre los objetos que cumplen ciertas propiedades, como
-pueden ser las aplicaciones lineales en el álgebra lineal, las aplicaciones
-continuas en la topología, las derivables en análisis y los homomorfismos del
-álgebra abstracta.
+Al estudiar distintas ramas de las matemáticas de manera formal es
+inevitable notar que existen ciertos patrones que se repiten. Todas
+empiezan con los axiomas que caracterizan los objetos de estudio, como
+pueden ser los grupos, espacios vectoriales, espacios topológicos,
+variedades, etc., y pese a que estos se definen de forma muy
+diferente, en la mayoría se pueden definir de manera natural conceptos
+como subobjetos, objetos producto u objetos cociente, entre
+otros. Además, estos objetos no se suelen estudiar de forma aislada,
+sino que se estudian funciones entre los objetos que cumplen ciertas
+propiedades, como pueden ser las aplicaciones lineales en el álgebra
+lineal, las aplicaciones continuas en la topología y los homomorfismos
+del álgebra abstracta.
 
 Estos patrones no son una coincidencia, pues las propiedades generales que
 exhiben son las mismas en todos los casos. Por ejemplo, la clase de funciones
@@ -105,7 +106,7 @@ categorías se pueden expresar como en la figura \ref{fig:cat-axiom}.
       $x\preceq y\implies f(x)\preccurlyeq f(y)$.
     \item \label{enu:mot-subcat} La categoría $\bOrd$ tiene como objetos los
       conjuntos parcialmente ordenados y como morfismos las funciones que
-      conservan en orden. $\bLat$ es similar pero los objetos son retículos y los
+      conservan el orden. $\bLat$ es similar pero los objetos son retículos y los
       morfismos deben además preservar supremos e ínfimos de pares de elementos.
     \item La categoría $\bGrph$ tiene como objetos los grafos dirigidos y como
       morfismos las funciones entre los vértices de dos grafos que llevan ejes del
@@ -119,10 +120,10 @@ concepto de subcategoría.
 
 \begin{definition}
   Una categoría $\cB$ es una \conc{subcategoría} de una $\cC$ si
-  $\Ob{\cB}\subseteq\Ob{\cC}$, $\Mor{\cB}\subseteq\Mor{\cC}$ y las
-  funciones dominio, codominio, composición e identidad son restricciones de
-  las correspondientes funciones de $\cC$, y es una \conc{subcategoría completa}
-  si además, para $a,b\in\Ob{\cB}$, $\hom_\cB(a,b)=\hom_\cC(a,b)$.
+  $\Ob{\cB}\subseteq\Ob{\cC}$, $\Mor{\cB}\subseteq\Mor{\cC}$ y las funciones
+  dominio, codominio, composición e identidad son restricciones de las
+  correspondientes funciones de $\cC$, y es una \conc{subcategoría completa} si
+  además, para $a,b\in\Ob{\cB}$, $\hom_\cB(a,b)=\hom_\cC(a,b)$.
 \end{definition}
 
 Así, $\bLat$ es una subcategoría no completa de $\bOrd$, mientras que $\bOrd$ es
@@ -142,13 +143,17 @@ permitimos ejes reflexivos.
   \item $\bGrp$, la subcategoría completa de $\bMon$ formada por los grupos y
     sus homomorfismos.
   \item $\bAb$, la subcategoría de $\bGrp$ de grupos abelianos.
-  \item $\bRing$, la categoría de anillos y sus homomorfismos.
+  \item $\bRing$, la categoría de anillos unitarios y sus homomorfismos.
+    Incluímos aquí el anillo trivial en el que $1=0$.
+  \item $\bCRng$, la subcategoría completa de $\bRing$ de los anillos unitarios
+    conmutativos.
   \end{enumerate}
 \end{example}
 
-En todos estos casos los objetos son conjuntos con una serie de operaciones, y
-los morfismos son funciones que conmutan con estas. La lista de operaciones se
-puede modelar como sigue.\cite[p. 120]{maclane}
+En todos estos casos los objetos son conjuntos con una serie de
+operaciones, y los morfismos son funciones que respetan esas
+operaciones en el sentido evidente. La lista de operaciones se puede
+modelar como sigue.\cite[p. 120]{maclane}
 
 \begin{definition}
   Un \conc{conjunto graduado} es un conjunto $I$ de \conc{operadores} junto con
@@ -195,11 +200,12 @@ entrada, de modo que las propiedades de $\bAb$ son $(x+y)+z=x+(y+z)$, $0+x=x$,
 $x+(-x)=0$ y $x+y=y+x$.
 
 \begin{definition}
-  Sean $\Omega$ un conjunto graduado finito y $E$ un conjunto finito de identidades
-  sobre $\Omega$:
+  Sean $\Omega$ un conjunto graduado finito y $E$ un conjunto finito de
+  identidades sobre $\Omega$:
   \begin{enumerate}
-  \item Una $(\Omega,E)$-álgebra es un par $(S,\mu)$ formado por un conjunto $S$ y
-    una acción $\mu$ de $\Omega$ sobre $S$ que satisface las identidades en $E$.
+  \item Una $(\Omega,E)$-álgebra es un par $(S,\mu)$ formado por un conjunto $S$
+    y una acción $\mu$ de $\Omega$ sobre $S$ que satisface las identidades en
+    $E$.
   \item Una \conc{variedad algebraica} es una categoría $(\Omega,E)\dash\bAlg$
     cuyos objetos son las $(\Omega,E)$-álgebras y cuyos morfismos
     $(A,\mu)\to (B,\nu)$ son las funciones $f:A\to B$ tales que, para
@@ -211,8 +217,9 @@ $x+(-x)=0$ y $x+y=y+x$.
 Claramente todas las categorías del ejemplo \ref{ex:variety} son variedades
 algebraicas, y de hecho podemos ver $\bSet$ como
 $(\emptyset,\emptyset)\dash\bAlg$, pero sin embargo $\bField$, la subcategoría
-completa de $\bRing$ de los cuerpos, no es una variedad algebraica, ya que
-requiere una propiedad de la inversa del producto, que no está definida en el 0.
+completa de $\bRing$ de los cuerpos (incluyendo el cuerpo trivial), no es una
+variedad algebraica, ya que requiere una propiedad de la inversa del producto,
+que no está definida en el 0.
 
 Otra categoría interesante es $R\dash\bMod$, la clase de módulos de un anillo
 conmutativo $R$ y homomorfismos de $R$-módulos. $\sInt\dash\bMod$ es
@@ -259,7 +266,8 @@ hay muchas categorías relevantes que no son constructos.
   \item La categoría vacía, $\bZero$, sin objetos.
   \item La categoría discreta unipuntual, $\bOne$.
   \item La categoría discreta de dos objetos, $\bTwo$.
-  \item La categoría $\bDown$, con dos objetos y una sola flecha de uno a otro ($\bullet\to\bullet$).
+  \item La categoría $\bDown$, con dos objetos y una sola flecha de uno a otro
+    ($\bullet\to\bullet$).
   \end{enumerate}
 \end{example}
 
@@ -340,7 +348,7 @@ Llamamos entonces $f^{-1}$ a la inversa de $f$.
   \item En un conjunto preordenado visto como categoría, dos objetos $a$ y $b$
     son isomorfos si y sólo si $a\preceq b\preceq a$, por lo que en particular
     un conjunto (parcialmente) ordenado visto como categoría no tiene
-    isomorfismos salvo la identidad.
+    isomorfismos salvo las identidades.
   \item En un monoide visto como categoría, los isomorfismos son los elementos
     invertibles.
   \item En $R\dash\bMat$, los isomorfismos son las matrices invertibles.
@@ -535,8 +543,8 @@ objeto.
   \item La composición de monomorfismos es un monomorfismo.
     \begin{proof}
       Sean $f:A\to B$ y $g:B\to C$ monomorfismos y $h,k:D\to A$ con
-      $g\circ f\circ h=g\circ f\circ k$, entonces $f\circ h=f\circ k$
-      y por tanto $h=k$.
+      $g\circ f\circ h=g\circ f\circ k$, entonces $f\circ h=f\circ k$ y por
+      tanto $h=k$.
     \end{proof}
   \item Si $g\circ f$ es un monomorfismo, $f$ también lo es.
     \begin{proof}
@@ -552,8 +560,8 @@ $g,h:B\to\{0,1\}$ con $g\circ f=h\circ f$ pero $g(y)=0$ y $h(y)=1$, mientras
 que fuera suprayectiva, $g\circ f=h\circ f$ implica claramente $g=h$.
 
 \begin{definition}
-  Un morfismo $f:a\to b$ es un \conc{epimorfismo}, $f:a\epicTo b$, si
-  es cancelable por la derecha, es decir, si para $g,h:b\to c$ con
+  Un morfismo $f:a\to b$ es un \conc{epimorfismo}, $f:a\epicTo b$, si es
+  cancelable por la derecha, es decir, si para $g,h:b\to c$ con
   $g\circ f=h\circ f$ se tiene $g=h$.
 \end{definition}
 
@@ -569,28 +577,26 @@ correspondiente para epimorfismos.
 
 \begin{example}\;
   \begin{enumerate}
-  \item En los constructos, las funciones suprayectivas son
-    epimorfismos, por el mismo argumento que en $\bSet$.
+  \item En los constructos, las funciones suprayectivas son epimorfismos, por el
+    mismo argumento que en $\bSet$.
   \item En $\bSet$ los epimorfismos son precisamente las funciones
-    suprayectivas, pues para $f:A\to B$ no suprayectiva es fácil
-    encontrar $g,h:B\to\{0,1\}$ distintas con $g\circ f=h\circ f$. Lo
-    mismo ocurre en $\bTop$ dotando a $\{0,1\}$ de la topología
-    indiscreta y en $\bGrph$ usando el grafo completo de dos
-    elementos.
+    suprayectivas, pues para $f:A\to B$ no suprayectiva es fácil encontrar
+    $g,h:B\to\{0,1\}$ distintas con $g\circ f=h\circ f$. Lo mismo ocurre en
+    $\bTop$ dotando a $\{0,1\}$ de la topología indiscreta y en $\bGrph$ usando
+    el grafo completo de dos elementos.
   \item En $R\dash\bMod$, si $f:M\to N$ es un epimorfismo, sean
-    $p,z:N\to\frac{N}{\Img{f}}$ la proyección canónica y la función
-    constante en 0, respectivamente, entonces $p\circ f=z\circ f$,
-    luego $p=z$, $\frac{N}{\Img{f}}\cong0$ y así $\Img{f}=N$, con lo
-    que los epimorfismos son suprayectivos.
-  \item No en todas las variedades algebraicas los epimorfismos son
-    son suprayectivos. Por ejemplo, en $\bRing$, la inclusión
-    $u:\sInt\to\sRat$ es suprayectiva, pues si $f,g:\sRat\to R$
-    cumplen que $f\circ u=g\circ u:\sInt\to R$, entonces $f=g$ ya que
-    para $x,y\in\sInt$,
-    $f(\frac xy)=\frac{f(x)}{f(y)}=\frac{(f\circ u)(x)}{(f\circ
-      u)(y)}$, y lo mismo ocurre con $g$.
-  \item En $\bMet$ y $\bMetc$, los epimorfismos son precisamente las
-    funciones con imagen densa.
+    $p,z:N\to\frac{N}{\Img{f}}$ la proyección canónica y la función constante en
+    0, respectivamente, entonces $p\circ f=z\circ f$, luego $p=z$,
+    $\frac{N}{\Img{f}}\cong0$ y así $\Img{f}=N$, con lo que los epimorfismos son
+    suprayectivos.
+  \item No en todas las variedades algebraicas los epimorfismos son son
+    suprayectivos. Por ejemplo, en $\bRing$, la inclusión $u:\sInt\to\sRat$ es
+    suprayectiva, pues si $f,g:\sRat\to R$ cumplen que
+    $f\circ u=g\circ u:\sInt\to R$, entonces $f=g$ ya que para $x,y\in\sInt$,
+    $f(\frac xy)=\frac{f(x)}{f(y)}=\frac{(f\circ u)(x)}{(f\circ u)(y)}$, y lo
+    mismo ocurre con $g$.
+  \item En $\bMet$ y $\bMetc$, los epimorfismos son precisamente las funciones
+    con imagen densa.
     \begin{proof}
       Si $f:X\to Y$ es un morfismo con imagen densa y $g,h:Y\to Z$ son morfismos
       con $g\circ f=h\circ f$, para $y\in Y$ existe una sucesión
@@ -604,26 +610,26 @@ correspondiente para epimorfismos.
   \end{enumerate}
 \end{example}
 
-Los dos últimos ejemplos muestran que, al contrario de lo que ocurre
-en muchos campos del álgebra, no siempre los morfismos que son a la
-vez monomorfismos y epimorfismos son isomorfismos.
+Los dos últimos ejemplos muestran que, al contrario de lo que ocurre en muchos
+campos del álgebra, no siempre los morfismos que son a la vez monomorfismos y
+epimorfismos son isomorfismos.
 
 \begin{definition}
-  Un \conc{bimorfismo} es un morfismo que es a la vez un monomorfismo
-  y un epimorfismo. Una categoría es \conc{equilibrada} si todo
-  bimorfismo es un isomorfismo.
+  Un \conc{bimorfismo} es un morfismo que es a la vez un monomorfismo y un
+  epimorfismo. Una categoría es \conc{equilibrada} si todo bimorfismo es un
+  isomorfismo.
 \end{definition}
 
 \begin{example}\;
   \begin{enumerate}
-  \item En una categoría fina, todos los morfismos son bimorfismos,
-    pero en general no son isomorfismos.
-  \item En un monoide visto como categoría, los bimorfismos son los
-    elementos cancelables por ambos lados.
-  \item Las identidades son bimorfismos, y en particular los
-    isomorfismos son bimorfismos sin más que aplicar las proposiciones
-    \ref{prop:mono-comp} y \ref{prop:epi-comp} a la composición de un
-    isomorfismo con su inverso por ambos lados.
+  \item En una categoría fina, todos los morfismos son bimorfismos, pero en
+    general no son isomorfismos.
+  \item En un monoide visto como categoría, los bimorfismos son los elementos
+    cancelables por ambos lados.
+  \item Las identidades son bimorfismos, y en particular los isomorfismos son
+    bimorfismos sin más que aplicar las proposiciones \ref{prop:mono-comp} y
+    \ref{prop:epi-comp} a la composición de un isomorfismo con su inverso por
+    ambos lados.
   \end{enumerate}
 \end{example}
 
@@ -635,10 +641,10 @@ lados. Claramente este es un concepto más fuerte, y de hecho es estrictamente
 más fuerte.
 
 \begin{definition}
-  Una \conc{sección} es un morfismo con inverso por la izquierda, y
-  una \conc{retracción} es un morfismo con inverso por la derecha.  Es
-  decir, si $f:a\to b$ y $g:b\to a$ son tales que $g\circ f=1_a$,
-  entonces $f$ es una sección y $g$ es una retracción.
+  Una \conc{sección} es un morfismo con inverso por la izquierda, y una
+  \conc{retracción} es un morfismo con inverso por la derecha.  Es decir, si
+  $f:a\to b$ y $g:b\to a$ son tales que $g\circ f=1_a$, entonces $f$ es una
+  sección y $g$ es una retracción.
 \end{definition}
 
 Claramente las secciones son monomorfismos y las retracciones son
@@ -646,46 +652,33 @@ epimorfismos. Veamos algunos ejemplos.
 
 \begin{example}\;
   \begin{enumerate}
-  \item En $\bSet$, las secciones son las funciones inyectivas salvo
-    las que van de un conjunto vacío a uno no vacío, y las
-    retracciones son las funciones suprayectivas. Es fácil ver que
-    esto último es equivalente al axioma de elección.
-  \item En $R\dash\bMod$, las secciones son los monomorfismos
-    $f:M\monicTo N$ en que $\Img{f}$ es un sumando directo de $N$, y
-    las retracciones son las proyecciones salvo isomorfismo, es decir,
-    los epimorfismos $f:M\epicTo N$ tales que existe un módulo $P$ y
-    un isomorfismo $h:M\cong N\times P$ con $f=p\circ h$, siendo
-    $p:N\times P\epicTo N$ la proyección (figura \ref{fig:mod-retract}).
-    \begin{figure}
-      \centering
-      \begin{tikzpicture}
-        \selectlanguage{english}
-        \draw[->] (0,2) node(M){$M$}
-                  (1,2) node{$\cong$} node[above]{$h$}
-                  (2,2) node(NP){$N\times P$}
-                  (2,0) node(N){$N$}
-                  (M) -- node[left]{$f$} (N);
-        \draw[->] (NP) -- node[right]{$p$} (N);
-      \end{tikzpicture}
-      \label{fig:mod-retract}
-      \caption{Retracción en $R\dash\bMod$ vista como proyección
-        compuesta con un isomorfismo.}
-    \end{figure}
+  \item En $\bSet$, las secciones son las funciones inyectivas salvo las que van
+    de un conjunto vacío a uno no vacío, y las retracciones son las funciones
+    suprayectivas. Es fácil ver que esto último es equivalente al axioma de
+    elección.
+  \item En $R\dash\bMod$, las secciones son los monomorfismos cuya imagen es un
+    sumando directo del codominio, y las retracciones son los epimorfismos cuyo
+    núcleo es un sumando directo del dominio.
     \begin{proof}
-      Claramente los monomorfismos cuya imagen es un sumando directo son
-      secciones y las proyecciones son retracciones. Para el recíproco, sean
-      $f:M\monicTo N$ y $g:N\epicTo M$ con $g\circ f=1_M$. Se tiene
-      $N=\Img{f}\oplus\ker{g}$, pues para $n\in N$,
-      $n_1\coloneqq f(g(n))\in\Img{f}$ y $n_2\coloneqq n-f(g(n))\in\ker{g}$
-      suman $n$ y, si $p_1\in\Img{f}$ y $p_2\in\ker{g}$ cumplen $n=p_1+p_2$, sea
-      $m_1\in M$ la preimagen de $p_1$ por $f$, entonces y
-      $g(n)=g(p_1+p_2)=g(f(m_1))+g(p_2)=m_1+0$ y $n_1=f(g(n))=g(m_1)=p_1$, con
-      lo que $n_2=p_2$. Entonces $\Img{f}$ es sumando directo de $N$ y, por ser
-      $f$ inyectiva, $f:M\to\Img{f}$ es un isomorfismo con inverso
-      $g|_{\Img{f}}$, con lo que
-      $n\mapsto(n_1,n_2)\mapsto (g(n_1), n_2)=(g(n),n_2)$ es un isomorfismo
-      $N\cong M\times\ker{g}$ que al componerlo con la proyección a $M$ se
-      obtiene $g$.
+      Si $f:M\to N$ es un monomorfismo cuya imagen es un sumando directo de $N$,
+      por ejemplo $N=\Img{f}\oplus P$, un $g:N\to M$ que lleva los elementos de
+      $\Img{f}$ a su única preimagen por $f$ y los $p\in P$ a 0 es inverso de
+      $f$ por la derecha. Si es un epimorfismo cuyo núcleo es un sumando directo
+      de $M$, por ejemplo $M=\ker{f}\oplus L$, sean $p:M\to\frac{M}{\ker{f}}$ la
+      proyección canónica, $h:\frac{M}{\ker{f}}\cong L$ el isomorfismo <<obvio>>
+      y $u:L\inTo M$ la inclusión, entonces $p\circ u\circ h=1$, pero el teorema
+      del factor nos da un único isomorfismo
+      $\overline{f}:\frac{M}{\ker{f}}\cong N$ con $\overline{f}\circ p=f$, por
+      lo que $\overline{f}=f\circ u\circ h$ y
+      $f\circ(u\circ h\circ\overline{f}^{-1})=1$.
+      
+      Para el recíproco, sean $f:M\monicTo N$ y $g:N\epicTo M$ con
+      $g\circ f=1_M$, basta ver que $N=\Img{f}\oplus\ker{g}$. En efecto, todo
+      $n\in N$ se descompone como suma de $n_1\coloneqq f(g(n))\in\Img{f}$ y
+      $n_2\coloneqq n-f(g(n))\in\ker{g}$, y si $p_1\in\Img{f}$ y $p_2\in\ker{g}$
+      cumplen $n=p_1+p_2$, sea $m_1\in M$ la preimagen de $p_1$ por $f$,
+      entonces $g(n)=g(p_1+p_2)=g(f(m_1))+g(p_2)=m_1+0$ y
+      $n_1=f(g(n))=g(m_1)=p_1$, con lo que $n_2=p_2$.
     \end{proof}
   \item En $K\dash\bVec$, como caso especial del apartando anterior, todos los
     monomorfismos son secciones y todos los epimorfismos son retracciones.
@@ -789,20 +782,6 @@ sentido de los morfismos que se mencionan. En general al tratar un concepto
 categórico es conveniente fijarse en el dual del concepto, ya que suele ser un
 concepto relevante y, además, las propiedades de dicho concepto se derivan
 directamente de las del concepto original, sin necesidad de demostración aparte.
-
-% - Ejemplos Set, Prord, Ord
-% - Subcategorías
-% 1.1 Categorías algebraicas
-% - Ejemplos de variedades
-% - Definiciones con comentarios
-% - Aplicación de la definición
-% - Categorías algebraicas que no son variedades
-% 1.2 Categorías topológicas
-% 1.3 Categorías puramente abstractas
-% 1.4 Objetos iniciales y finales
-% 1.5 Monomorfismos y epimorfismos (y secciones y retractos)
-% 1.6 Isomorfismos (y bimorfismos)
-% 1.7 Dualidad
 
 %%% Local Variables:
 %%% mode: latex
