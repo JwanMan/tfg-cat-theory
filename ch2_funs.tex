@@ -254,6 +254,14 @@ los conjuntos hom de las categorías involucradas.
   fiel, plena o una inmersión.
 \end{proposition}
 
+\begin{proposition}
+  Dados dos funtores $F:\cB\to\cC$ y $G:\cC\to\cD$:
+  \begin{enumerate}
+  \item Si $g\circ f$ es fiel, $f$ también lo es.
+  \item Si $g\circ f$ es pleno, $g$ también lo es.
+  \end{enumerate}
+\end{proposition}
+
 Parece razonable entonces requerir que las equivalencias sean fieles y plenas.
 
 \begin{definition}
@@ -510,14 +518,14 @@ definir los funtores parciales como sigue.
 
 \begin{definition}
   Sea $T:\cB\times\cC\to\cD$ un bifuntor.
-  \begin{itemize}
+  \begin{enumerate}
   \item Dado un objeto $b$ de $\cB$, el \conc{funtor parcial} $T(b,-):\cC\to\cD$
     viene dado para objetos por $T(b,-)(c)\coloneqq T(b,c)$ y para morfismos por
     $T(b,-)(g)\coloneqq T(b,g)\coloneqq T(1_b,g)$.
   \item Dado un objeto $c$ de $\cC$, el \conc{funtor parcial} $T(-,c):\cB\to\cD$
     viene dado para objetos por $T(-,c)(b)\coloneqq T(b,c)$ y para morfismos por
     $T(-,c)(f)\coloneqq T(f,c)\coloneqq T(f,1_c)$.
-  \end{itemize}
+  \end{enumerate}
 \end{definition}
 
 Para el caso que nos ocupa, sean $a$, $a'$, $b$ y $b'$ objetos de $\cC$. Para
@@ -567,6 +575,98 @@ son las correspondientes proyecciones.
     $p,q,p',q'$ son las proyecciones.}
   \label{fig:prod-functor}
 \end{figure}
+
+\section{Conservación de propiedades}
+
+Puede ser interesante ver qué propiedades de los objetos y morfismos de una
+categoría son respetadas por funtores y cuáles no, o qué debe cumplir un funtor
+para que respete esa propiedad.
+
+Para ello, una primera observación es que la idea de <<respetar>> una propiedad
+engloba varios conceptos. %  Puede que el funtor conserve una propiedad en un
+% sentido pero no en otro.
+Por ejemplo, un funtor podría llevar monomorfismos a
+monomorfismos, pero que sin embargo no todos los monomorfismos del codominio
+sean imagen de un monomorfismo del dominio, incluso si son imagen de algún otro
+morfismo. Además, sería concebible un funtor para el que todo monomorfismo en su
+codominio fuera imagen de un monomorfismo y, sin embargo, hubiera morfismos que
+no son monomorfismos pero son llevados a uno. Todas estas propiedades de
+preservación son distintas, pero podemos definirlas de forma abstracta.
+
+\begin{definition}
+  Sea $P((o_i)_i,(m_j)_j)$ una propiedad relativa a una serie de
+  objetos $(o_i)_i$ y una serie de morfismos $(m_j)_j$ de una cierta
+  categoría, y sea $T:\cC\to\cD$ un funtor.
+  \begin{enumerate}
+  \item $T$ \conc{preserva} $P$ si, cuando $P((o_i)_i,(m_j)_j)$ se cumple en
+    $\cC$ para ciertos $o_i$ y $m_j$ de $\cC$, entonces
+    $P((T(o_i))_i,(T(m_j))_j)$ se cumple en $\cD$.
+  \item $T$ \conc{refleja} $P$ si, cuando $P((T(o_i))_i,(T(m_j))_j)$ se cumple
+    en $\cD$ para ciertos $o_i$ y $m_j$ de $\cC$, entonces $P((o_i)_i,(m_j)_j)$
+    se cumple en $\cC$.
+  \item $T$ \conc{levanta} $P$ si, cuando $P((p_i)_i,(n_j)_j)$ se cumple en
+    $\cD$ para ciertos $p_i$ y $n_j$ de $\cD$, entonces existen $(o_i)_i$ y
+    $(m_j)_j$ de $\cC$ con cada $T(o_i)=p_i$, cada $T(m_j)=n_j$ y tal que
+    $P((o_i)_i,(m_j)_j)$ se cumple en $\cC$.
+  \end{enumerate}
+\end{definition}
+
+El concepto de funtor, como el de función, es bastante general y por ello no es
+de esperar que haya muchas propiedades respetadas por todos los funtores. Sin
+embargo, algunas propiedades son respetadas por todos o por muchos de ellos,
+como vamos a ver.
+
+\begin{proposition}
+  Los funtores preservan isomorfismos, secciones y retracciones.
+\end{proposition}
+\begin{proof}
+  Sean $T:\cC\to\cD$ un funtor y $f$ y $g$ morfismos de $\cC$ con $g\circ f=1$,
+  entonces $Tg\circ Tf=T(g\circ f)=T1=1$.
+\end{proof}
+
+Un funtor entre dos categorías se puede ver como un funtor entre las categorías
+duales, de modo que si, por ejemplo, todos los funtores fieles, plenos,
+etc. preservan, reflejan o levantan una cierta propiedad, todos esos funtores
+también preservan, reflejan o levantan (respectivamente) la propiedad dual.%  Esto
+% se da para cualquier propiedad de funtores que no varíe al cambiar las
+% categorías dominio y codominio por las duales.
+
+\begin{proposition}
+  Todo funtor fiel y pleno refleja secciones y retracciones.
+\end{proposition}
+\begin{proof}
+  Si $T:\cC\to\cD$ es un funtor fiel y pleno y $f:a\to b$ es un morfismo de
+  $\cC$ tal que $Tf$ es una sección, sea $g':Tb\to Ta$ con $g'\circ Tf=1$, por
+  plenitud existe $g:b\to a$ con $g=Tg'$ y por tanto $Tg\circ Tf=T(g\circ f)=1$,
+  y por fidelidad $g\circ f=1$. Las retracciones son la propiedad dual.
+\end{proof}
+
+Ambas condiciones de esta proposición son necesarias. Por ejemplo, la inclusión
+de monoides aditivos $\sNat\inTo\sInt$ vista como funtor es fiel pero no pleno,
+y el único morfismo de monoides $\sNat\epicTo\bOne$ es pleno pero no fiel, y
+ambos llevan una categoría en que la mayoría de morfismos no son secciones ni
+retracciones (sólo el 0 lo es) a una en que todos los son.
+
+\begin{proposition}
+  Los funtores hom covariantes reflejan monomorfismos y epimorfismos.
+\end{proposition}
+\begin{proof}
+  Si $a$ un objeto de $\cC$ y $f:b\to c$ un morfismo tal que $\hom(a,f)$ es un
+  monomorfismo, si $f\circ h=f\circ k$, entonces $\hom(a,f)(h)=\hom(a,f)(k)$ y
+  por inyectividad $h=k$.
+\end{proof}
+
+% TODO Todo funtor representable refleja monomorfismos y epimorfismos.
+\begin{proposition}
+  Todo funtor fiel refleja monomorfismos y epimorfismos.
+\end{proposition}
+\begin{proof}
+  Sean $T:\cC\to\cD$ un funtor fiel y $f:a\to b$ un morfismo en $\cC$ tal que
+  $Tf$ es un monomorfismo. Si $f\circ h=f\circ k$, entonces
+  $Tf\circ Th=Tf\circ Tk$ y $Th=Tk$, y por fidelidad $h=k$. Los epimorfismos son
+  la propiedad dual.
+\end{proof}
+
 % TODO Preservación de
 % monomorfismos/epimorfismos/secciones/retracciones por funtores,
 % salvo que sea mejor hacerlo en el apartado de límites (JoC 96--103).
