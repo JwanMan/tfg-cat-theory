@@ -807,17 +807,17 @@ factores.
 \begin{figure}
   \centering
   \begin{diagram}
-    \path                    (2,2) node(X){$X$}
-          (0,0) node(A){$A$} (2,0) node(AB){$A\times B$} (4,0) node(B){$B$};
+    \path                    (2,2) node(X){$x$}
+          (0,0) node(A){$a$} (2,0) node(AB){$a\times b$} (4,0) node(B){$b$};
     \draw[->] (AB) -- node[below]{$p$} (A);
     \draw[->] (AB) -- node[below]{$q$} (B);
     \draw[->] (X) -- node[left]{$f$} (A);
     \draw[->] (X) -- node[right]{$g$} (B);
     \draw[->,dotted] (X) -- node{$f\times g$} (AB);
   \end{diagram}
-  \caption{Definición de objeto producto de otros dos objetos. Para cualesquiera
-    $X$, $f$ y $g$, existe un único $f\times g$ de modo que el diagrama
-    conmuta.}
+  \caption[Objeto producto]{Objeto producto de $a$ y $b$. Para
+    cualesquiera $x$, $f$ y $g$, existe un único $f\times g$ de modo
+    que el diagrama conmuta.}
   \label{fig:product}
 \end{figure}
 
@@ -907,17 +907,17 @@ la figura \ref{fig:coproduct}.
 \begin{figure}
   \centering
   \begin{diagram}
-    \path (0,2) node(A){$A$} (2,2) node(AB){$A\times B$} (4,2) node(B){$B$}
-                             (2,0) node(X){$X$};
+    \path (0,2) node(A){$a$} (2,2) node(AB){$a\times b$} (4,2) node(B){$b$}
+                             (2,0) node(X){$x$};
     \draw[->] (A) -- node[above]{$u$} (AB);
     \draw[->] (B) -- node[above]{$v$} (AB);
     \draw[->] (A) -- node[left]{$f$} (X);
     \draw[->] (B) -- node[right]{$g$} (X);
     \draw[->,dotted] (AB) -- node{$f\oplus g$} (X);
   \end{diagram}
-  \caption{Definición de objeto coproducto de otros dos objetos. Para cualesquiera
-    $X$, $f$ y $g$, existe un único $f\oplus g$ de modo que el diagrama
-    conmuta.}
+  \caption[Objeto coproducto]{Objeto coproducto de $a$ y $b$. Para cualesquiera
+    $X$, $f$ y $g$, existe un único $f\oplus g$ de modo que el
+    diagrama conmuta.}
   \label{fig:coproduct}
 \end{figure}
 
@@ -1012,7 +1012,7 @@ siguiente.
     \draw[->] (A.15) -- node[above]{$f$} (B.165);
     \draw[->] (A.345) -- node[below]{$g$} (B.195);
   \end{diagram}
-  \caption{Definición de núcleo $e$ de un par de homomorfismos $f$ y $g$.}
+  \caption[Núcleo de dos homomorfismos]{Núcleo $e$ de un par de homomorfismos $f$ y $g$.}
   \label{fig:equalizer}
 \end{figure}
 
@@ -1137,7 +1137,7 @@ El concepto dual de núcleo es el de conúcleo.
     \draw[<-] (A.165) -- node[above]{$f$} (B.15);
     \draw[<-] (A.195) -- node[below]{$g$} (B.345);
   \end{diagram}
-  \caption{Definición de conúcleo $q$ de un par de homomorfismos $f$ y $g$.}
+  \caption[Conúcleo de dos homomorfismos]{Conúcleo $q$ de un par de homomorfismos $f$ y $g$.}
   \label{fig:coequalizer}
 \end{figure}
 
