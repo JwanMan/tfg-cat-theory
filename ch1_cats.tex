@@ -1,15 +1,13 @@
-Al estudiar distintas ramas de las matemáticas de manera formal es
-inevitable notar que existen ciertos patrones que se repiten. Todas
-empiezan con los axiomas que caracterizan los objetos de estudio, como
-pueden ser los grupos, espacios vectoriales, espacios topológicos,
-variedades, etc., y pese a que estos se definen de forma muy
-diferente, en la mayoría se pueden definir de manera natural conceptos
-como subobjetos, objetos producto u objetos cociente, entre
-otros. Además, estos objetos no se suelen estudiar de forma aislada,
-sino que se estudian funciones entre los objetos que cumplen ciertas
-propiedades, como pueden ser las aplicaciones lineales en el álgebra
-lineal, las aplicaciones continuas en la topología y los homomorfismos
-del álgebra abstracta.
+Al estudiar distintas ramas de las matemáticas de manera formal es inevitable
+notar que existen ciertos patrones que se repiten. Todas empiezan con los
+axiomas que caracterizan los objetos de estudio, como pueden ser los grupos,
+espacios vectoriales, espacios topológicos, variedades, etc., y pese a que estos
+se definen de forma muy diferente, en la mayoría se pueden definir de manera
+natural conceptos como subobjetos, objetos producto u objetos cociente, entre
+otros. Además, estos objetos no se suelen estudiar de forma aislada, sino que se
+estudian funciones entre los objetos que cumplen ciertas propiedades, como
+pueden ser las aplicaciones lineales en el álgebra lineal, las aplicaciones
+continuas en la topología y los homomorfismos del álgebra abstracta.
 
 Estos patrones no son una coincidencia, pues las propiedades generales que
 exhiben son las mismas en todos los casos. Por ejemplo, la clase de funciones
@@ -989,8 +987,8 @@ el objeto 0, entonces podríamos escribir <<$f\circ u=0$>> como
 <<$f\circ u=i_b\circ t_k$>>, pero esta caracterización sólo nos sirve para el
 caso de categorías con cero. En general, podemos notar que $t_k=t_a\circ u$, de
 modo que $u$ <<iguala>> $f$ con $i_b\circ t_a$, y aunque no podemos hablar del
-núcleo de una función, podemos hablar del núcleo de dos funciones en el sentido
-siguiente.
+núcleo de un morfismo, podemos hablar del núcleo de un par de morfismos en el
+sentido siguiente.
 
 \begin{definition}
   Dados dos morfismos $f,g:a\to b$, un morfismo $e:k\to a$ es un \conc{núcleo}
@@ -1013,7 +1011,7 @@ siguiente.
     \draw[->] (A.15) -- node[above]{$f$} (B.165);
     \draw[->] (A.345) -- node[below]{$g$} (B.195);
   \end{diagram}
-  \caption[Núcleo de dos homomorfismos]{Núcleo $e$ de un par de homomorfismos $f$ y $g$.}
+  \caption[Núcleo de dos morfismos]{Núcleo $e$ de un par de morfismos $f$ y $g$.}
   \label{fig:equalizer}
 \end{figure}
 
@@ -1138,7 +1136,7 @@ El concepto dual de núcleo es el de conúcleo.
     \draw[<-] (A.165) -- node[above]{$f$} (B.15);
     \draw[<-] (A.195) -- node[below]{$g$} (B.345);
   \end{diagram}
-  \caption[Conúcleo de dos homomorfismos]{Conúcleo $q$ de un par de homomorfismos $f$ y $g$.}
+  \caption[Conúcleo de dos morfismos]{Conúcleo $q$ de un par de morfismos $f$ y $g$.}
   \label{fig:coequalizer}
 \end{figure}
 
@@ -1220,7 +1218,7 @@ Las siguientes proposiciones son las duales de las vistas para el núcleo.
 \section{Subobjetos y objetos cociente}
 
 En los ejemplos de núcleos y conúcleos que hemos visto, por lo general los
-núcleos son subobjetos del dominio de las funciones involucradas, mientras que
+núcleos son subobjetos del dominio de los morfismos involucrados, mientras que
 los conúcleos son objetos cociente. En teoría de categorías, como las categorías
 no tienen por qué ser conjuntos, resulta difícil definir estos conceptos, y de
 hecho no hay una sóla definición para todos los casos, aunque todas las
