@@ -1,0 +1,117 @@
+Los funtores se pueden usar para modelar diagramas dentro de las
+matemáticas. Podríamos ver un diagrama <<abstracto>> como una categoría cuyos
+objetos y morfismos son los puntos y flechas del diagrama, y una instanciación
+de ese diagrama como un funtor de dicha categoría a la categoría que nos
+interesa. Este capítulo estudia una serie de conceptos que nos permitirán
+razonar sobre propiedades algebraicas en base a diagramas, y se basa
+principalmente en \cite[caps. 11--13]{joyofcats} y \cite[cap. III]{maclane}.
+
+\begin{definition}
+  Una categoría es \conc{finita} si lo son su conjunto de objetos y su conjunto
+  de morfismos.
+\end{definition}
+
+\begin{definition}
+  Un \conc{diagrama} en una categoría $\cC$ es un funtor $D:\cS\to\cC$, y
+  llamamos \conc{esquema} del diagrama a $\cS$. $D$ es \conc{pequeño} o
+  \conc{finito} si lo es $\cS$.
+\end{definition}
+
+\begin{example}
+  Esta definición permite modelar una variedad de situaciones. Por ejemplo:
+  \begin{enumerate}
+  \item Un diagrama con esquema discreto es una familia de objetos.
+  \item Un diagrama con esquema $\bOne$ es un objeto, y uno con esquema $\bDown$
+    es un morfismo.
+  \item Un diagrama con esquema $\bDDown$ es un par de morfismos con dominio y
+    codominio común.
+  \item Un diagrama $S$ cuyo esquema lo forman un punto distinguido $d$, un
+    conjunto de objetos $I$ y una flecha $f_i:d\to i$ para cada $i\in I$ (además
+    de las identidades) es una \conc{fuente}. Llamamos \conc{dominio} de la
+    fuente a $Sd$ y \conc{codominio} a $(Si)_{i\in I}$, y denotamos la fuente
+    como $(Sf_i:Sd\to Si)_{i\in I}$.
+  \item De forma dual, un diagrama $S$ cuyo esquema lo forman un punto
+    distinguido $c$, un conjunto de objetos $I$ y una flecha $g_i:i\to c$ para
+    cada $i\in I$ (además de las identidades) es un \conc{sumidero}. Llamamos
+    \conc{dominio} del sumidero a $(Si)_{i\in I}$ y \conc{codominio} a $Sd$, y
+    denotamos el sumidero como $(Sg_i:Si\to Sc)_{i\in I}$.
+  \end{enumerate}
+\end{example}
+
+\section{Límites}
+
+Podemos expresar muchas relaciones entre objetos mediante diagramas. Por
+ejemplo, un producto de $(a_i)_{i\in I}$ en una categoría $\cC$ es una fuente
+$(p_i:b\to a_i)_{i\in I}$ tal que para cualquier otra fuente
+$(f_i:x\to a_i)_{i\in I}$ existe un único morfismo $g:x\to b$ tal que
+$f_i=p_i\circ g$ para todo $i\in I$. Por su parte, si consideramos el esquema
+$\cS$ de la figura \ref{fig:scheme-equ}, el núcleo de dos morfismos $f$ y $g$ de
+$\cC$ es la imagen de $\tilde e$ por un diagrama $D:\cS\to\cC$ tal que
+$D\tilde f=f$, $D\tilde g=g$ y, para cualquier otro $D':\cS\to\cC$ que cumpla
+esto, existe un único $\overline e:D'k\to Dk$ tal que
+$D'\tilde e=D\tilde e\circ\overline e$. El hecho de que
+$f\circ D\tilde e=g\circ D\tilde e$ se deduce de que el diagrama sólo tiene una
+flecha $k\to b$.
+
+\begin{figure}
+  \centering
+  \begin{diagram}
+    \path (1,{sqrt(3)}) node(K){$k$} (0,0) node(A){$a$} (2,0) node(B){$b$};
+    \draw[->] (K) -- node[left]{$\tilde e$} (A);
+    \draw[->] (A.15) -- node[above]{$\tilde f$} (B.165);
+    \draw[->] (A.345) -- node[below]{$\tilde g$} (B.195);
+    \draw[->] (K) -- (B);
+  \end{diagram}
+  \caption{Esquema del diagrama asociado al núcleo de dos morfismos.}
+  \label{fig:scheme-equ}
+\end{figure}
+
+Las descripciones de esta forma son tediosas y muy parecidas unas a
+otras. Afortunadamente, esta repetición se puede abstraer y usar en
+razonamientos mediante el concepto de límite.
+
+\begin{definition}
+  Un \conc{límite} de un diagrama $D:\cS\to\cC$ es una fuente
+  $(f_i:c\to Di)_{i\in\Ob{S}}$ en $\cC$ tal que:
+  \begin{enumerate}
+  \item Para cada $s:i\to j$ en $\cS$, $f_j = Ds \circ f_i$, es decir, el diagrama
+    \ref{fig:nat-source} conmuta.
+    \begin{figure}
+      \centering
+      \begin{diagram}
+        \path (0.9,2) node(C){$c$} (0,0) node(DI){$Di$} (1.8,0) node(DJ){$Dj$};
+        \draw[->] (C) -- node[left]{$f_i$} (DI);
+        \draw[->] (C) -- node[right]{$f_j$} (DJ);
+        \draw[->] (DI) -- node[below]{$Ds$} (DJ);
+      \end{diagram}
+      \caption[Conmutatividad de fuente respecto a diagrama]{Conmutatividad de
+        una fuente $(f_i)_i$ respecto a un diagrama $D$.}
+      \label{fig:nat-source}
+    \end{figure}
+  \item Para cualquier otra fuente $(g_i:x\to D_i)_{i\in\Ob{s}}$ con esta
+    propiedad, existe un único $s:x\to c$ con $g_i=f_i\circ s$ para cada
+    $i\in\Ob{S}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item El producto de una familia $(a_i)_{i\in I}$ en $\cC$ es el límite de un
+    diagrama $D:I\to\cC$ que a cada objeto del conjunto $I$ visto como categoría
+    discreta le asocia $a_i$.
+  \item El núcleo de un par de morfismos $f,g:a\to b$ en $\cC$ es el límite de
+    un diagrama $D:\bDDown\to\cC$ cuyo par de morfismos no identidad va a parar
+    a $f$ y $g$. Esta situación se muestra en la figura \ref{fig:equ-diagram}.
+    \begin{figure}
+      \centering
+      % TODO ver mi pizarra
+      \caption{Límite de un diagrama $\bDDown\to\cC$}
+      \label{fig:equ-diagram}
+    \end{figure}
+  \end{enumerate}
+\end{example}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
