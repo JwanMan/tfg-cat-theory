@@ -202,60 +202,13 @@ diagrama identidad.
 
 \section{Productos y coproductos fibrados}
 
-Cabe preguntarse si la unión y la intersección de conjuntos se pueden
-generalizar en términos categóricos. En el caso general esto parece improbable,
-pues la visión categórica de la teoría de conjuntos se abstrae de los elementos
-concretos. Sin embargo, la unión e intersección de conjuntos arbitrarios es poco
-frecuente, y en general estas operaciones se usan entre subconjuntos de un mismo
-conjunto base o universo de discurso. En este caso podemos definir la unión y
-la intersección según propiedades de subobjetos.
-
-\begin{definition}
-  Sean $M$ una colección de monomorfismos, $\{(a_i,m_i)\}_{i\in I}$ una
-  colección de $M$-subobjetos de un objeto $b$ y $(c,n)$ un $M$-subobjeto de
-  $b$.
-  \begin{enumerate}
-  \item $(c,n)$ es una \conc{intersección} de los $(a_i,m_i)$ si
-    $(c,n)\leq(a_i,m_i)$ para todo $i\in I$ y, para cualquier $h:d\to b$ para el
-    que existen $(g_i:d\to a_i)_{i\in I}$ con $h=m_i\circ g_i$, existe
-    $g':d\to c$ con $h=n\circ g'$.
-  \item $(c,n)$ es una \conc{unión} de los $(a_i,m_i)$ si $(a_i,m_i)\leq(c,n)$
-    para todo $i\in I$ y, para cualquier $h:d\to b$ para el que existen 
-    $(c',n')$ de $b$
-    con esta propiedad, $(c,n)\leq(c',n')$.
-  \end{enumerate}
-\end{definition}
-
-En general, $M$ será la clase de todos los monomorfismos de la categoría, por lo
-que la unión e intersección serán únicas salvo isomorfismo.
-
-\begin{example}\;
-  \begin{enumerate}
-  \item La intersección de una familia vacía de subobjetos es el objeto
-    total. Si existe un objeto inicial y todos los morfismos que parten de él
-    son monomorfismos, entonces este es la unión de una familia vacía.
-  \item En $\bSet$, la unión e intersección de subobjetos coinciden
-    con las habituales, salvo isomorfismo.
-    \begin{proof}
-      Sean $\{A_i\}_{i\in I}$ un conjunto de subobjetos en $\bSet$ del conjunto
-      $B$, que podemos suponer por isomorfismo que son subconjuntos de $B$. Para
-      la intersección, si $C$ es un conjunto y $g:C\to B$ y $f_i:C\to A_i$ son
-      monomorfismos con $g=u_i\circ f_i$ para cada $i$, siendo $u_i:A_i\to B$ la
-      inclusión, entonces $\Img{g}\subseteq A_i$ para cada $i$ y por tanto
-      podemos tomar la restricción $g:C\to\bigcap_{i\in I}A_i$. Para la unión,
-      si $C$ es un conjunto y $f_i:A_i\to C$ y $g:C\to B$ son monomorfismos con
-      $g\circ f_i=u_i$ para cada $i$, para $i,j\in I$ y $x\in A_i\cap A_j$ es
-      $g(f_i(x))=x=g(f_j(x))$ y por tanto $f_i(x)=f_j(x)$, con lo que podemos
-      definir el monomorfismo $\hat f:\bigcup_{i\in I}A_i\to C$ de modo que
-      $f(x)=f_i(x)$ para cada $x\in A_i$ y cada $i\in I$ y se cumple que
-      $g\circ\hat f$ es la inclusión.
-    \end{proof}
-  \item En $\bVec$, la intersección es la intersección de subespacios y la unión
-    es la suma de subespacios.
-  \end{enumerate}
-\end{example}
-
-La intersección de dos objetos se puede ver como un límite.
+Los límites y colímites, al ser fuentes y sumideros, respectivamente, se pueden
+ver como diagramas que pueden tener a su vez un límite y un colímite. Claramente
+el límite de un límite es el propio límite y el colímite de un colímite es el
+propio colímite, pues de hecho el límite de una fuente es la propia fuente y el
+colímite de un sumidero es el propio sumidero. Sin embargo, puede ser
+interesante estudiar el límite de un sumidero o el colímite de una
+fuente. Empezamos con el primer caso, y vemos algunas definiciones.
 
 \begin{definition}\;
   \begin{enumerate}
@@ -263,32 +216,13 @@ La intersección de dos objetos se puede ver como un límite.
     sumidero.
   \item Un \conc{producto fibrado} es un límite de un diagrama con esquema
     ($\bullet\to\bullet\leftarrow\bullet$), es decir, de un sumidero de tamaño
-    2. Si los dos morfismos no identidad del esquema van a parar a $f:a\to c$ y
-    $g:b\to c$, llamamos producto fibrado de $a$ y $b$ por $c$ (respecto a $f$ y
-    $g$), $a\times_cb$, a dicho límite.
+    2.
+  \item Dados dos morfismos $f:a\to c$ y $g:b\to c$, llamamos producto fibrado
+    de $a$ y $b$ por $c$ (respecto de $f$ y $g$), $a\times_c b$, o simplemente
+    producto fibrado de $f$ y $g$, al producto fibrado del sumidero determinado
+    por $f$ y $g$.
   \end{enumerate}
 \end{definition}
-
-\begin{proposition}
-  Dados una familia $\{(a_i,m_i)\}_{i\in I}$ de subobjetos de un objeto $c$ y un
-  morfismo $n:b\to c$, $(b,n)$ es una intersección de los $(a_i,m_i)$ si y sólo
-  si $b$ es producto fibrado múltiple de $(m_i:a_i\to c)_i$ y $n$ es el morfismo
-  $b\to c$ asociado.
-\end{proposition}
-\begin{proof}
-  Supongamos que el sumidero tiene producto fibrado múltiple
-  $(f_i:b\to a_i)_{i\in I\sqcup\{*\}}$ con $f_*=n:b\to c$. Si $g,h:d\to b$
-  cumplen $n\circ g=n\circ h$, entonces
-  $m_i\circ f_i\circ g=m_i\circ f_i\circ g$ y por tanto $f_i\circ g=f_i\circ h$,
-  y por unicidad al factorizar por un límite es $g=h$, de modo que $n$ es un
-  monomorfismo y $(b,n)$ es una intersección. Recíprocamente, si $(b,n)$ es
-  intersección de los $(a_i,m_i)$ y, para cada $i$, $f_i:b\to a_i$ es un
-  monomorfismo con $n=m_i\circ f_i$, entonces %TODO
-\end{proof}
-
-Los productos fibrados se suelen representar con un cuadrado como el de la
-figura \ref{fig:pullback}, pues la flecha $d\to c$ es superflua. Este cuadrado
-se llama \conc{cuadrado cartesiano}.
 
 \begin{figure}
   \centering
@@ -307,9 +241,205 @@ se llama \conc{cuadrado cartesiano}.
   \label{fig:pullback}
 \end{figure}
 
-% TODO Ejemplos de productos fibrados (ver Riehl p.79 y Wikipedia)
+Al representar gráficamente un producto fibrado, la flecha de dicho producto al
+codominio del sumidero es superflua, por lo que solemos omitirla. El resultado
+es un cuadrado como el de la figura \ref{fig:pullback}, llamado \conc{cuadrado
+  cartesiano}. Veamos algunos ejemplos.
 
-\section{Completitud y cocompletitud}
+\pagebreak
+\begin{example}\;
+  \begin{enumerate}
+  \item En $\bSet$, el producto fibrado de dos funciones $f:A\to C$ y $g:B\to C$
+    es $A\times_C B = \{(a,b) \in A \times B \mid f(a)=g(b) \}$ junto con las
+    correspondientes restricciones al dominio de las proyecciones $A\times B\to A$
+    y $A\times B\to B$.
+  \item En una categoría fina, el producto fibrado coincide con el producto
+    convencional.
+  \item En un constructo con un objeto libre $1$ sobre el conjunto $\{*\}$, si
+    $e:1\to c$ es un elemento de $c$ y $f:b\to c$ es otro morfismo, llamamos
+    \conc{fibra} de $f$ sobre $e$ al producto fibrado de $e$ y
+    $f$.\cite[p. 79]{riehl} En $\bSet$, esta fibra coincide con la imagen
+    inversa $f^{-1}(e)$. En $\bTop$, si $\rho:\sReal\to\sCirc^1$ es la
+    aplicación $t\mapsto\E^{2\pi\I t}$, la fibra de $\rho$ sobre un punto de
+    $\sCirc^1$ es $\sInt$ con la inclusión $\sInt\inTo\sReal$.
+  \end{enumerate}
+\end{example}
+
+El primer ejemplo muestra una relación entre los conceptos de producto fibrado,
+producto y núcleo, mostrando que en $\bSet$ el primero se puede definir en
+términos de los otros dos. Esto no es casualidad, sino que de hecho ocurre en
+todas las categorías en las que dichos límites existen.
+
+\begin{proposition}
+  Sean $f:a\to c$ y $g:b\to c$ morfismos, $p_1:a\times b\epicTo a$ y
+  $p_2:a\times b\epicTo b$ proyecciones canónicas y $e:k\monicTo a\times b$ un
+  núcleo de $f\circ p_1$ y $g\circ p_2$, entonces $p_1\circ e:k\to a$ y
+  $p_2\circ e:k\to b$ forman un producto fibrado de $f$ y $g$ (figura
+  \ref{fig:pullback-canon}).
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,0) node(B){$b$} (3,0) node(C){$c$} (3,3) node(A){$a$};
+      \path (1.5,1.5) node(AB){$a\times b$} (0,3) node(K){$k$};
+      \draw[->] (A) -- node[right]{$f$} (C);
+      \draw[->] (B) -- node[below]{$g$} (C);
+      \draw[->] (K) -- node[below]{$e$} (AB);
+      \draw[->] (AB) -- node[below]{$p_1$} (A);
+      \draw[->] (AB) -- node[right]{$p_2$} (B);
+      \draw[->] (K) -- node[above]{$p_1\circ e$} (A);
+      \draw[->] (K) -- node[left]{$p_2\circ e$} (B);
+    \end{diagram}
+    \caption{Construcción canónica de productos fibrados}
+    \label{fig:pullback-canon}
+  \end{figure}
+\end{proposition}
+\begin{proof}
+  Obviamente el cuadrado conmuta, y si $r:p\to b$ y $s:p\to a$ son tales que
+  $f\circ s=g\circ r$, entonces $f\circ p_1\circ(s,r)=g\circ p_2\circ(s,r)$ y
+  existe un único $h:p\to k$ tal que $(s,r)=e\circ h$ y así
+  $s=(p_1\circ e)\circ h$ y $r=(p_2\circ e)\circ h$.
+\end{proof}
+
+\begin{example}
+  La anterior proposición caracteriza el producto fibrado en la mayoría de
+  categorías como un subobjeto regular de un objeto producto. Así:
+  \begin{enumerate}
+  \item En $\bRing$, $\bGrp$, $R\dash\bMod$ y $\bTop$, dados dos homomorfismos
+    $f:A\to C$ y $g:B\to C$, el producto fibrado de $A$ y $B$ por $C$ es el
+    subanillo, subgrupo, submódulo o subespacio topológico, respectivamente, de
+    $A\times B$ dado por $A\times_C B=\{ (a,b)\in A\times B\mid f(a)=g(b) \}$.
+  \item En $\bAb$, los homomorfismos $\sInt\to\sInt$ se identifican con los
+    enteros. Entonces el producto fibrado de dos enteros $m$ y $n$ está formado
+    por pares de enteros $(x,y)\in\sInt\times\sInt$ con $xn=ym$. Si $m,n\neq0$,
+    esto es isomorfo a $\sInt$ y los morfismos del producto son enteros $a$ y
+    $b$ tales que $ma=nb$ es el mínimo común múltiplo de $a$ y $b$.
+
+    Si $m$ es 0 pero $n$ no, el producto fibrado es $\sInt$, con el morfismo
+    paralelo a $m$ igual a 0 y el otro igual a 1. Si $n$ es 0 pero $m$ no es
+    análogo, y si ambos son 0 el producto fibrado es el producto convencional.
+    Esto encaja con la siguiente proposición.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}
+  El producto fibrado de dos objetos respecto a un objeto terminal es el
+  producto de dichos objetos.
+\end{proposition}
+
+Los productos fibrados se pueden usar para definir intersecciones. La
+intersección de dos objetos cualesquiera no tiene una definición general en
+teoría de categorías, pues en principio, en un constructo, los elementos de un
+objeto son intercambiables. Sin embargo, sí que se puede definir la intersección
+entre subobjetos del mismo objeto. En $\bSet$, el producto fibrado de un par de
+inclusiones es la intersección de los dominios, lo cual podemos generalizar.
+
+\begin{definition}
+  La \conc{intersección} de una familia $\{(a_i,m_i)\}_{i\in I}$ de subobjetos
+  de un objeto $c$ es el par $(b,n)$ formado por el dominio $b$ del producto
+  fibrado múltiple de los $m_i$ y el morfismo $n:b\to c$ de dicho producto.
+\end{definition}
+
+\begin{proposition}
+  La intersección de una familia de subobjetos es un subobjeto.
+\end{proposition}
+\begin{proof}
+  Sea $(b,n)$ una intersección de la familia $\{(a_i,m_i)\}_{i\in I}$ de
+  subobjetos de $c$ y sea $(f_i:b\to a_i)_{i\in I\sqcup\{*\}}$ el producto
+  fibrado correspondiente, con $f_*=n$, para $g,h:d\to b$ con
+  $n\circ g=n\circ h$, $m_i\circ f_i\circ g=m_i\circ f_i\circ h$ para cada
+  $i\in I$ y por tanto $f_i\circ g=f_i\circ h$, y por la unicidad en la
+  definición de límite es $g=h$, con lo que $n$ es un monomorfismo.
+\end{proof}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item La intersección de una familia vacía de subobjetos es el objeto
+    total.
+  \item La intersección en $\bSet$, $\bTop$, $\bRing$, $K\dash\bMod$ y
+    $(\Omega,E)\dash\bAlg$ se corresponde con la intersección de conjuntos.
+  \item En una categoría fina, las intersecciones son los productos.
+  \end{enumerate}
+\end{example}
+
+El concepto dual al producto fibrado es el coproducto fibrado.
+
+\begin{definition}\;
+  \begin{enumerate}
+  \item Un \conc{coproducto fibrado múltiple} es un colímite de una fuente.
+  \item Un \conc{coproducto fibrado} es un colímite de un diagrama con esquema
+    ($\bullet\leftarrow\bullet\to\bullet$), es decir, de una fuente de tamaño 2.
+  \item Dados dos morfismos $f:d\to a$ y $g:d\to b$, llamamos coproducto fibrado
+    de $a$ y $b$ por $d$ (respecto de $f$ y $g$), $a\oplus_d b$, o simplemente
+    coproducto fibrado de $f$ y $g$, al coproducto fibrado de la fuente
+    determinada por $f$ y $g$.
+  \end{enumerate}
+\end{definition}
+
+Es común representar el coproducto fibrado con un cuadrado cartesiano como el de
+la figura \ref{fig:pushout}.
+
+\begin{figure}
+  \centering
+  \begin{diagram}
+    \path (0,0) node(A){$a$} (-2,-2) node(B){$b$} (-2,0) node(C){$d$}
+          (0,-2) node(D){$a\oplus_cb$} (1,-3) node(X){$x$};
+    \draw[<-] (A) -- node[above]{$f$} (C);
+    \draw[<-] (B) -- node[left]{$g$} (C);
+    \draw[<-] (D) -- node[left]{$\overline g$} (A);
+    \draw[<-] (D) -- node[above]{$\overline f$} (B);
+    \draw[<-] (X) -- (A);
+    \draw[<-] (X) -- (B);
+    \draw[<-,dotted] (X) -- (D);
+  \end{diagram}
+  \caption[Coproducto fibrado]{Coproducto fibrado de $a$ y $b$ respecto a $f$ y $g$}
+  \label{fig:pushout}
+\end{figure}
+
+\begin{proposition}
+  Sean $f:d\to a$ y $g:d\to b$ morfismos, $u_1:a\monicTo a\oplus b$ y
+  $u_2:b\monicTo a\oplus b$ inclusiones canónicas y $c:a\oplus b\epicTo q$ un
+  conúcleo de $u_1\circ f$ y $u_2\circ g$, entonces $c\circ u_1:a\to q$ y
+  $c\circ u_2:b\to q$ forman un coproducto fibrado de $f$ y $g$ (figura
+  \ref{fig:pushout-canon}).
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,0) node(B){$b$} (-3,0) node(C){$d$} (-3,-3) node(A){$a$};
+      \path (-1.5,-1.5) node(AB){$a\oplus b$} (0,-3) node(K){$q$};
+      \draw[->] (A) -- node[left]{$f$} (C);
+      \draw[->] (B) -- node[above]{$g$} (C);
+      \draw[->] (K) -- node[above]{$c$} (AB);
+      \draw[->] (AB) -- node[above]{$u_1$} (A);
+      \draw[->] (AB) -- node[left]{$u_2$} (B);
+      \draw[->] (K) -- node[below]{$u_1\circ c$} (A);
+      \draw[->] (K) -- node[right]{$u_2\circ c$} (B);
+    \end{diagram}
+    \caption{Construcción canónica de coproductos fibrados}
+    \label{fig:pushout-canon}
+  \end{figure}
+\end{proposition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item En $\bSet$, dadas dos funciones $f:D\to A$ y $g:D\to B$, el coproducto
+    fibrado de $A$ y $B$ por $D$ es el conjunto cociente de $A\sqcup B$ por la
+    menor relación de equivalencia que identifica $f(d)$ con $g(d)$ para cada
+    $d\in D$.
+  \item En $\bRing$, $\bGrp$, $R\dash\bMod$ y $\bTop$, el coproducto se obtiene
+    de manera similar.
+  \item En una categoría fina, un coproducto fibrado es un coproducto
+    convencional.
+  \item El concepto dual de la intersección es el de \conc{cointersección} de
+    objetos cociente. Específicamente, en $\bSet$, si $(\sim_i)_{i\in I}$ son
+    relaciones de equivalencia en un conjunto $A$, la cointersección de los
+    conjuntos cociente $(\frac{A}{\sim_i})_{i\in I}$ (con las correspondientes
+    proyecciones canónicas) es el conjunto cociente de $A$ por la menor relación
+    de equivalencia que contiene a $\bigcup_{i\in I}\sim_i$. La cointersección
+    de una familia vacía de objetos cociente es el objeto original.
+  \end{enumerate}
+\end{example}
+
+\section{Completitud}
 
 Hemos visto que los límites y colímites, cuando existen, son únicos, pero
 todavía no hemos estudiado su existencia. Sabemos que esta depende del caso; por
@@ -321,14 +451,127 @@ límites de diagramas arbitrarios es una tarea excesivamente compleja, pero de
 hecho esta se puede reducir a casos familiares, como veremos a continuación.
 
 \begin{definition}
-  Una categoría $\cC$ \conc{tiene límites} o es \conc{completa} si todos los
-  diagramas pequeños en $\cC$ tienen límite. $\cC$ \conc{tiene productos} si
-  todas las familias pequeñas de objetos de $\cC$ tienen producto, y \conc{tiene
-    núcleos} si todo par de morfismos con dominio y codominio común tiene un
-  núcleo.
+  Sea $\cC$ una categoría:
+  \begin{enumerate}
+  \item $\cC$ \conc{tiene límites} (\emph{finitos}) o es (\emph{finitamente})
+    \conc{completa} si todos los diagramas pequeños (finitos) en $\cC$ tienen
+    límite.
+  \item $\cC$ \conc{tiene productos} (\emph{finitos}) si todas las familias
+    pequeñas (finitas) de objetos de $\cC$ tienen producto.
+  \item $\cC$ \conc{tiene núcleos} si todo par de morfismos con el mismo dominio
+    y codominio tiene un núcleo.
+  \item $\cC$ \conc{tiene productos fibrados} si todo par de morfismos con el
+    mismo codominio tiene un producto fibrado.
+  \item $\cC$ \conc{tiene intersecciones} (\emph{finitas}) si toda familia
+    pequeña (finita) de subobjetos de un mismo objeto de $\cC$ tiene intersección.
+  \end{enumerate}
 \end{definition}
 
-% TODO Primeros dos teoremas del tema 12 de Joy of Cats
+\begin{theorem}
+  Para una categoría $\cC$, son equivalentes:
+  \begin{enumerate}
+  \item \label{enu:lim-complete} $\cC$ es completa.
+  \item \label{enu:lim-prodint} $\cC$ tiene productos e intersecciones finitas.
+  \item \label{enu:lim-prodeq} $\cC$ tiene productos y núcleos.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  (\ref{enu:lim-complete})$\implies$(\ref{enu:lim-prodint}) es obvio.
+
+  Veamos (\ref{enu:lim-prodint})$\implies$(\ref{enu:lim-prodeq}). Si $\cC$ tiene
+  productos e intersecciones finitas, sean $f,g:a\to b$, existe $a\times b$ y
+  $(a,(1_a,f))$ y $(a,(1_a,g))$ son subobjetos de $a\times b$ con una cierta
+  intersección $(k,n)$. Sean entonces $p_1:a\times b\to a$ y
+  $p_2:a\times b\to b$ las proyecciones canónicas y $e_1,e_2:k\to a$ tales que
+  $n=(1_a,f)\circ e_1=(1_a,g)\circ e_2$, y queremos ver que $e_1=p_1\circ n=e_2$
+  es un núcleo de $f$ y $g$. Pero $f\circ e_1=p_2\circ n=g\circ e_2=g\circ e_1$,
+  y si $e':k'\to a$ cumple $f\circ e'=g\circ e'$, entonces es fácil ver que
+  $(1_a,f)\circ e'=(1_a,g)\circ e'$, y por la definición de intersección existe
+  un único $h:k'\to k$ con $e'=e_1\circ h$.
+
+  Queda por probar (\ref{enu:lim-prodeq})$\implies$\ref{enu:lim-complete}. Si
+  $D:\cS\to\cC$ un diagrama pequeño y $\cC$ tiene productos y núcleos, existen
+  los productos $(p_j:O\coloneqq\prod_{i\in\Ob{\cS}}Di\to Dj)_{j\in\Ob{\cS}}$ y
+  $(\pi_s:C\coloneqq\prod_{t\in\Mor{\cS}}D(\cod t)\to D(\cod
+  s))_{s\in\Mor{\cS}}$. Además, si tomamos
+  $p_{\cod t},Dt\circ p_{\dom t}:O\to D(\cod t)$ para cada $t\in\Mor{\cS}$, el
+  par de morfismos
+  $\hat c\coloneqq(p_{\cod t})_{t\in\Mor{\cS}},\hat d\coloneqq(Dt\circ p_{\dom
+    t})_{t\in\Mor{\cS}}:O\to M$ tiene un núcleo $e:k\to O$, y queremos ver que
+  $(p_i\circ e:E\to Di)_{i\in\Ob{\cS}}$ es límite de $D$. En primer lugar, para
+  cada $s:i\to j$ en $\cS$,
+  $p_i\circ e=p_{\cod s}\circ e=\pi_s\circ\hat c\circ e=\pi_s\circ\hat d\circ
+  e=Ds\circ p_{\dom t}\circ e=Ds\circ(p_i\circ e)$. En segundo lugar, si
+  $(f_i:x\to Di)_{i\in\Ob{\cS}}$ es otra fuente tal que $f_j=Ds\circ f_i$ para
+  todo $s:i\to j$ en $\cS$, sea $\hat f\coloneqq(f_i)_{i\in\Ob{\cS}}:x\to O$,
+  para $s:i\to j$ en $\cS$,
+  $\pi_s\circ\hat c\circ\hat f=p_j\circ\hat f=f_j=Ds\circ f_i=Ds\circ
+  p_i\circ\hat f=\pi_s\circ\hat d\circ\hat f$, y como esto se da para todo $s$,
+  por definición de producto, $\hat c\circ\hat f=\hat d\circ\hat f$, pero por
+  definición de núcleo, existe un único $g:x\to k$ con $\hat f=e\circ g$, de
+  modo que $f_i=p_i\circ e\circ g$ para cada $i$ y $g$ es el único morfismo con
+  esta propiedad.
+\end{proof}
+
+Para el caso finito tenemos una propiedad similar.
+
+\begin{theorem}
+  Para una categoría $\cC$, son equivalentes:
+  \begin{enumerate}
+  \item \label{enu:flim-comp} $\cC$ es finitamente completa.
+  \item \label{enu:flim-intr} $\cC$ tiene productos finitos e intersecciones
+    finitas.
+  \item \label{enu:flim-kern} $\cC$ tiene productos finitos y núcleos.
+  \item \label{enu:flim-pull} $\cC$ tiene productos fibrados y un objeto
+    terminal.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  (\ref{enu:flim-comp})$\iff$(\ref{enu:flim-intr})$\iff$(\ref{enu:flim-kern}) se
+  prueba como en el teorema anterior, y
+  (\ref{enu:flim-comp})$\implies$(\ref{enu:flim-pull}) es obvio usando que un
+  objeto terminal es un límite de un diagrama vacío.
+
+  Queda ver (\ref{enu:flim-pull})$\implies$(\ref{enu:flim-intr}), pero un
+  producto de una familia vacía es un objeto terminal, los de una unipuntual
+  siempre existen y los de dos objetos son productos fibrados respecto a un
+  objeto terminal, y basta usar la asociatividad del producto. Además, una
+  intersección de una familia vacía es un morfismo identidad, la de un sólo
+  subobjeto es el propio subobjeto, la de dos subobjetos es un producto fibrado
+  y es fácil ver que, si $(a_1,m_1),\dots,(a_n,m_n)$ son subobjetos de $c$ con
+  $n>2$, $(b,q)$ es intersección de $(a_1,m_1),\dots,(a_{n-1},m_{n-1})$ y
+  $(b',q')$ es intersección de $(b,q)$ y $(a_n,m_n)$, entonces $(b',q')$ es
+  intersección de $(a_1,m_1),\dots,(a_n,m_n)$.
+\end{proof}
+
+El dual de una categoría completa es una categoría \emph{cocompleta}, y
+análogamente se define tener colímites, coproductos, conúcleos, etc.
+
+\begin{example}\;
+  \begin{enumerate}
+  \item Las categorías $\bSet$, $R\dash\bMod$, $\bTop$, $\bOrd$ y $\bGrp$ tienen
+    productos y núcleos, por lo que son completas.
+  \item Un conjunto pequeño parcialmente ordenado visto como categoría es
+    completo si y sólo si es un retículo completo, si y sólo si es cocompleto.
+    \begin{proof}
+      Sea $(C,\leq)$ este conjunto. Claramente, si $(C,\leq)$ es un retículo
+      completo, es una categoría completa y cocompleta, pues tiene productos y
+      coproductos (ínfimos y supremos) y, como toda categoría fina, tiene
+      núcleos y conúcleos. Supongamos que $(C,\leq)$ es una categoría completa,
+      y queremos ver que es un retículo completo. Si $S\subseteq C$ es no vacío,
+      $S$ tiene un ínfimo (el producto de los objetos). Ahora bien, sea
+      $X\subseteq C$ el conjunto de cotas superiores de $S$, $X$ no es vacío
+      porque contiene al máximo de $C$ (el objeto terminal), por lo que tiene un
+      ínfimo $p$, pero para $s\in S$, $s\leq x$ para todo $x\in X$ y, por
+      definición de ínfimo, $s\leq p$, de modo que $p$ es una cota superior de
+      $S$ y es la menor de ellas, por lo que es un supremo, y así $C$ es un
+      retículo completo. Análogamente, si $C$ es una categoría cocompleta,
+      también es un retículo completo.
+    \end{proof}
+  \item La subcategoría de $\bSet$ de los conjuntos finitos es finitamente
+    completa y cocompleta, pero no es completa ni cocompleta.
+  \end{enumerate}
+\end{example}
 
 %%% Local Variables:
 %%% mode: latex

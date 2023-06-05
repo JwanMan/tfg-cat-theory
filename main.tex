@@ -20,6 +20,7 @@
 \usepackage{subcaption}
 \usepackage{tikz}
 \usepackage{float}
+\usepackage{hyperref}
 
 \newenvironment{diagram}{\begin{tikzpicture}\selectlanguage{english}}{\end{tikzpicture}}
 
@@ -30,6 +31,7 @@
 
 % Theorem styles
 \newtheorem{proposition}{Proposición}[chapter]
+\newtheorem{theorem}[proposition]{Teorema}
 \newtheorem{corollary}[proposition]{Corolario}
 \theoremstyle{definition}
 \newtheorem{definition}[proposition]{Definición}
@@ -38,6 +40,8 @@
 \newtheorem{example}[proposition]{Ejemplo}
 
 % Math macros
+\newcommand{\E}{\text{e}}
+\newcommand{\I}{\text{i}}
 \newcommand{\dash}{\text{-}}
 \newcommand{\dCat}[2]{\newcommand{#1}{{\bf #2}}}
 \newcommand{\conc}[1]{\emph{#1}}
