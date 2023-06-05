@@ -6,6 +6,8 @@ interesa. Este capítulo estudia una serie de conceptos que nos permitirán
 razonar sobre propiedades algebraicas en base a diagramas, y se basa
 principalmente en \cite[caps. 11--13]{joyofcats} y \cite[cap. III]{maclane}.
 
+\section{Diagramas}
+
 \begin{definition}
   Una categoría es \conc{finita} si lo son su conjunto de objetos y su conjunto
   de morfismos.
@@ -72,7 +74,7 @@ razonamientos mediante el concepto de límite.
 
 \begin{definition}
   Un \conc{límite} de un diagrama $D:\cS\to\cC$ es una fuente
-  $(f_i:c\to Di)_{i\in\Ob{S}}$ en $\cC$ tal que:
+  $(f_i:d\to Di)_{i\in\Ob{\cS}}$ en $\cC$ tal que:
   \begin{enumerate}
   \item Para cada $s:i\to j$ en $\cS$, $f_j = Ds \circ f_i$, es decir, el diagrama
     \ref{fig:nat-source} conmuta.
@@ -88,9 +90,9 @@ razonamientos mediante el concepto de límite.
         una fuente $(f_i)_i$ respecto a un diagrama $D$.}
       \label{fig:nat-source}
     \end{figure}
-  \item Para cualquier otra fuente $(g_i:x\to D_i)_{i\in\Ob{s}}$ con esta
-    propiedad, existe un único $s:x\to c$ con $g_i=f_i\circ s$ para cada
-    $i\in\Ob{S}$.
+  \item Para cualquier otra fuente $(g_i:x\to Di)_{i\in\Ob{\cS}}$ con esta
+    propiedad, existe un único $s:x\to d$ con $g_i=f_i\circ s$ para cada
+    $i\in\Ob{\cS}$.
   \end{enumerate}
 \end{definition}
 
@@ -100,16 +102,233 @@ razonamientos mediante el concepto de límite.
     diagrama $D:I\to\cC$ que a cada objeto del conjunto $I$ visto como categoría
     discreta le asocia $a_i$.
   \item El núcleo de un par de morfismos $f,g:a\to b$ en $\cC$ es el límite de
-    un diagrama $D:\bDDown\to\cC$ cuyo par de morfismos no identidad va a parar
-    a $f$ y $g$. Esta situación se muestra en la figura \ref{fig:equ-diagram}.
+    un diagrama $D:\bDDown\to\cC$ cuyos dos morfismos no identidad van a parar a
+    $f$ y $g$, o más precisamente es el morfismo de este límite que va a parar a
+    $a$. Esta situación se muestra en la figura \ref{fig:equ-diagram}.
     \begin{figure}
       \centering
-      % TODO ver mi pizarra
+      \begin{diagram}[scale=1.5]
+        \path (0,0) node(A){$a$} (2,0) node(B){$b$}
+              (1,{sqrt(3)/2}) node(K){$k$} (1,{1.5*sqrt(3)}) node(KP){$k'$};
+        \draw[->] (A.15) -- node[above]{$f$} (B.165);
+        \draw[->] (A.345) -- node[below]{$g$} (B.195);
+        \draw[->] (K) -- node[above]{$e$} (A);
+        \draw[->] (K) -- (B);
+        \draw[->] (KP) -- node[left]{$e'$} (A);
+        \draw[->] (KP) -- (B);
+        \draw[->,dotted] (KP) -- node[left]{$\tilde e$} (K);
+      \end{diagram}
       \caption{Límite de un diagrama $\bDDown\to\cC$}
       \label{fig:equ-diagram}
     \end{figure}
+
+    Si en vez de dos flechas tenemos un número arbitrario de flechas hablamos de
+    \conc{multi-núcleos}.
+  \item Una fuente $(f_c:s\to c)_{c\in\Ob{\cC}}$ es un límite del diagrama
+    identidad $1_\cC:\cC\to\cC$ si y sólo si $s$ es un objeto inicial de $\cC$.
+    \begin{proof}
+      Si $s$ es inicial, $(f_c)_c$ conmuta respecto al diagrama identidad y,
+      para cualquier otra fuente $(g_c:t\to c)_{c\in\Ob{\cC}}$ que también
+      conmuta y cada objeto $c$, $g_c=f_c\circ g_s$. Recíprocamente, si
+      $(f_c)_c$ es un límite del diagrama identidad y $h:s\to c$ un morfismo
+      arbitrario, $h\circ f_s=f_c$ y en particular
+      $f_c\circ f_s=f_c=f_c\circ 1_s$, con lo que tanto $f_s$ como $1_s$ llevan
+      la fuente $(f_c)_c$ a $(f_c)_c$ y, por la unicidad en la definición de
+      límite, $f_s=1_s$, de modo que $h=f_c$ y $s$ es inicial.
+    \end{proof}
+  \item Si $D:\cS\to\cC$ es un diagrama y $s\in\Ob{\cS}$ es inicial, entonces
+    $D$ tiene límite $(Ds\to Di)_{i\in\Ob{\cS}}$.
   \end{enumerate}
 \end{example}
+
+\begin{proposition}
+  El límite es esencialmente único, es decir, si $(f_i:d\to Di)_i$ es un límite
+  de un diagrama $D:\cS\to\cC$, el resto de límites son precisamente las fuentes
+  $(f_i\circ h:b\to Di)_i$ donde $h:b\to d$ es un isomorfismo.
+\end{proposition}
+\begin{proof}
+  Es fácil ver que las fuentes de esta forma son límites de $D$. Para el
+  recíproco, si $(g_i:b\to Di)_i$ es otro límite de $D$, existe $h:b\to d$ con
+  cada $g_i=f_i\circ h$ y $k:d\to b$ con cada $f_i=g_i\circ k$, pero entonces
+  cada $f_i=f_i\circ h\circ k=f_i\circ 1_d$ y, por la unicidad en la definición
+  de límite, $h\circ k=1_d$, y análogamente $k\circ h=1_b$, luego $h$ es un
+  isomorfismo.
+\end{proof}
+
+\section{Colímites}
+
+El concepto dual al de límite es el de colímite.
+
+\begin{definition}
+  Un sumidero $(g_i: Di\to c)_{i\in\Ob{\cS}}$ es un \conc{colímite} de un
+  diagrama $D:\cS\to\cC$ si:
+  \begin{enumerate}
+  \item Para cada $s:i\to j$ en $\cS$, $g_j=g_i\circ Ds$.
+  \item Para cualquier otro sumidero $(h_i:Di\to x)_{i\in\Ob{\cS}}$ con esta
+    propiedad, existe un único $s:c\to x$ con $h_i=s\circ g_i$ para cada
+    $i\in\Ob{\cS}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  \begin{enumerate}
+  \item El coproducto de una familia $(a_i)_{i\in I}$ en $\cC$ es el colímite de
+    un diagrama $D:I\to\cC$ que a cada objeto del conjunto $I$ visto como
+    categoría discreta le asocia $a_i$.
+  \item El conúcleo de un par de morfismos $f,g:a\to b$ en $\cC$ es el colímite
+    de un diagrama $D:\bDDown\to\cC$ cuyos dos morfismos no identidad van a
+    parar a $f$ y $g$, o más precisamente es el morfismo de este colímite que va
+    a parar a $b$.
+
+    Si en vez de dos flechas tenemos un número arbitrario hablamos de
+    \conc{multi-conúcleos}.
+  \item Un sumidero $(f_c:s\to c)_{c\in\Ob{\cC}}$ es un colímite del diagrama
+    identidad en $\cC$ si y sólo si $s$ es un objeto final de $\cC$.
+  \item Si $D:\cS\to\cC$ es un diagrama y $t\in\Ob{\cS}$ es final, entonces $D$
+    tiene colímite $(Di\to Ds)_{i\in\Ob{\cS}}$.
+  \end{enumerate}
+\end{example}
+
+Vemos así que un objeto inicial es lo mismo que un colímite del diagrama vacío
+(con esquema $\bZero$) y que un límite del diagrama identidad, mientras que un
+objeto final es lo mismo que un límite del diagrama vacío y que un colímite del
+diagrama identidad.
+
+\begin{proposition}
+  El colímite es esencialmente único, es decir, si $(g_i:Di\to c)_i$ es un
+  colímite de un diagrama $D:\cS\to\cC$, el resto de colímites son precisamente
+  los sumideros $(h\circ g_i:Di\to b)_i$ donde $h:c\to b$ es un isomorfismo.
+\end{proposition}
+
+\section{Productos y coproductos fibrados}
+
+Cabe preguntarse si la unión y la intersección de conjuntos se pueden
+generalizar en términos categóricos. En el caso general esto parece improbable,
+pues la visión categórica de la teoría de conjuntos se abstrae de los elementos
+concretos. Sin embargo, la unión e intersección de conjuntos arbitrarios es poco
+frecuente, y en general estas operaciones se usan entre subconjuntos de un mismo
+conjunto base o universo de discurso. En este caso podemos definir la unión y
+la intersección según propiedades de subobjetos.
+
+\begin{definition}
+  Sean $M$ una colección de monomorfismos, $\{(a_i,m_i)\}_{i\in I}$ una
+  colección de $M$-subobjetos de un objeto $b$ y $(c,n)$ un $M$-subobjeto de
+  $b$.
+  \begin{enumerate}
+  \item $(c,n)$ es una \conc{intersección} de los $(a_i,m_i)$ si
+    $(c,n)\leq(a_i,m_i)$ para todo $i\in I$ y, para cualquier $h:d\to b$ para el
+    que existen $(g_i:d\to a_i)_{i\in I}$ con $h=m_i\circ g_i$, existe
+    $g':d\to c$ con $h=n\circ g'$.
+  \item $(c,n)$ es una \conc{unión} de los $(a_i,m_i)$ si $(a_i,m_i)\leq(c,n)$
+    para todo $i\in I$ y, para cualquier $h:d\to b$ para el que existen 
+    $(c',n')$ de $b$
+    con esta propiedad, $(c,n)\leq(c',n')$.
+  \end{enumerate}
+\end{definition}
+
+En general, $M$ será la clase de todos los monomorfismos de la categoría, por lo
+que la unión e intersección serán únicas salvo isomorfismo.
+
+\begin{example}\;
+  \begin{enumerate}
+  \item La intersección de una familia vacía de subobjetos es el objeto
+    total. Si existe un objeto inicial y todos los morfismos que parten de él
+    son monomorfismos, entonces este es la unión de una familia vacía.
+  \item En $\bSet$, la unión e intersección de subobjetos coinciden
+    con las habituales, salvo isomorfismo.
+    \begin{proof}
+      Sean $\{A_i\}_{i\in I}$ un conjunto de subobjetos en $\bSet$ del conjunto
+      $B$, que podemos suponer por isomorfismo que son subconjuntos de $B$. Para
+      la intersección, si $C$ es un conjunto y $g:C\to B$ y $f_i:C\to A_i$ son
+      monomorfismos con $g=u_i\circ f_i$ para cada $i$, siendo $u_i:A_i\to B$ la
+      inclusión, entonces $\Img{g}\subseteq A_i$ para cada $i$ y por tanto
+      podemos tomar la restricción $g:C\to\bigcap_{i\in I}A_i$. Para la unión,
+      si $C$ es un conjunto y $f_i:A_i\to C$ y $g:C\to B$ son monomorfismos con
+      $g\circ f_i=u_i$ para cada $i$, para $i,j\in I$ y $x\in A_i\cap A_j$ es
+      $g(f_i(x))=x=g(f_j(x))$ y por tanto $f_i(x)=f_j(x)$, con lo que podemos
+      definir el monomorfismo $\hat f:\bigcup_{i\in I}A_i\to C$ de modo que
+      $f(x)=f_i(x)$ para cada $x\in A_i$ y cada $i\in I$ y se cumple que
+      $g\circ\hat f$ es la inclusión.
+    \end{proof}
+  \item En $\bVec$, la intersección es la intersección de subespacios y la unión
+    es la suma de subespacios.
+  \end{enumerate}
+\end{example}
+
+La intersección de dos objetos se puede ver como un límite.
+
+\begin{definition}\;
+  \begin{enumerate}
+  \item Un \conc{producto fibrado múltiple} es un límite de un
+    sumidero.
+  \item Un \conc{producto fibrado} es un límite de un diagrama con esquema
+    ($\bullet\to\bullet\leftarrow\bullet$), es decir, de un sumidero de tamaño
+    2. Si los dos morfismos no identidad del esquema van a parar a $f:a\to c$ y
+    $g:b\to c$, llamamos producto fibrado de $a$ y $b$ por $c$ (respecto a $f$ y
+    $g$), $a\times_cb$, a dicho límite.
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Dados una familia $\{(a_i,m_i)\}_{i\in I}$ de subobjetos de un objeto $c$ y un
+  morfismo $n:b\to c$, $(b,n)$ es una intersección de los $(a_i,m_i)$ si y sólo
+  si $b$ es producto fibrado múltiple de $(m_i:a_i\to c)_i$ y $n$ es el morfismo
+  $b\to c$ asociado.
+\end{proposition}
+\begin{proof}
+  Supongamos que el sumidero tiene producto fibrado múltiple
+  $(f_i:b\to a_i)_{i\in I\sqcup\{*\}}$ con $f_*=n:b\to c$. Si $g,h:d\to b$
+  cumplen $n\circ g=n\circ h$, entonces
+  $m_i\circ f_i\circ g=m_i\circ f_i\circ g$ y por tanto $f_i\circ g=f_i\circ h$,
+  y por unicidad al factorizar por un límite es $g=h$, de modo que $n$ es un
+  monomorfismo y $(b,n)$ es una intersección. Recíprocamente, si $(b,n)$ es
+  intersección de los $(a_i,m_i)$ y, para cada $i$, $f_i:b\to a_i$ es un
+  monomorfismo con $n=m_i\circ f_i$, entonces %TODO
+\end{proof}
+
+Los productos fibrados se suelen representar con un cuadrado como el de la
+figura \ref{fig:pullback}, pues la flecha $d\to c$ es superflua. Este cuadrado
+se llama \conc{cuadrado cartesiano}.
+
+\begin{figure}
+  \centering
+  \begin{diagram}
+    \path (0,0) node(A){$a$} (2,2) node(B){$b$} (2,0) node(C){$c$}
+          (0,2) node(D){$a\times_cb$} (-1,3) node(X){$x$};
+    \draw[->] (A) -- node[below]{$f$} (C);
+    \draw[->] (B) -- node[right]{$g$} (C);
+    \draw[->] (D) -- node[right]{$\overline g$} (A);
+    \draw[->] (D) -- node[below]{$\overline f$} (B);
+    \draw[->] (X) -- (A);
+    \draw[->] (X) -- (B);
+    \draw[->,dotted] (X) -- (D);
+  \end{diagram}
+  \caption[Producto fibrado]{Producto fibrado de $a$ y $b$ respecto a $f$ y $g$}
+  \label{fig:pullback}
+\end{figure}
+
+% TODO Ejemplos de productos fibrados (ver Riehl p.79 y Wikipedia)
+
+\section{Completitud y cocompletitud}
+
+Hemos visto que los límites y colímites, cuando existen, son únicos, pero
+todavía no hemos estudiado su existencia. Sabemos que esta depende del caso; por
+ejemplo, en $\bSet$ todos los productos existen, pero en una categoría discreta
+no existe el producto de dos o más elementos distintos, y en conjuntos
+parcialmente ordenados puede haber pares de elementos que tengan producto y
+otros que no. Se podría pensar entonces que caracterizar la existencia de
+límites de diagramas arbitrarios es una tarea excesivamente compleja, pero de
+hecho esta se puede reducir a casos familiares, como veremos a continuación.
+
+\begin{definition}
+  Una categoría $\cC$ \conc{tiene límites} o es \conc{completa} si todos los
+  diagramas pequeños en $\cC$ tienen límite. $\cC$ \conc{tiene productos} si
+  todas las familias pequeñas de objetos de $\cC$ tienen producto, y \conc{tiene
+    núcleos} si todo par de morfismos con dominio y codominio común tiene un
+  núcleo.
+\end{definition}
+
+% TODO Primeros dos teoremas del tema 12 de Joy of Cats
 
 %%% Local Variables:
 %%% mode: latex
