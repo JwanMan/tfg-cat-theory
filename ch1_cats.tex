@@ -499,20 +499,32 @@ propiedad de que $f(x)=f(y)\implies x=y$ se puede traducir como sigue.
 \end{example}
 
 Hasta ahora para probar que los monomorfismos de un constructo son inyectivos
-hemos tomado un objeto $D$ y un objeto $*\in D$ tal que, para cualquier otro
+hemos tomado un objeto $D$ y un elemento $*\in D$ tal que, para cualquier otro
 objeto $A$ y $a\in A$, podemos definir un morfismo $f:D\to A$ tal que $f(*)=a$.
 Para las variedades algebraicas, sin embargo, no es inmediato ver cuál es este
 objeto.
 
 \begin{definition}
-  Dados un conjunto graduado $\Omega=\{s_1,\dots,s_k\}$ donde cada $s_i$ tiene
-  aridad $n_i$ y un conjunto finito $E$ de identidades en $\Omega$, el
-  \conc{objeto libre} de $(\Omega,E)\dash\bAlg$ sobre el conjunto $X$ es el
-  objeto construido tomando el conjunto de los árboles con raíz cuyos nodos se
-  etiquetan con un $s_i$ y tienen $n_i$ hijos, o con un $x\in X$ y tienen 0
-  hijos, haciendo el conjunto cociente por reescritura según las identidades en
-  $E$, y definiendo las operaciones por construcción de árboles.
+  En un constructo, un objeto $D$ es \conc{libre} sobre un conjunto $X$ si
+  existe una función $u:X\to D$ y, para todo objeto $A$ del constructo y función
+  $f:X\to A$, existe un único morfismo $\hat f:D\to A$ en el constructo tal que
+  $\hat f\circ u = f$.
 \end{definition}
+
+Es fácil ver que el objeto libre sobre un cierto conjunto, si existe, es único
+salvo isomorfismo, y que un objeto libre sobre un conjunto $X$ también es libre
+sobre cualquier otro conjunto del mismo tamaño que $X$. Si $X$ es unipuntual,
+los morfismos de $D$ a un objeto $A$ se identifican con los elementos de $A$.
+
+\begin{proposition}
+  Dados un conjunto graduado $\Omega=\{s_1,\dots,s_k\}$ donde cada $s_i$ tiene
+  aridad $n_i$ y un conjunto finito $E$ de identidades en $\Omega$, el objeto
+  libre de $(\Omega,E)\dash\bAlg$ sobre el conjunto $X$ se construye tomando el
+  conjunto de los árboles con raíz cuyos nodos se etiquetan con un $s_i$ y
+  tienen $n_i$ hijos, o con un $x\in X$ y tienen 0 hijos, haciendo el conjunto
+  cociente por reescritura según las identidades en $E$, y definiendo las
+  operaciones por construcción de árboles.
+\end{proposition}
 
 \begin{example}[Objetos libres en variedades algebraicas comunes]\;
   \begin{enumerate}
@@ -1284,8 +1296,8 @@ y, sin embargo, los morfismos permiten codificar la información relevante.
     monomorfismos regulares son los subespacios topológicos.
   \item En muchas categorías algebraicas como $R\dash\bMod$ o $\bGrp$, todos los
     monomorfismos son regulares, de modo que los subobjetos regulares son
-    respectivamente los submódulos y los grupos. En el caso de $R\dash\bMod$, si
-    $e:K\monicTo M$ es un monomorfismo de módulos, $e$ es el núcleo de la
+    respectivamente los submódulos y los subgrupos. En el caso de $R\dash\bMod$,
+    si $e:K\monicTo M$ es un monomorfismo de módulos, $e$ es el núcleo de la
     proyección canónica $M\mapsto\frac{M}{\Img{e}}$, y en $\bGrp$ la prueba es
     similar.
   \item En $R\dash\bMod$, todos los monomorfismos son regulares. En efecto, un
