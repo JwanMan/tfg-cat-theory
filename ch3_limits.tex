@@ -568,10 +568,265 @@ análogamente se define tener colímites, coproductos, conúcleos, etc.
       retículo completo. Análogamente, si $C$ es una categoría cocompleta,
       también es un retículo completo.
     \end{proof}
-  \item La subcategoría de $\bSet$ de los conjuntos finitos es finitamente
-    completa y cocompleta, pero no es completa ni cocompleta.
+  \item La subcategoría completa de $\bSet$ de los conjuntos finitos es
+    finitamente completa y cocompleta, pero no es completa ni cocompleta.
   \end{enumerate}
 \end{example}
+
+\section{Preservación por funtores}
+
+En esta sección estudiamos si los funtores conservan los límites y colímites, o
+más precisamente, qué funtores preservan qué límites y qué colímites, y qué nos
+dice eso.
+
+El concepto de <<conservar límites>> se puede entender de varias formas. Una es
+que la imagen conserve el límite, es decir, que al aplicar el funtor a un límite
+de un diagrama, se obtiene uno de la composición del diagrama con el funtor. Sin
+embargo, el que la preimagen lo conserve no es tan fácil de definir. Por
+ejemplo, se puede hablar de que, si la composición del diagrama con el funtor
+tiene un límite, entonces todas las preimágenes del límite son límites, o al
+menos una lo es, o si simplemente esto implica que el diagrama original tiene
+límite pero este no tiene que estar en la preimagen.
+
+A continuación formalizamos estos conceptos y estudiamos su relación. Por
+brevedad, nos enfocamos en los conceptos relativos a límites, pero los conceptos
+duales se obtienen fácilmente.
+
+\begin{definition}
+  Un funtor $F:\cC\to\cD$ \conc{preserva} un límite $(f_i:L\to Di)_i$ de un
+  diagrama $D:\cS\to\cC$ si $(Ff_i:FL\to FDi)_i$ es un límite de $F\circ D$, y
+  preserva los límites de cierto tipo (los de diagramas con cierto tipo de
+  esquema) si preserva todos los límites de dicho tipo.
+\end{definition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item Los funtores identidad preservan todos los límites.
+  \item La composición de dos funtores que preserva un tipo de límite también
+    preserva ese tipo de límite.
+  \item En $\bTop$ y $\bGrph$, los funtores olvidadizos preservan límites y
+    colímites.
+    \begin{proof}
+      Claramente la conmutatividad de la fuente respecto al diagrama se
+      preserva. Si $(f_i:l\to Di)_i$ es un límite de $D:\cS\to\bTop$ y
+      $(g_i:x\to FDi)_i$ es una fuente conmutativa al diagrama $F\circ D$, donde
+      $F:\bTop\to\bSet$ es el funtor olvidadizo, dotando a $x$ de la topología
+      discreta se obtiene una fuente en $\bTop$ que conmuta con $D$ y por tanto
+      una única función continua $h:x\to l$ con cada $g_i=f_i\circ h$. La
+      unicidad de $h$ como función en $\bSet$ se debe a que todas las funciones
+      $x\to l$ son continuas. Para los colímites la prueba es análoga pero
+      usando la topología indiscreta. En $\bGrph$ hacemos lo mismo considerando
+      el grafo completo (incluyendo ejes reflexivos) y el grafo vacío.
+    \end{proof}
+  \item Si $\cC$ es un constructo con objetos libres para todos los conjuntos
+    pequeños, su funtor olvidadizo conserva límites.
+    \begin{proof}
+      Sea $(f_i:l\to Di)_i$ un límite de $D:\cS\to\cC$, y sea $(g_i:x\to FDi)_i$
+      una fuente conmutativa al diagrama $F\circ D$, donde $F:\cC\to\bSet$ es el
+      funtor olvidadizo. Si $\hat x\in\Ob{\cC}$ es el objeto libre asociado a
+      $x$ y $u:x\to F\hat x$ es la función asociada, entonces para cada $i$
+      existe ${\hat g}_i:\hat x\to Di$ con $g_i=F{\hat g}_i\circ u$, pero por
+      hipótesis existe un único $h:\hat x\to l$ con cada
+      ${\hat g}_i=f_i\circ h$, con lo que $g_i=Ff_i\circ(Fh\circ u)$. La
+      unicidad de $Fh\circ u$ es clara si $u$ es inyectiva, lo que ocurre si
+      $\cC$ tiene algún objeto que, como conjunto, tiene al menos 2 elementos,
+      pero si este no es el caso sólo hay como mucho una función $x\to l$.
+    \end{proof}
+  \item En $\bGrp$, $\bRing$ y $\bVec$, los funtores
+    olvidadizos preservan límites pero no coproductos ni conúcleos.
+    \begin{proof}
+      La preservación de límites es por el apartado anterior. Para los
+      coproductos, el coproducto en estas categorías es la suma directa y en
+      $\bSet$ es la unión disjunta, que en general es estrictamente más
+      pequeña. Para los conúcleos, en $\bRng$, si $f,g:\sInt_5[X]\to\sInt_5[X]$
+      son respectivamente la identidad y la función $p(X)\mapsto p(-X)$, el
+      conúcleo de $f$ y $g$ en $\bSet$ es el conjunto cociente resultante de
+      identificar cada polinomio con el resultante de negar sus coeficientes
+      impares, que es infinito, pero en $\bRng$ es
+      $\frac{\sInt_5[X]}{(X)}\cong\sInt_5$, que es finito. Del mismo modo, en
+      $\bVec$, si $f,g:\sReal\to\sReal$ son la identidad y el producto por $-1$,
+      el conúcleo de $f$ y $g$ es 0 en $\bVec$ pero es infinito en $\bSet$. Algo
+      parecido ocurre en $\bGrp$ restringiendo $f$ y $g$ a $\sInt\to\sInt$.
+    \end{proof}
+  \item Los funtores hom preservan límites.
+    \begin{proof}
+      Sean $F=\hom(c,-):\cC\to\bSet$ un funtor hom, $(f_i:l\to Di)_i$ un límite
+      de $D:\cS\to\cC$ y $(g_i:X\to\hom(c,Di))_i$ una fuente en $\bSet$ que
+      conmuta con $F\circ D$. Para cada $x\in X$, $(g_i(x):c\to Di)_i$ es una
+      fuente en $\cC$ que conmuta con $D$, por lo que existe un único morfismo
+      $\hat g(x):c\to l$ con cada $g_i(x)=f_i\circ\hat g(x)$ y así
+      $\hat g:X\to\hom(c,l)$ es la única función con $g_i=f_i\circ\hat g$.
+    \end{proof}
+  \item El funtor potencia $\power:\bSet\to\bSet$ no preserva productos,
+    coproductos, núcleos ni conúcleos.
+  \end{enumerate}
+\end{example}
+
+Las propiedades de completitud y cocompletitud se pueden usar a la hora de
+determinar si un determinado funtor preserva límites.
+
+\begin{proposition}
+  Si $\cC$ es finitamente completa, un funtor $F:\cC\to\cD$ preserva límites
+  finitos si y sólo si preserva productos finitos y núcleos, si y sólo si
+  preserva productos fibrados y objetos terminales.
+\end{proposition}
+
+\begin{proposition}
+  Si $\cC$ es finitamente completa, un funtor $F:\cC\to\cD$ preserva límites
+  pequeños si y sólo si preserva productos y núcleos.
+\end{proposition}
+
+\begin{proposition}
+  Un funtor que preserva límites finitos preserva también monomorfismos y
+  monomorfismos regulares.
+\end{proposition}
+\begin{proof}
+  Claramente conserva monomorfismos regulares ya que conserva núcleos, y
+  claramente un morfismo $f$ es un monomorfismo si y sólo si $(1,1)$ es producto
+  fibrado de $(f,f)$ como se muestra en la figura \ref{fig:monic-pullback}.
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,0) node(I1){$a$} (2,2) node(I2){$a$} (0,2) node(I0){$a$};
+      \path (2,0) node(B){$b$};
+      \draw[->] (I0) -- node[left]{$1$} (I1);
+      \draw[->] (I0) -- node[above]{$1$} (I2);
+      \draw[->] (I1) -- node[below]{$f$} (B);
+      \draw[->] (I2) -- node[right]{$f$} (B);
+    \end{diagram}
+    \caption{Caracterización de un monomorfismo por producto fibrado}
+    \label{fig:monic-pullback}
+  \end{figure}
+\end{proof}
+
+\begin{definition}
+  Un funtor $F:\cC\to\cD$ \conc{levanta} un tipo de límites (\emph{de forma
+    única}) si para todo diagrama $D:\cS\to\cC$ de dicho tipo y todo límite
+  $(g_i)_i$ de $F\circ D$, existe un (único) límite $(f_i)_i$ de $D$ con cada
+  $g_i=Ff_i$. Del mismo modo, $F$ \conc{crea} un tipo de límites si para todo
+  diagrama $D:\cS\to\cC$ y todo límite $(g_i)_i$ de $F\circ D$ existe una única
+  fuente $(f_i:l\to Di)_{i\in\Ob{\cS}}$ en $\cC$ con cada $g_i=Ff_i$, y además
+  esta fuente es un límite de $D$.
+\end{definition}
+
+Claramente todo funtor que crea un tipo de límite lo levanta de forma única, y
+todo funtor que lo levanta de forma única, lo levanta, pero los recíprocos no
+son ciertos, como vemos a continuación.
+
+\begin{example}\;
+  \begin{enumerate}
+  \item Los funtores olvidadizos $(\Omega,E)\dash\bAlg\to\bSet$ y
+    $R\dash\bMod\to\bSet$ crean límites.
+    \begin{proof}
+      Sean $F:(\Omega,E)\dash\bAlg\to\bSet$ el funtor olvidadizo,
+      $D:\cS\to(\Omega,E)\dash\bAlg$ un diagrama, $(f_i:L\to FDi)_i$ un límite
+      de $F\circ D$ y $(f_i:(L,\mu)\to Di)_i$ una fuente arbitraria preimagen
+      por $F$ de dicho límite, y queremos ver que esta fuente existe, es única y
+      es un límite. Si $\Omega$ tiene operadores $(i_1,\dots,i_k)$ con aridades
+      $(n_1,\dots,n_k)$, para cada $p\in\{1,\dots,k\}$ e $i\in\Ob{\cS}$
+      definimos $t_{pi}:L^{n_p}\to Di$ como
+      $t_{pi}(x_1,\dots,x_n)\coloneqq\nu_{pi}(f_i(x_1),\dots,f_i(x_n))$, donde
+      $\nu_{pi}$ es el $p$-ésimo operador en $Di$. Entonces para cada $p$ existe
+      una fuente $(t_{pi}:L^{n_p}\to Di)_i$ y por tanto una única función
+      $\mu_p:L^{n_p}\to L$ con cada
+      $f_i\circ\mu_p=t_{pi}=\nu_p\circ(f_i\times\dots\times f_i)$. Pero esta es
+      precisamente la condición para que cada $f_i$ sea un homomorfismo
+      $(L,(\mu_1,\dots,\mu_n))\to Di$, con lo que la fuente existe y es
+      única. Que las operaciones $\mu_p$ respetan las igualdades se debe, al
+      componerlas con cada $f_i$, las operaciones resultantes en términos de las
+      $\nu_{pi}$ las respetan, y por la unicidad en la definición del límite en
+      $\bSet$.
+
+      Para ver que es un límite, si $(g_i:(X,\gamma)\to Di)_i$ es otra fuente
+      que conmuta con $D$, $(Fg_i)_i$ conmuta con $F\circ D$ y por tanto existe
+      una única función $h:X\to L$ con cada $g_i=f_i\circ h$, y queda ver que
+      $h$ es un homomorfismo. Pero para cada $p$ y cada $i$, usando que los
+      $g_i$ son homomorfismos,
+      \begin{multline*}
+        f_i\circ h\circ\gamma_p = g_i\circ\gamma_p
+        = \nu_{pi}\circ(g_i\times\dots\times g_i) = \\
+        = \nu_{pi}\circ(f_i\times\dots\times f_i)\circ(h\times\dots\times h)
+        = f_i\circ\mu_p\circ(h\times\dots\times h),
+      \end{multline*}
+      y como $(f_i)_i$ es un límite,
+      $h\circ\gamma_p=\mu_p\circ(h\times\dots\times h)$, lo que termina la
+      prueba. El caso de $R\dash\bMod$ se puede reducir a este último
+      convirtiendo el producto por elementos de $R$ una cantidad potencialmente
+      infinita de operaciones de aridad 1 en el módulo y convirtiendo cada
+      instancia de una propiedad de este producto en una igualdad en la lista de
+      igualdades, y usando que esta prueba no depende de que el número de
+      operaciones e igualdades sea finito.
+    \end{proof}
+  \item Los funtores olvidadizos de $\bTop$ y $\bGrph$ a $\bSet$ levantan
+    límites y colímites de forma única, pero no los crean.
+    \begin{proof}
+      Para ver que los crean, en $\bTop$ tomamos respectivamente la topología
+      inicial respecto al límite en $\bSet$ y la final respecto al colímite, y
+      en $\bGrph$ tomamos respectivamente la intersección de las preimágenes de
+      los ejes por las funciones del límite en $\bSet$ y la unión de las
+      imágenes de los ejes por las del colímite. Esto nos da los únicos límites
+      o colímites que son preimagen del correspondiente en $\bSet$ por el
+      funtor, pero en general hay más fuentes o sumideros que también son
+      preimagen, por ejemplo tomando la topología discreta, la indiscreta, el
+      grafo discreto y el grafo total (completo con ejes reflexivos),
+      respectivamente.
+    \end{proof}
+  \item El funtor olvidadizo de $\bMetc$ levanta límites finitos, pero no de
+    forma única.
+    \begin{proof}
+      Sean $F$ el funtor olvidadizo, $D:\cS\to\bMetc$ un diagrama finito y
+      $(f_i:L\to FDi)_i$ un límite de $F\circ D$, llamando $d_i$ a la distancia
+      de $Di$ para cada $i$,
+      $\hat d(x,y)\coloneqq\max_{i\in\Ob{\cS}}d_i(f_i(x),f_i(y))$ es una
+      distancia en $L$, pues cumple con la simetría y desigualdad triangular y
+      si $\hat d(x,y)=0$, entonces $f_i(x)=f_i(y)$ para todo $i$ y por la
+      definición de límite es $x=y$. Además, si $(g_i:X\to Di)_i$ es una fuente
+      en $\bTop$, $(g_i:X\to FDi)_i$ lo es en $\bSet$ y existe $h:X\to L$ con
+      cada $g_i=f_i\circ h$, pero para $x\in X$ y $\varepsilon>0$, para cada $i$
+      existe $\delta_i>0$ tal que
+      $g_i(B(x,\delta_i))\subseteq B(g_i(x),\varepsilon)$, y tomando
+      $\delta'\coloneqq\min_i\delta_i$, para cada $i$,
+      $f_i(h(B(x,\delta'))\subseteq B(f_i(h(x)),\varepsilon)$, con lo que
+      $h(B(x,\delta'))\subseteq f_i^{-1}(B(f_i(h(x)),\varepsilon))$ y por tanto
+      $h(B(x,\delta'))\subseteq\bigcap_i f_i^{-1}(B(f_i(h(x))),\varepsilon)=
+      B(h(x),\varepsilon)$, de modo que $h$ es continua. El levantamiento no es
+      único porque multiplicando la métrica por una constante positiva se
+      obtiene otra equivalente.
+    \end{proof}
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}
+  Si $F:\cC\to\cD$ levanta límites y $\cD$ es completa, entonces $\cC$ es
+  completa y $F$ preserva límites pequeños.
+\end{theorem}
+\begin{proof}
+  Si $D$ es un diagrama pequeño, $F\circ D$ tiene límite y este tiene una
+  preimagen que es un límite de $D$ y que $F$ preserva. Como los límites son
+  únicos salvo isomorfismo, $F$ preserva el resto de límites al preservar
+  isomorfismos.
+\end{proof}
+
+\begin{definition}
+  Un funtor $F:\cC\to\cD$ \conc{refleja} un tipo de límites si para todo
+  diagrama $D:\cS\to\cC$ de este tipo, toda fuente
+  $(f_i:c\to Di)_{i\in\Ob{\cS}}$ tal que $(Ff_i)_i$ es límite de $F\circ D$ es
+  límite de $D$. $F$ \conc{detecta} un tipo de límites si todo diagrama
+  $D:\cS\to\cC$ tal que $F\circ D$ tiene un límite tiene un límite.
+\end{definition}
+
+\begin{proposition}\;
+  \begin{enumerate}
+  \item Todo funtor que levanta un tipo de límite lo detecta.
+  \item Un funtor crea un tipo de límite si y sólo si lo levanta de forma única
+    y lo refleja.
+  \end{enumerate}
+\end{proposition}
+
+Otros tipos de relaciones no tienen por qué darse. Por ejemplo, el funtor
+olvidadizo $\bTop\to\bSet$ levanta límites de forma única pero no los refleja, y
+un funtor biyectivo en objetos que lleva una categoría discreta a una no
+discreta refleja límites pero no los levanta ni los detecta.
 
 %%% Local Variables:
 %%% mode: latex

@@ -109,9 +109,10 @@ categorías se pueden expresar como en la figura \ref{fig:cat-axiom}.
       conjuntos parcialmente ordenados y como morfismos las funciones que
       conservan el orden. $\bLat$ es similar pero los objetos son retículos y los
       morfismos deben además preservar supremos e ínfimos de pares de elementos.
-    \item La categoría $\bGrph$ tiene como objetos los grafos dirigidos y como
-      morfismos las funciones entre los vértices de dos grafos que llevan ejes del
-      primer grafo a ejes del segundo.
+    \item La categoría $\bGrph$ tiene como objetos los grafos dirigidos,
+      permitiendo ejes reflexivos, y como morfismos las funciones entre los
+      vértices de dos grafos que llevan ejes del primer grafo a ejes del
+      segundo.
     \end{enumerate}
   \end{example}
 \end{samepage}
@@ -129,8 +130,7 @@ concepto de subcategoría.
 
 Así, $\bLat$ es una subcategoría no completa de $\bOrd$, mientras que $\bOrd$ es
 una subcategoría completa de $\bPrord$, y esta a su vez es una subcategoría
-completa de $\bGrph$ si consideramos las relaciones como grafos dirigidos y
-permitimos ejes reflexivos.
+completa de $\bGrph$ si consideramos las relaciones como grafos dirigidos.
 
 \section{Categorías algebraicas}
 
@@ -505,16 +505,19 @@ Para las variedades algebraicas, sin embargo, no es inmediato ver cuál es este
 objeto.
 
 \begin{definition}
-  En un constructo, un objeto $D$ es \conc{libre} sobre un conjunto $X$ si
-  existe una función $u:X\to D$ y, para todo objeto $A$ del constructo y función
-  $f:X\to A$, existe un único morfismo $\hat f:D\to A$ en el constructo tal que
-  $\hat f\circ u = f$.
+  En un constructo, un objeto $D$ es \conc{libre} sobre un conjunto
+  $X\in\Ob{\bSet}$ respecto a una función $u:X\to D$ si, para todo objeto $A$
+  del constructo y función $f:X\to A$, existe un único morfismo $\hat f:D\to A$
+  en el constructo tal que $\hat f\circ u = f$.
 \end{definition}
 
 Es fácil ver que el objeto libre sobre un cierto conjunto, si existe, es único
 salvo isomorfismo, y que un objeto libre sobre un conjunto $X$ también es libre
-sobre cualquier otro conjunto del mismo tamaño que $X$. Si $X$ es unipuntual,
-los morfismos de $D$ a un objeto $A$ se identifican con los elementos de $A$.
+sobre cualquier otro conjunto del mismo tamaño que $X$. Además, en un constructo
+en que exista algún objeto con al menos dos elementos, la función $u$ asociada a
+un objeto libre es inyectiva, por lo que en general supondremos que es una
+inclusión. Si $X$ es unipuntual, identificamos los morfismos de $D$ hacia un
+objeto $A$ con los elementos de $A$.
 
 \begin{proposition}
   Dados un conjunto graduado $\Omega=\{s_1,\dots,s_k\}$ donde cada $s_i$ tiene
@@ -1178,6 +1181,15 @@ El concepto dual de núcleo es el de conúcleo.
     $\frac{b}{\sim}$ las imágenes de ejes en $b$. En $\bPrord$ los conúcleos se
     construyen de igual forma pero tomando la clausura transitiva de la relación
     resultante en $\frac{b}{\sim}$.
+  \item En $(\Omega,E)\dash\bAlg$ el conúcleo se establece de la misma forma
+    pero sustituyendo $\sim$ por la menor relación de congruencia en $b$ con
+    $f(x)\sim g(x)$ para todo $x\in a$. Una \conc{relación de congruencia} es
+    una relación de equivalencia en que, para cada operación $f:b^n\to b$ en la
+    acción de $\Omega$ asociada a $b$ y cada $x_1,\dots,x_n,y_1,\dots,y_n\in b$
+    se tiene que, si cada $x_i\sim y_i$, entonces
+    $f(x_1,\dots,x_n)\sim f(y_1,\dots,y_n)$. Esta propiedad permite dotar a
+    $\frac{b}{\sim}$ una estructura algebraica cuyas operaciones se derivan de
+    las de $b$ de la forma evidente.
   \item En $\bRng$, el conúcleo de $f,g:A\to B$ es la proyección canónica
     $p:B\to\frac{B}{I}$, donde $I\coloneqq(\Img{f-g})$ es el ideal generado por
     la imagen de $f-g$.
@@ -1189,15 +1201,6 @@ El concepto dual de núcleo es el de conúcleo.
       factor, existe un único $\overline c:\frac{B}{I}\to C$ con
       $c=\overline c\circ p$.
     \end{proof}
-  \item En $(\Omega,E)\dash\bAlg$ el conúcleo se establece de la misma forma
-    pero sustituyendo $\sim$ por la menor relación de congruencia en $b$ con
-    $f(x)\sim g(x)$ para todo $x\in a$. Una \conc{relación de congruencia} es
-    una relación de equivalencia en que, para cada operación $f:b^n\to b$ en la
-    acción de $\Omega$ asociada a $b$ y cada $x_1,\dots,x_n,y_1,\dots,y_n\in b$
-    se tiene que, si cada $x_i\sim y_i$, entonces
-    $f(x_1,\dots,x_n)\sim f(y_1,\dots,y_n)$. Esta propiedad permite dotar a
-    $\frac{b}{\sim}$ una estructura algebraica cuyas operaciones se derivan de
-    las de $b$ de la forma evidente.
   \end{enumerate}
 \end{example}
 
