@@ -1,0 +1,355 @@
+Si tenemos un espacio vectorial de dimensión finita, sabemos que su espacio dual
+es isomorfo a este, por lo que el doble dual también lo es. Sin embargo,
+mientras el isomorfismo con el dual es algo más
+\foreignlanguage{english}{ad-hoc}, el del doble dual se ve como algo más
+fundamental, pues se obtiene <<de forma natural>> un isomorfismo que podríamos
+llamar <<canónico>>, dado por $v\mapsto(f\mapsto f(v))$.
+
+El hecho de considerar una cierta transformación, o una cierta operación, como
+natural es algo común en distintas áreas de las matemáticas, y si bien el uso
+del término suele ser informal, en la primera mitad del siglo XX se hicieron
+esfuerzos por formalizarlo que, de hecho, fueron los que llevaron a la creación
+de la teoría de categorías. En este capítulo exploramos este concepto,
+basándonos principalmente en \cite[cap. 6]{joyofcats} y \cite[I.4 y
+II.4--5]{maclane}.
+
+\begin{definition}
+  Dados dos morfismos $S,T:\cC\to\cD$, una \conc{transformación natural}
+  $\tau:S\to T$, también escrita como
+  \[\cC\natg{\downarrow\tau}{S}{T}\cD,\]
+  es una función $\tau:\Ob{\cC}\to\Mor{\cD}$ que a cada objeto $c$ en $\cC$ le
+  asigna un morfismo $\tau_c:Sc\to Tc$ de forma que, para todo morfismo
+  $f:a\to b$ en $\cC$, la figura \ref{fig:natural} conmuta, esto es,
+  $Tf\circ\tau_a=\tau_b\circ Sf$.
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,2) node(A){$a$} (2,2) node(SA){$Sa$} (4,2) node(TA){$Ta$};
+      \path (0,0) node(B){$b$} (2,0) node(SB){$Sb$} (4,0) node(TB){$Tb$};
+      \draw[->] (A) -- node[right]{$f$} (B);
+      \draw[->] (SA) -- node[left]{$Sf$} (SB);
+      \draw[->] (TA) -- node[right]{$Tf$} (TB);
+      \draw[->] (SA) -- node[above]{$\tau_a$} (TA);
+      \draw[->] (SB) -- node[below]{$\tau_b$} (TB);
+    \end{diagram}
+    \caption{Transformación natural.}
+    \label{fig:natural}
+  \end{figure}
+\end{definition}
+
+Si pensamos en los funtores $S$ y $T$ como imágenes en $\cD$ de los objetos y
+los morfismos de $\cC$, una transformación natural nos da un conjunto de
+morfismos de la imagen de $S$ a la de $T$ de forma que todos los cuadrados como
+los de la figura \ref{fig:natural} conmutan.
+
+También podemos pensar en la transformación natural como un morfismo
+<<genérico>> en $\cD$, parametrizado por un objeto de $\cC$, y lo que nos dice
+el diagrama a grandes rasgos es que el morfismo <<se comporta igual>> para
+cualquier valor del parámetro.
+
+\begin{example}\label{ex:nattrans}\;
+  \begin{enumerate}
+  \item En $\bVecf$, un isomorfismo de un espacio $V$ a su dual $V^*$ viene dado
+    por una forma bilineal no degenerada, pero como esta no es única y no hay
+    una forma general de elegir una, el isomorfismo no puede ser natural. Sin
+    embargo, $\phi_V:V\to V^{**}$ dado por $\phi_V(x)(f)\coloneqq f(x)$ es un
+    isomorfismo y se puede definir del mismo modo para todo $V$, por lo que
+    $\phi$ es una transformación natural $\phi:1_{\bVecf}\to(^{**})$ y, de
+    hecho, es una transformación natural $\phi:1_{K\dash\bVec}\to(^{**})$, donde
+    el funtor $(^{**})$ viene dado por la composición
+    $(^{**}):\bVec\overset{(^*)}{\to}\dual{\bVec}\overset{(^*)}{\to}\bVec$.
+  \item Para cada $n\in\sNat$, el determinante de matrices $n\times n$ es una
+    transformación natural. Más concretamente, si para un anillo conmutativo $R$
+    tomamos la función determinante $\det_R:{\mathcal{M}}_n(R)\to R$, $\det_R$
+    no es un homomorfismo de anillos porque no conserva la suma, pero sí es un
+    homomorfismo de grupos multiplicativos $\det_R:\text{GL}_n(R)\to R^*$. Si
+    $f$ es un homomorfismo de anillos, podemos definir $\text{GL}_n(f)$
+    componente a componente y $f^*=f$, y entonces $\det:\text{GL}_n\to(\cdot)^*$
+    es una transformación natural entre funtores $\bCRng\to\bGrp$.
+  \end{enumerate}
+\end{example}
+
+\section{Categorías de funtores}
+
+Las transformaciones naturales se pueden componer de varias formas. Una forma
+sencilla es componiendo los morfismos imagen de dos transformaciones naturales
+\[\cC\nattwos{\sigma}{\tau}\cD.\]
+
+\begin{definition}
+  Dados tres funtores $R,S,T:\cC\to\cD$ y dos transformaciones naturales
+  $\sigma:R\to S$ y $\tau:S\to T$, llamamos \conc{composición vertical} de
+  $\sigma$ y $\tau$ a la transformación natural $\tau\cdot\sigma:R\to T$ dada
+  por $(\tau\cdot\sigma)_c\coloneqq \tau_c\circ \sigma_c$.
+\end{definition}
+
+Claramente esta composición es asociativa y tiene identidad, lo que sugiere la
+siguiente definición.
+
+\begin{definition}
+  Dadas dos categorías $\cC$ y $\cD$, la \conc{categoría de funtores} de $\cC$ y
+  $\cD$, $\cD^\cC$, es aquella que tiene como objetos los funtores $\cC\to\cD$,
+  como morfismos las transformaciones naturales entre ellos, como composición la
+  composición vertical y como identidad la \conc{transformación natural
+    identidad}, que para un funtor $T:\cC\to\cD$ viene dada por
+  $1_T(c)\coloneqq 1_{Tc}$.
+\end{definition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item Si $I$ es un conjunto, la categoría de funtores $\cC^I$ es precisamente
+    la $I$-ésima potencia de $\cC$ en una categoría de categorías apropiada. En
+    concreto, si $X$ es otro conjunto, $X^I$ es el conjunto de familias
+    $(x_i)_{i\in I}$ con entradas en $X$, o de funciones $I\to X$.
+  \item Si $X$ es un conjunto, $\{0,1\}^X$ es su conjunto potencia.
+  \item $\cC^\bOne$ es isomorfa a $\cC$, mientras que $\cC^\bZero$ es la categoría unipuntual.
+  \item $\cC^\bDown$ es la \conc{categoría de flechas} de $\cC$, cuyos objetos
+    son los morfismos de $\cC$ y cuyos morfismos $f\to g$ son los pares de
+    flechas $(h,k)$ para los que la figura \ref{fig:arrow-cat} conmuta.
+    \begin{figure}
+      \centering
+      \begin{diagram}
+        \path (0,2) node(A){$\cdot$} (2,2) node(AP){$\cdot$};
+        \path (0,0) node(B){$\cdot$} (2,0) node(BP){$\cdot$};
+        \draw[->] (A) -- node[left]{$f$} (B);
+        \draw[->] (AP) -- node[right]{$g$} (BP);
+        \draw[->] (A) -- node[above]{$h$} (AP);
+        \draw[->] (B) -- node[below]{$k$} (BP);
+      \end{diagram}
+      \caption[Categoría de flechas.]{Morfismos $f\to g$ de la categoría de flechas.}
+      \label{fig:arrow-cat}
+    \end{figure}
+  \item Si $M$ es un monoide, $\bSet^M$ es la categoría de las acciones de $M$
+    sobre algún conjunto.
+  \item Consideremos el \conc{funtor diagonal} $\Delta:\cC\to\cC^\cS$. Para cada
+    objeto $c$, $\Delta c:\cS\to\cC$ es el funtor constante que lleva cada
+    objeto a $c$ y cada morfismo a $1_c$, y para cada morfismo $f$,
+    $\Delta f:\Delta a\to\Delta b$ es la transformación natural que lleva todos
+    los objetos a $f$. Si $D:\cS\to\cC$ es un diagrama, un morfismo
+    $\Delta c\to D$ es una fuente que conmuta con $D$, y un morfismo
+    $D\to\Delta c$ es un sumidero que conmuta con $D$.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}
+  Dadas dos categorías $\cC$ y $\cD$:
+  \begin{enumerate}
+  \item Si $\cC$ y $\cD$ son pequeñas, también lo es $\cD^\cC$.
+    \begin{proof}
+      Los objetos de $\cD^\cC$ son funciones $\Mor{\cC}\to\Mor{\cD}$, los
+      morfismos son funciones $\Ob{\cC}\to\Mor{\cD}$, y ambos conjuntos de
+      funciones son pequeños.
+    \end{proof}
+  \item Si $\cC$ es pequeña y $\cD$ es una clase, $\cD^\cC$ es una clase.
+    \begin{proof}
+      Si $T:\cC\to\cD$ es un funtor, como $\Mor{\cC}$ es pequeño, su imagen por
+      $\cC$ también y $T$ es pequeño, por lo que el conjunto de funtores es una
+      clase, y análogamente para el de transformaciones naturales.
+    \end{proof}
+  \item Si $\cC$ es pequeña y $\cD$ tiene conjuntos hom pequeños, $\cD^\cC$
+    tiene conjuntos hom pequeños.
+    \begin{proof}
+      Los elementos de $\hom_{\cD^\cC}(S,T)$ son funciones de $\Ob{\cC}$ a
+      $\bigcup_{c\in\Ob{\cC}}\hom(Sc,Tc)$, pero estos conjuntos son pequeños y
+      por tanto el conjunto de estas funciones también.
+    \end{proof}
+  \end{enumerate}
+\end{proposition}
+
+\section{Isomorfismos naturales}
+
+Los isomorfismos de las categorías de funtores son particularmente importantes,
+pues proporcionan una forma general de obtener isomorfismos que, además,
+conmutan con los morfismos imágenes de los correspondientes funtores,
+proporcionando una forma directa de pasar de uno al otro.
+
+\begin{definition}
+  Un \conc{isomorfismo natural} es un isomorfismo en una categoría de funtores,
+  es decir, una transformación natural $\tau:S\to T$ en que todos los $\tau_c$
+  son isomorfismos, y si existe decimos que los funtores $S$ y $T$ son
+  \conc{naturalmente isomorfos}.
+\end{definition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item La transformación natural $\phi:1\to(^{**})$ del ejemplo \ref{ex:nattrans}
+    no es un isomorfismo natural, pero sí lo es si restringimos el dominio y
+    codominio de los funtores a $K\dash\bVecf$.
+  \item Si $a$ y $b$ son objetos de una cierta categoría con coproducto
+    $a\oplus b$, existe una biyección
+    $\hom(a,d)\times\hom(b,d)\cong\hom(a\oplus b,d)$ natural respecto a $d$,
+    como se muestra en la figura \ref{fig:nat-coproduct}.
+    \begin{figure}
+      \centering
+      \begin{subfigure}{.45\textwidth}
+        \begin{diagram}\smaller
+          \path (0,2) node(ABX){$\hom(a,x)\times\hom(b,x)$} (4,2) node(SX){$\hom(a\oplus b,x)$};
+          \path (0,0) node(ABY){$\hom(a,y)\times\hom(b,y)$} (4,0) node(SY){$\hom(a\oplus b,y)$};
+          \draw[->] (ABX) -- node[right]{$\hom(a,f)\times\hom(b,f)$} (ABY);
+          \draw[->] (SX) -- node[right]{$\hom(a\oplus b,f)$} (SY);
+          \draw[->] (ABX) -- node[above]{$\tau_x$} (SX);
+          \draw[->] (ABY) -- node[below]{$\tau_y$} (SY);
+        \end{diagram}
+        \caption{Diagrama asociativo.}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}{.45\textwidth}
+        \begin{diagram}\smaller
+          \path (0,2) node(ABX){$(h,k)$} (4,2) node(SX){$h\oplus k$};
+          \path (0,0) node(ABY){$(f\circ h,f\circ k)$}
+                (4,0) node(SY){$(f\circ h)\oplus(f\circ k)=f\circ(h\oplus k)$};
+          \tikzsquig (ABX) -- (ABY);
+          \tikzsquig (SX) -- (SY);
+          \tikzsquig (ABX) -- (SX);
+          \tikzsquig (ABY) -- node[below]{\vphantom{$\tau_y$}} (SY);
+        \end{diagram}
+        \caption{Persecución de flechas.}
+      \end{subfigure}
+      \caption{Transformación natural en un coproducto.}
+      \label{fig:nat-coproduct}
+    \end{figure}
+    Esto se puede generalizar de forma obvia a coproductos de una familia
+    arbitraria de objetos.
+  \item Del mismo modo, si existe el producto de los objetos $a$ y $b$, existe
+    una biyección $\hom(c,a)\times\hom(c,b)\cong\hom(c,a\times b)$ natural
+    respecto a $c$, que también se puede extender a productos arbitrarios.
+  \end{enumerate}
+\end{example}
+
+Ciertas propiedades de funtores se pueden caracterizar mediante isomorfismos
+naturales.
+
+\begin{proposition}
+  Un funtor $T:\cC\to\cD$ es una equivalencia si y sólo si existe $S:\cD\to\cC$
+  tal que $S\circ T=1_\cC$ y $T\circ S=1_\cD$.
+\end{proposition}
+\begin{proof}
+  Si $T$ es una equivalencia, hemos visto en la prueba de la proposición
+  \ref{prop:cat-equiv} que existen $S:\cD\to\cC$ y un isomorfismo natural
+  $h:T\circ S\to 1_\cD$. Además, si $c$ es un objeto de $\cC$,
+  $h_{Tc}^{-1}:Tc\to TSTc$ es un isomorfismo, y como $T$ es fiel y pleno, existe
+  un único $\mu_c:c\to STc$ con $T\mu_c=h_{Tc}^{-1}$. La naturalidad de
+  $\mu:1_\cC\to S\circ T$ se deriva de la de $h$ y la fidelidad de $T$.
+
+  Recíprocamente, si existen $S:\cD\to\cC$ e isomorfismos naturales
+  $\mu:1_\cC\to S\circ T$ y $\sigma:T\circ S\to1_\cD$, para cada objeto $d$ en
+  $\cD$, $T(Sd)\cong d$, y queda ver que $T$ es fiel y pleno. Es fiel porque,
+  dados dos morfismos $f,g:a\to b$ en $\cC$,
+  \[
+    Tf=Tg\implies\mu_b\circ f=STf\circ\mu_a=STg\circ\mu_a=\mu_b\circ g\implies
+    f=g,
+  \]
+  y es plena porque, dado un morfismo $g:Ta\to Tb$ en $\cD$,
+  $f\coloneqq\mu_b^{-1}\circ Sg\circ\mu_a$ cumple $Tf=g$.
+\end{proof}
+
+\begin{definition}
+  Un funtor $T:\cC\to\bSet$ es \conc{representable} por un objeto $c$ si es
+  naturalmente isomorfo a $\hom(c,-)$.
+\end{definition}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item Un funtor olvidadizo es representable por un objeto $c$ si y sólo si $c$
+    es un objeto libre sobre $\{*\}$.
+  \item El funtor olvidadizo de $\bBan$ no es representable.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}
+  Dados un funtor $T:\cC\to\bSet$, un objeto $c$ de $\cC$ y $x\in Tc$, existe
+  una única transformación natural $\tau:\hom(c,-)\to T$ con $\tau_c(1_c)=x$.
+\end{proposition}
+\begin{proof}
+  Si $\tau$ es tal transformación natural, $b$ es un objeto de $\cC$ y
+  $f:c\to b$, necesariamente
+  $\tau_b(f)=\tau_b(f\circ
+  1_c)=(\tau_b\circ\hom(c,f))(1_c)=(Tf\circ\tau_c)(1_c)=(Tf)(x)$. Esta fórmula
+  define una transformación natural, que es pues la única que cumple la
+  condición.
+\end{proof}
+
+\section{Composición horizontal}
+
+Además de componer transformaciones naturales verticalmente, podemos componer
+dos transformaciones naturales $\cB\nats{\tau}\cC\nats{\sigma}\cD$ de la
+siguiente manera.
+
+\begin{definition}
+  Dados cuatro funtores $S,T:\cB\to\cC$ y $S',T':\cC\to\cD$ y dos
+  transformaciones naturales $\tau:S\to T$ y $\sigma:S'\to T'$, llamamos
+  \conc{composición horizontal} de $\tau$ y $\sigma$ a la transformación natural
+  $\sigma\circ\tau:S'\circ S\to T'\circ T$ dada por la figura
+  \ref{fig:horiz-comp} como
+  $(\sigma\circ\tau)_b\coloneqq T'\tau_b\circ\sigma_{Sb}=\sigma_{Tb}\circ
+  S'\tau_b$, donde la conmutatividad se debe a la naturalidad de $\sigma$.
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,2) node(SS){$S'Sb$} (2,2) node(TS){$T'Sb$};
+      \path (0,0) node(ST){$S'Tb$} (2,0) node(TT){$T'Tb$};
+      \draw[->] (SS) -- node[left]{$S'\tau_b$} (ST);
+      \draw[->] (TS) -- node[right]{$T'\tau_b$} (TT);
+      \draw[->] (SS) -- node[above]{$\sigma_{Sb}$} (TS);
+      \draw[->] (ST) -- node[below]{$\sigma_{Tb}$} (TT);
+      \draw[->] (SS) -- node[above]{$\sigma\circ\tau$} (TT);
+    \end{diagram}
+    \caption{Composición horizontal de transformaciones naturales.}
+    \label{fig:horiz-comp}
+  \end{figure}
+\end{definition}
+
+Es fácil ver que la composición horizontal de transformaciones naturales es otra
+transformación natural y que esta operación es asociativa. Además, la
+transformación natural identidad en un funtor identidad es una identidad de esta
+composición, por lo que las transformaciones naturales son los morfismos de una
+categoría cuyos objetos son categorías.
+
+La siguiente proposición es fácil de probar.
+
+\begin{proposition}[Ley del intercambio]
+  Dadas las transformaciones naturales
+  \[
+    \cB\nattwos{\sigma}{\tau}\cC\nattwos{\sigma'}{\tau'}\cD,
+  \]
+  se tiene $(\tau'\cdot\sigma')\circ(\tau\cdot\sigma)=(\tau'\circ\tau)\cdot(\sigma'\circ\sigma)$.
+\end{proposition}
+% \begin{proof}
+%   La figura \ref{fig:nat-interchange} conmuta.
+%   \begin{figure}
+%     \centering
+%     \begin{diagram}
+%       \path (0,4) node(SS){$S'Sb$} (2,4) node(TS){$T'Sb$} (4,4) node(US){$U'Sb$};
+%       \path (2,2) node(TT){$T'Tb$} (4,2) node(UT){$U'Tb$};
+%       \path (4,0) node(UU){$U'Ub$};
+%       \draw[->] (SS) -- node[above]{$\sigma'_{Sb}$} (TS);
+%       \draw[->] (TS) -- node[above]{$\tau'_{Sb}$} (US);
+%       \draw[->] (US) -- node[right]{$U'\sigma_b$} (UT);
+%       \draw[->] (UT) -- node[right]{$U'\tau_b$} (UU);
+%       \draw[->] (TS) -- node[right]{$T'\sigma_b$} (TT);
+%       \draw[->] (TT) -- node[above]{$\tau'_{Tb}$} (UT);
+%       \draw[->] (SS) -- node[above]{$\sigma'\circ\sigma$} (TT);
+%       \draw[->] (TT) -- node[above]{$\tau'\circ\tau$} (UU);
+%       \path (0,2) node(ST){$S'Tb$} (0,0) node(SU){$S'Ub$} (2,0) node(TU){$T'Ub$};
+%       \draw[->] (SS) -- node[left]{$S'\sigma_b$} (ST);
+%       \draw[->] (ST) -- node[left]{$S'\tau_b$} (SU);
+%       \draw[->] (SU) -- node[below]{$\sigma'_{Ub}$} (TU);
+%       \draw[->] (TU) -- node[below]{$\tau'_{Ub}$} (UU);
+%       \draw[->] (ST) -- node[below]{$\sigma'_{Tb}$} (TT);
+%       \draw[->] (TT) -- node[left]{$T'\tau_b$} (TU);
+%     \end{diagram}
+%     \caption{Ley del intercambio.}
+%     \label{fig:nat-interchange}
+%   \end{figure}
+% \end{proof}
+
+Esto muestra un ejemplo de \conc{bicategoría} o \conc{categoría bidimensional},
+un par de categorías con el mismo conjunto de morfismos que cumple la ley del
+intercambio y en que las identidades de una de las dos lo son de la otra. Las
+categorías implicadas son, por supuesto, una categoría de categorías con sus
+transformaciones naturales y la unión disjunta de las categorías de funtores
+entre ellas.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

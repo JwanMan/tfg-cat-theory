@@ -24,12 +24,22 @@
 \usepackage{hyperref}
 
 \newenvironment{diagram}{\begin{tikzpicture}\selectlanguage{english}}{\end{tikzpicture}}
+\usetikzlibrary{decorations.pathmorphing}
+\newcommand{\tikzsquig}{\draw[->,
+line join=round,
+decorate, decoration={
+    zigzag,
+    segment length=4,
+    amplitude=.9,post=lineto,
+    post length=2pt
+}]} % https://tex.stackexchange.com/questions/12678/squiggly-arrows-in-tikz#12680
 
 % Math packages
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{stackrel}
 
 % Theorem styles
 \newtheorem{proposition}{Proposición}[chapter]
@@ -47,6 +57,7 @@
 \newcommand{\dash}{\text{-}}
 \newcommand{\dCat}[2]{\newcommand{#1}{{\bf #2}}}
 \newcommand{\conc}[1]{\emph{#1}}
+\newcommand{\concsuffix}[1]{\emph{#1}}
 \dCat{\bAlg}{Alg}
 \dCat{\bSet}{Set}
 \dCat{\bRel}{Rel}
@@ -112,6 +123,15 @@
 \newcommand{\power}{\mathcal{P}}
 \newcommand{\copower}{\mathcal{Q}}
 \newcommand{\UNIVERSE}{\mathcal{U}}
+\newcommand{\natg}[3]{%
+  \stackrel[#3]{#2}{\overrightarrow{\underrightarrow{\;{#1}\;}}}}
+\newcommand{\nats}[1]{\natg{\downarrow\,{#1}}{}{}}
+\newcommand{\nati}[1]{\natg{\cong\,{#1}}{}{}}
+\newcommand{\nattwog}[4]{%
+  \stackrel[#4]{#3}{\overrightarrow{\underrightarrow{%
+        \xrightarrow[\;{#2}\hfil]{\;{#1}\hfil}}}}}
+\newcommand{\nattwos}[2]{\nattwog{\downarrow\,{#1}}{\downarrow\,{#2}}{}{}}
+\newcommand{\nattwoi}[2]{\nattwog{\cong\,{#1}}{\cong\,{#2}}{}{}}
 
 \begin{document}
 \begin{titlepage}
@@ -163,7 +183,7 @@
 \input{ch3_limits}
 
 \chapter{Transformaciones naturales}
-% TODO
+\input{ch4_trans}
 
 \chapter{Adjunciones}
 % TODO
