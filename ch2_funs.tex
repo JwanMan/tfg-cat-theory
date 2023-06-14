@@ -1,8 +1,9 @@
 Buena parte del poder de la teoría de categorías se deriva de su reflexividad:
 las categorías son estructuras algebraicas y, como tales, es posible estudiarlas
 usando teoría de categorías. Para ello primero debemos ver cuáles son los
-morfismos entre categorías, los llamados \emph{funtores}. Este capítulo se
-basa principalmente en \cite[pp. 21--32]{joyofcats} y \cite[pp. 13--15]{maclane}.
+morfismos entre categorías, los llamados \emph{funtores}. Este capítulo se basa
+principalmente en \cite[pp. 21--32 y cap. 7]{joyofcats} y
+\cite[pp. 13--15]{maclane}.
 
 \begin{definition}
   Un \conc{funtor} entre dos categorías $\cC$ y $\cD$ es un par de funciones
@@ -15,12 +16,11 @@ basa principalmente en \cite[pp. 21--32]{joyofcats} y \cite[pp. 13--15]{maclane}
   \end{enumerate}
 \end{definition}
 
-Observamos que la última condición determina unívocamente la función sobre los
-objetos a partir de la función sobre los morfismos, por lo que la primera es
-redundante. Si $\cC$ y $\cD$ son categorías, escribimos $T:\cC\to\cD$ para decir
-que $T$ es un funtor de $\cC$ a $\cD$, y usamos $T$ para referirnos
-indistintamente al funtor, a la función sobre los objetos y a la función sobre
-los morfismos.
+La última condición determina unívocamente la función sobre los objetos a partir
+de la función sobre los morfismos, por lo que la primera es redundante. Si $\cC$
+y $\cD$ son categorías, escribimos $T:\cC\to\cD$ para decir que $T$ es un funtor
+de $\cC$ a $\cD$, y usamos $T$ para referirnos indistintamente al funtor, a la
+función sobre los objetos y a la función sobre los morfismos.
 
 \begin{example}\label{ex:functors}\;
   \begin{enumerate}
@@ -33,10 +33,10 @@ los morfismos.
     respectivamente.
   \item Si $\cB$ es una subcategoría de $\cC$, existe un \conc{funtor inclusión}
     $u:\cB\to\cC$ que envía cada objeto y morfismo de $\cB$ a sí mismo en $\cC$.
-  \item \label{enu:funct-power} La operación <<conjunto potencia>> es
-    un funtor $\power:\bSet\to\bSet$, que lleva cada función
-    $f:A\to B$ a la función $(\power f)(S)\coloneqq f[S]$, que asocia
-    a cada subconjunto de $A$ su \emph{imagen} por $f$.
+  \item \label{enu:funct-power} La operación \emph{conjunto potencia} es un
+    funtor $\power:\bSet\to\bSet$, que lleva cada función $f:A\to B$ a la
+    función $(\power f)(S)\coloneqq f[S]$, que asocia a cada subconjunto de $A$
+    su \emph{imagen} por $f$.
   \item \label{enu:funct-copower} De forma similar podemos definir el
     funtor \conc{conjunto potencia contravariante},
     $\copower:\bSet\to\dual{\bSet}$, que lleva un conjunto $S$ a su
@@ -59,16 +59,16 @@ los morfismos.
     \begin{proof}
       Primero vemos que la operación sobre morfismos está bien definida. Sea
       $f:(X,x)\to(Y,y)$ un morfismo en $\bTop_*$, y sean
-      $\gamma,\sigma:[0,1]\to X$ representantes de un mismo elemento
-      $\overline{\gamma}=\overline{\sigma}$ de $\pi(X,x)$, entonces existe una
-      homotopía $s:[0,1]\times[0,1]\to X$ de $\gamma$ a $\sigma$, con lo que
-      $f\circ s:[0,1]\times[0,1]\to Y$ es una homotopía de $f(\sigma)$ a
-      $f(\gamma)$ y $(\pi f)(\overline{\gamma})=(\pi f)(\overline{\sigma})$.
-      Además $\pi f$ es un morfismo de grupos, pues la composición con $f$ lleva
-      la curva constante en $x$ a la curva constante en $y$ y respeta la
-      concatenación de curvas. Finalmente, dados morfismos $f:(X,x)\to (Y,y)$ y
-      $g:(Y,y)\to(Z,z)$ en $\bTop_*$, es fácil ver que
-      $\pi(g\circ f)=\pi g\circ\pi f$ y que $\pi(1_{(X,x)})=1_{\pi(X,x)}$.
+      $\gamma,\sigma:[0,1]\to X$ representantes de un mismo elemento de
+      $\pi(X,x)$, entonces existe una homotopía $s:[0,1]\times[0,1]\to X$ de
+      $\gamma$ a $\sigma$, con lo que $f\circ s:[0,1]\times[0,1]\to Y$ es una
+      homotopía de $f(\sigma)$ a $f(\gamma)$ y
+      $(\pi f)(\overline{\gamma})=(\pi f)(\overline{\sigma})$.  Además $\pi f$
+      es un morfismo de grupos, pues la composición con $f$ lleva la curva
+      constante en $x$ a la curva constante en $y$ y respeta la concatenación de
+      curvas. Finalmente, dados morfismos $f:(X,x)\to (Y,y)$ y $g:(Y,y)\to(Z,z)$
+      en $\bTop_*$, es fácil ver que $\pi(g\circ f)=\pi g\circ\pi f$ y que
+      $\pi(1_{(X,x)})=1_{\pi(X,x)}$.
     \end{proof}
   \item Los funtores se pueden componer. Dados dos funtores $S:\cB\to\cC$ y
     $T:\cC\to\cD$, el \conc{funtor composición} $T\circ S:\cB\to\cC$ viene dado
@@ -97,7 +97,8 @@ ZFC para lidiar con estos casos. Mac Lane\cite[pp. 21--26]{maclane} propone una
 extensión basada en universos de Grothendieck.
 
 \begin{definition}
-  Un \conc{universo} (\conc{de Grothendieck}) es un conjunto $\UNIVERSE$ tal que:
+  Un \conc{universo} (\concsuffix{de Grothendieck}) es un conjunto $\UNIVERSE$
+  tal que:
   \begin{enumerate}
   \item Si $x\in u\in\UNIVERSE$ entonces $x\in\UNIVERSE$.
   \item Si $u,v\in\UNIVERSE$ entonces $\{u,v\}\in\UNIVERSE$.
@@ -108,9 +109,9 @@ extensión basada en universos de Grothendieck.
   \end{enumerate}
 \end{definition}
 
-La idea es que un universo contendría todos los conjuntos con lo que uno
-trataría trabajar normalmente dentro de ZFC, como ilustran las siguientes
-propiedades fáciles de probar.
+La idea es que un universo contendría todos los conjuntos con los que uno
+trataría normalmente dentro de ZFC, como ilustran las siguientes propiedades
+fáciles de probar.
 
 \begin{proposition}
   Sea $\UNIVERSE$ un universo:
@@ -138,9 +139,9 @@ sencillo.
   Existe un universo de Grothendieck $\UNIVERSE$.
 \end{axiom}
 
-Entonces basta considerar un universo $\UNIVERSE$ fijo y notar que, cuando
-hablábamos de conjuntos, ahora hablamos de elementos de $\UNIVERSE$, y
-cuando hablábamos de clases, ahora hablamos de subconjuntos de $\UNIVERSE$.
+En adelante fijamos un universo $\UNIVERSE$ y notamos que, cuando hablábamos de
+conjuntos, ahora hablamos de elementos de $\UNIVERSE$, y cuando hablábamos de
+clases, ahora hablamos de subconjuntos de $\UNIVERSE$.
 
 \begin{definition}
   Un conjunto $x$ es \conc{pequeño} si $x\in\UNIVERSE$, es una \conc{clase} si
@@ -185,34 +186,28 @@ y en general de todas las matemáticas, no basados en teoría de conjuntos.
 \section{Equivalencias de categorías}
 
 Un funtor en $\bCat_X$ es un isomorfismo si y sólo si es biyectivo sobre los
-morfismos. Además, esta idea de isomorfismo es la que podríamos esperar.
-
-\begin{example}\;
-  \begin{enumerate}
-  \item Dos conjuntos, conjuntos preordenados o monoides vistos como categorías
-    son isomorfos en $\bCat$ si y sólo si lo son en $\bSet$, $\bPrord$ o
-    $\bMon$, respectivamente.
-  \item $\sInt\dash\bMod$ es isomorfo a $\bAb$ en $\bCAT$.
-  \end{enumerate}
-\end{example}
+morfismos. Esta idea de isomorfismo es la que podríamos esperar, ya que, por
+ejemplo, dos conjuntos, conjuntos preordenados o monoides vistos como categorías
+son isomorfos en $\bCat$ si y sólo si lo son en $\bSet$, $\bPrord$ o $\bMon$,
+respectivamente, y en $\bCAT$ $\sInt\dash\bMod$ es isomorfo a $\bAb$.
 
 En ocasiones, sin embargo, esta definición de isomorfismo es demasiado
-estricta. Por ejemplo, las aplicaciones lineales entre espacios vectoriales de
-dimensión finita sobre un cuerpo no trivial $K$ se pueden representar mediante
-matrices, pero en general $K\dash\bVecf$, la categoría de $K$-espacios
-vectoriales de dimensión finita y las transformaciones lineales entre ellos, no
-es isomorfa a $K\dash\bMat$, pues tiene muchos más objetos, y sin embargo a cada
-objeto de $K\dash\bMat$ le corresponde una clase de isomorfía en $K\dash\bVecf$.
+estricta. Por ejemplo, si $K\dash\bVecf$ es la subcategoría de $K\dash\bVec$ de
+los espacios de dimensión finita, los morfismos de $K\dash\bVecf$ se pueden
+representar mediante matrices, pero en general $K\dash\bVecf$ no es isomorfa a
+$K\dash\bMat$ debido a que tiene muchos más objetos, y para obtener el
+isomorfismo habría que sustituir $K\dash\bVecf$ por una subcategoría completa
+formada por un conjunto irredundante de representantes de los objetos por
+isomorfismo.
 
-Para estos casos es útil la noción de equivalencia. Una equivalencia entre
+En estos casos es útil la noción de equivalencia. Una equivalencia entre
 categorías viene a ser un funtor que respeta las clases de isomorfía de los
 objetos y que <<se porta bien>> con los morfismos. Para caracterizar el
 significado de esto último, vemos que un funtor, al estar formado por una
 función sobre objetos y una sobre morfismos, puede ser inyectivo o suprayectivo
 sobre los objetos o sobre los morfismos. Serlo sobre los morfismos implica serlo
-sobre los objetos, y no queremos obligar a que las categorías sean biyectivas
-sobre los objetos, por lo que es preferible abordar esta cuestión en función de
-los conjuntos hom de las categorías involucradas.
+sobre los objetos, y no queremos obligar a que sean biyectivos sobre objetos,
+por lo que es preferible abordar esta cuestión en función de los conjuntos hom.
 
 \begin{definition}
   Sea $T:\cC\to\cD$ un funtor:
@@ -235,16 +230,16 @@ los conjuntos hom de las categorías involucradas.
     inmersiones no plenas.
   \item El funtor $u:\bMetc\to\bTop$ que lleva los espacios métricos a sus
     correspondientes espacios topológicos y los morfismos a ellos mismos es fiel
-    y pleno pero no es una inmersión.
+    y pleno, pero no es una inmersión.
   \item Los funtores \conc{espacio discreto} y \conc{espacio indiscreto}
     $D,N:\bSet\to\bTop$, que asocian a cada conjunto la topología discreta o
     indiscreta, respectivamente, y llevan cada función a ella misma, son
     inmersiones plenas pero no son isomorfismos.
-  \item $\bZero$ es un objeto inicial de $\bCat$, y el único funtor de $\bZero$
-    a una cierta categoría $\cC$ es una inmersión pero en general no es pleno.
-  \item $\bOne$ es un objeto final de $\bCat$, y el único funtor de una cierta
-    categoría $\cC$ a $\bOne$ es pleno y suprayectivo en objetos pero en general
-    no es inyectivo en objetos, y es fiel si y sólo si $\cC$ es fina.
+  \item $\bZero$ es un objeto inicial de $\bCat$. El único funtor de $\bZero$ a
+    una cierta categoría $\cC$ es una inmersión, pero en general no es pleno.
+  \item $\bOne$ es un objeto final de $\bCat$. El único funtor de una cierta
+    categoría $\cC$ a $\bOne$ es pleno y suprayectivo en objetos, pero en
+    general no es inyectivo en objetos, y es fiel si y sólo si $\cC$ es fina.
   \end{enumerate}
 \end{example}
 
@@ -271,10 +266,9 @@ Parece razonable entonces requerir que las equivalencias sean fieles y plenas.
 \end{definition}
 
 Estos requisitos son suficientes para satisfacer la noción intuitiva que hemos
-descrito antes, pues los funtores llevan isomorfismos (de objetos) a
-isomorfismos y, dados dos objetos isomorfos en $\Img{T}$, como $T$ es biyectiva
-sobre los conjuntos hom, dos preimágenes cualesquiera de estos dos objetos serán
-isomorfas en $\cC$.
+descrito antes, pues los funtores llevan isomorfismos a isomorfismos y, dados
+dos objetos isomorfos en $\Img{T}$, como $T$ es biyectiva sobre los conjuntos
+hom, dos preimágenes cualesquiera de estos dos objetos serán isomorfas en $\cC$.
 
 \begin{example}\;
   \begin{enumerate}
@@ -291,7 +285,7 @@ isomorfas en $\cC$.
   \end{enumerate}
 \end{example}
 
-\begin{proposition}\;
+\begin{proposition}\label{prop:cat-equiv}\;
   \begin{enumerate}
   \item La composición de equivalencias es una equivalencia.
     \begin{proof}
@@ -309,7 +303,7 @@ isomorfas en $\cC$.
       equivalencia es reflexiva, y el apartado anterior prueba que es
       transitiva. Para ver que es simétrica, sea $T:\cC\to\cD$ una equivalencia,
       usando el axioma de elección, para cada objeto $d$ de $\cD$ tomamos un
-      objeto $Sd$ de $a$ con $T(Sd)\cong d$ y un isomorfismo $h_d:TSd\to d$.
+      objeto $Sd$ de $\cC$ con $T(Sd)\cong d$ y un isomorfismo $h_d:TSd\to d$.
       Como $T$ es biyectiva en conjuntos hom, para cada morfismo $g:a\to b$ en
       $\cD$ existe un único morfismo $Sg:Sa\to Sb$ para el que la figura
       \ref{fig:equiv-sym} conmuta.
@@ -323,15 +317,15 @@ isomorfas en $\cC$.
           \draw[->] (IB) -- node[right]{$h_b$} (B);
           \draw[->] (A) -- node[below]{$g$} (B);
         \end{diagram}
-        \caption{Definición del <<funtor inverso>> $S$ sobre los morfismos}
+        \caption[Funtor <<inverso>> de una equivalencia]{Actuación sobre los
+          morfismos del funtor <<inverso>> $S$ de una equivalencia.}
         \label{fig:equiv-sym}
       \end{figure}
-      Es decir $Sg=(T|_{\hom(Sa,Sb)})^{-1}(h_b^{-1}\circ g\circ h_a)$. Usando
-      esta fórmula y que $T$ respeta las identidades y la composición se
-      concluye que $S$ también las respeta, por lo que $S$ es un funtor. $S$ es
-      fiel, pues para $g,g':a\to b$ en $\cD$ con $Sg=Sh$, por el diagrama,
-      $g=h_b\circ TSg\circ h_a^{-1}=h_b\circ TSg'\circ h_a^{-1}=g$'. Y $S$ es
-      plena, pues para $f:Sa\to Sb$ en $\cC$,
+      A partir de esta figura, de la unicidad de $Sg$ y de que $T$ respeta las
+      identidades y la composición, se concluye que $S$ también las respeta, por
+      lo que $S$ es un funtor. $S$ es fiel, pues para $g,g':a\to b$ en $\cD$ con
+      $Sg=Sh$, $g=h_b\circ TSg\circ h_a^{-1}=h_b\circ TSg'\circ h_a^{-1}=g$'. Y
+      $S$ es plena, pues para $f:Sa\to Sb$ en $\cC$,
       $g\coloneqq h_b\circ Tf\circ h_a^{-1}$ cumple $g\circ h_a=h_b\circ Tf$ y,
       por la unicidad de la figura \ref{fig:equiv-sym}, $Tf=TSg$ y $f=Sg$.
 
@@ -362,18 +356,14 @@ objetos\cite[p. 42]{joyofcats}.
   \begin{enumerate}
   \item Toda categoría posee un esqueleto.
   \item Todo esqueleto de $\cC$ es equivalente a $\cC$.
-    \begin{proof}
-      La inclusión de un esqueleto de $\cC$ en $\cC$ es una
-      equivalencia.
-    \end{proof}
   \item Todos los esqueletos de una misma categoría son isomorfos.
     \begin{proof}
-      Sean $\cA$ y $\cB$ esqueletos de $\cC$, cada objeto de $\cC$, y
-      en particular cada objeto $a$ de $\cA$, es isomorfo en $\cC$ a
-      un único objeto $Ta$ de $\cB$ por un isomorfismo $h_a:a\to Ta$,
-      de forma que el funtor $T:\cA\to\cB$ definido sobre objetos de
-      esta forma y sobre morfismos $f:a_1\to a_2$ como en la figura
-      \ref{fig:skel-iso} es un isomorfismo de categorías.
+      Sean $\cA$ y $\cB$ esqueletos de $\cC$, cada objeto de $\cC$, y en
+      particular cada objeto $a$ de $\cA$, es isomorfo en $\cC$ a un único
+      objeto $Ta$ de $\cB$ por un isomorfismo $h_a:a\to Ta$, de forma que el
+      funtor $T:\cA\to\cB$ definido sobre objetos de esta forma y sobre
+      morfismos $f:a_1\to a_2$ como en la figura \ref{fig:skel-iso} es un
+      isomorfismo de categorías.
       \begin{figure}[H]
         \centering
         \begin{diagram}
@@ -384,7 +374,7 @@ objetos\cite[p. 42]{joyofcats}.
           \draw[->] (A2) -- node[right]{$h_{a_2}$} (TA2);
           \draw[->] (A1) -- node[below]{$f$} (A2);
         \end{diagram}
-        \caption{Isomorfismo entre dos esqueletos de $\cC$}
+        \caption{Isomorfismo entre dos esqueletos de $\cC$.}
         \label{fig:skel-iso}
       \end{figure}
     \end{proof}
@@ -393,7 +383,7 @@ objetos\cite[p. 42]{joyofcats}.
 
 \begin{example}\;
   \begin{enumerate}
-  \item El esqueleto de $\bSet$ es la categoría de todos los números cardinales.
+  \item El esqueleto de $\bSet$ es la subcategoría completa de los números cardinales.
   \item Si $K$ es un cuerpo no trivial, el esqueleto de $K\dash\bMat$
     es el propio $K\dash\bMat$, y el de $K\dash\bVec$ está formado por
     los $K^m$ para todo cardinal $m$.
@@ -443,30 +433,12 @@ fieles.
   \end{enumerate}
 \end{example}
 
-% Los funtores olvidadizos no tienen por qué ser inyectivos en objetos,
-% y de hecho normalmente no lo son, pero podemos estudiar lo que ocurre
-% con los objetos de la categoría concreta que van a parar a la misma
-% categoría base.
-
-% \begin{definition}
-%   Sean $(\cC,U)$ una categoría concreta sobre $\cB$ y $b\in\cB$:
-%   \begin{enumerate}
-%   \item La \conc{fibra} de $b$ es el conjunto de objetos
-%     $c\in\bOb{\cC}$ con $Uc=b$ con el preorden parcial $c\preceq d$ si
-%     y sólo si $1_x$ es la imagen por $U$ de un morfismo $id:c\to d$.
-%   \item Dos objetos $c,d\in U^{-1}(\{b\})$ son \conc{equivalentes} si
-%     $c\preceq d\preceq c$.
-%   \end{enumerate}
-% \end{definition}
-
-% % TODO Ejemplos de la pág. 55 y el ejemplo de fibras de Mod->CRng
-
 \section{Funtores contravariantes}
 
-Si $T:\cC\to\cD$ es un funtor, entonces $T:\dual{\cC}\to\dual{\cD}$
-también es un funtor, y de hecho, al tomar el dual de una propiedad
-con categorías y funtores, invertimos el sentido de los morfismos en
-las categorías pero no entre los funtores entre dichas categorías.
+Si $T:\cC\to\cD$ es un funtor, entonces $T:\dual{\cC}\to\dual{\cD}$ también es
+un funtor, y de hecho, podemos tomar el dual de una propiedad sobre categorías y
+funtores invirtiendo el sentido de los morfismos en las categorías pero no el de
+los funtores entre dichas categorías.
 
 Sin embargo, es bastante común tener funtores de la forma
 $S:\dual{\cC}\to\cD$ o, equivalentemente, $S:\cC\to\dual{\cD}$. A los
@@ -476,24 +448,17 @@ funtores $\dual{\cC}\to\cD$ los llamamos \conc{funtores
 
 \begin{example}\;
   \begin{enumerate}
-  \item Ya hemos visto el funtor covariante $\power:\bSet\to\bSet$ y
-    el funtor contravariante $\copower:\dual{\bSet}\to\bSet$ en los
-    apartados \ref{enu:funct-power} y \ref{enu:funct-copower} del
-    ejemplo \ref{ex:functors}.
-  \item Sea $K$ un cuerpo. $^*:\dual{K\dash\bVec}\to K\dash\bVec$ es
-    un funtor contravariante que a cada espacio vectorial $V$ le
-    asigna el \emph{espacio dual} $V^*$ de aplicaciones lineales
-    $V\to K$ y a cada morfismo $f:V\to U$ le asigna el morfismo
-    $f^*:U^*\to V^*$ dado por $f^*u\coloneqq u\circ f$.
+  \item Ya hemos visto el funtor covariante $\power:\bSet\to\bSet$ y el funtor
+    contravariante $\copower:\dual{\bSet}\to\bSet$ en los apartados
+    \ref{enu:funct-power} y \ref{enu:funct-copower} del ejemplo
+    \ref{ex:functors}.
+  \item Sea $K$ un cuerpo. $^*:\dual{K\dash\bVec}\to K\dash\bVec$ es un funtor
+    contravariante que a cada espacio vectorial $V$ le asigna el \emph{espacio
+      dual} $V^*$ de aplicaciones lineales $V\to K$ y a cada morfismo $f:V\to U$
+    le asigna el morfismo $f^*:U^*\to V^*$ dado por $f^*u\coloneqq u\circ f$.
     
   \end{enumerate}
 \end{example}
-
-% \section{Funtores hom}
-
-% Si $\cC$ es una categoría, podemos ver $\hom_{\cC}$ como un funtor. La
-% clase de elementos de $\hom$ serán pares
-% TODO Mac Lane 34, 38
 
 \section{Funtores hom}
 
@@ -501,8 +466,8 @@ Si $\cC$ es una categoría con conjuntos hom pequeños, podemos intentar
 considerar $\hom_{\cC}:\cA\times\cB\to\bSet$ como un funtor, donde
 $\Ob{\cA}=\Ob{\cB}=\Ob{\cC}$. Queremos encontrar una forma <<natural>> de llevar
 los morfismos del dominio a los del codominio, y para ello una buena idea es
-considerar primero los funtores parciales, en los que uno de los elementos de la
-entrada está fijo.
+fijar uno de los dos componentes y ver cómo podría ser el <<funtor parcial>>
+respecto al otro.
 
 Si $\cB$ y $\cC$ son categorías cualesquiera, su producto $\cB\times\cC$ (en una
 categoría de categorías apropiada) es una categoría con
@@ -551,28 +516,28 @@ Al primero lo llamamos \conc{funtor hom covariante}, y al segundo, \conc{funtor
 
 El producto en sí también es un bifuntor, y no solo en $\bCat$ o en $\bCAT$ sino
 en toda categoría que tenga productos de pares de objetos. En efecto, sea $\cC$
-tal categoría, y definimos el funtor $\times:\cC\times\cC\to\cC$ del siguiente
+tal categoría, y definimos el funtor $\otimes:\cC\times\cC\to\cC$ del siguiente
 modo. Para objetos $a$ y $b$, $a\times b$ es un producto cualquiera de $a$ y
 $b$, aunque en general elegiremos un producto <<canónico>>. Para morfismos
 $f:a\to a'$ y $g:b\to b'$, $f\times g:a\times b\to a'\times b'$ es el único
-morfismo para el que la figura \ref{fig:prod-functor} conmuta, donde $p,q,p',q'$
-son las correspondientes proyecciones.
+morfismo para el que la figura \ref{fig:prod-functor} conmuta, donde los
+morfismos sin etiquetar son las proyecciones.
 
 \begin{figure}
   \centering
   \begin{diagram}
     \path (0,2) node(A){$a$}   (2,2) node(AB){$a\times b$}    (4,2) node(B){$b$}
           (0,0) node(AP){$a'$} (2,0) node(ABP){$a'\times b'$} (4,0) node(BP){$b'$};
-    \draw[->] (AB) -- node[above]{$p$} (A);
-    \draw[->] (AB) -- node[above]{$q$} (B);
-    \draw[->] (ABP) -- node[below]{$p'$} (AP);
-    \draw[->] (ABP) -- node[below]{$q'$} (BP);
+    \draw[->] (AB) -- (A);
+    \draw[->] (AB) -- (B);
+    \draw[->] (ABP) -- (AP);
+    \draw[->] (ABP) -- (BP);
     \draw[->] (A) -- node[left]{$f$} (AP);
     \draw[->] (B) -- node[right]{$g$} (BP);
     \draw[->,dotted] (AB) -- node{$f\times g$} (ABP);
   \end{diagram}
   \caption[Producto de morfismos]{Morfismo producto de $f$ y $g$. Los morfismos
-    $p,q,p',q'$ son las proyecciones.}
+   sin etiquetar son las proyecciones.}
   \label{fig:prod-functor}
 \end{figure}
 
@@ -604,17 +569,18 @@ preservación son distintas, pero podemos definirlas de forma abstracta.
   \item $T$ \conc{refleja} $P$ si, cuando $P((T(o_i))_i,(T(m_j))_j)$ se cumple
     en $\cD$ para ciertos $o_i$ y $m_j$ de $\cC$, entonces $P((o_i)_i,(m_j)_j)$
     se cumple en $\cC$.
-  \item $T$ \conc{levanta} $P$ si, cuando $P((p_i)_i,(n_j)_j)$ se cumple en
-    $\cD$ para ciertos $p_i$ y $n_j$ de $\cD$, entonces existen $(o_i)_i$ y
-    $(m_j)_j$ de $\cC$ con cada $T(o_i)=p_i$, cada $T(m_j)=n_j$ y tal que
-    $P((o_i)_i,(m_j)_j)$ se cumple en $\cC$.
+  \item $T$ \conc{levanta} $P$ (\concsuffix{de forma única}) si, cuando
+    $P((p_i)_i,(n_j)_j)$ se cumple en $\cD$ para ciertos $p_i$ y $n_j$ de $\cD$,
+    entonces existen (únicos) $(o_i)_i$ y $(m_j)_j$ de $\cC$ con cada
+    $T(o_i)=p_i$, cada $T(m_j)=n_j$ y tal que $P((o_i)_i,(m_j)_j)$ se cumple en
+    $\cC$.
   \end{enumerate}
 \end{definition}
 
 El concepto de funtor, como el de función, es bastante general y por ello no es
 de esperar que haya muchas propiedades respetadas por todos los funtores. Sin
-embargo, algunas propiedades son respetadas por todos o por muchos de ellos,
-como vamos a ver.
+embargo, algunas son respetadas por todos o por muchos de ellos, como vamos a
+ver.
 
 \begin{proposition}
   Los funtores preservan isomorfismos, secciones y retracciones.
@@ -645,18 +611,17 @@ Ambas condiciones de esta proposición son necesarias. Por ejemplo, la inclusió
 de monoides aditivos $\sNat\inTo\sInt$ vista como funtor es fiel pero no pleno,
 y el único morfismo de monoides $\sNat\epicTo\bOne$ es pleno pero no fiel, y
 ambos llevan una categoría en que la mayoría de morfismos no son secciones ni
-retracciones (sólo el 0 lo es) a una en que todos los son.
+retracciones (sólo el 0 lo es) a una en la que todos los son.
 
 \begin{proposition}
-  Los funtores hom covariantes reflejan monomorfismos y epimorfismos.
+  Los funtores hom covariantes reflejan monomorfismos.
 \end{proposition}
 \begin{proof}
-  Si $a$ un objeto de $\cC$ y $f:b\to c$ un morfismo tal que $\hom(a,f)$ es un
-  monomorfismo, si $f\circ h=f\circ k$, entonces $\hom(a,f)(h)=\hom(a,f)(k)$ y
-  por inyectividad $h=k$.
+  Si $a$ es un objeto de $\cC$ y $f:b\to c$ un morfismo tal que $\hom(a,f)$ es
+  un monomorfismo, si $f\circ h=f\circ k$, entonces $\hom(a,f)(h)=\hom(a,f)(k)$
+  y por inyectividad $h=k$.
 \end{proof}
 
-% TODO Todo funtor representable refleja monomorfismos y epimorfismos.
 \begin{proposition}
   Todo funtor fiel refleja monomorfismos y epimorfismos.
 \end{proposition}
@@ -666,10 +631,6 @@ retracciones (sólo el 0 lo es) a una en que todos los son.
   $Tf\circ Th=Tf\circ Tk$ y $Th=Tk$, y por fidelidad $h=k$. Los epimorfismos son
   la propiedad dual.
 \end{proof}
-
-% TODO Preservación de
-% monomorfismos/epimorfismos/secciones/retracciones por funtores,
-% salvo que sea mejor hacerlo en el apartado de límites (JoC 96--103).
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"

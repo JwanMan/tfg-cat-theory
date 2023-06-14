@@ -1,28 +1,28 @@
 Al estudiar distintas ramas de las matemáticas de manera formal es inevitable
-notar que existen ciertos patrones que se repiten. Todas empiezan con los
-axiomas que caracterizan los objetos de estudio, como pueden ser los grupos,
-espacios vectoriales, espacios topológicos, variedades, etc., y pese a que estos
-se definen de forma muy diferente, en la mayoría se pueden definir de manera
-natural conceptos como subobjetos, objetos producto u objetos cociente, entre
-otros. Además, estos objetos no se suelen estudiar de forma aislada, sino que se
-estudian funciones entre los objetos que cumplen ciertas propiedades, como
-pueden ser las aplicaciones lineales en el álgebra lineal, las aplicaciones
-continuas en la topología y los homomorfismos del álgebra abstracta.
+notar ciertos patrones que se repiten. Todas empiezan con los axiomas que
+caracterizan los objetos de estudio, como pueden ser los grupos, espacios
+vectoriales, espacios topológicos, variedades, etc., y pese a que estos se
+definen de forma muy diferente, en la mayoría de casos se pueden definir
+naturalmente conceptos como subobjetos, objetos producto u objetos cociente,
+entre otros. Además, junto a estos objetos se estudian funciones entre objetos
+que cumplen ciertas propiedades, como las aplicaciones lineales en el álgebra
+lineal, las aplicaciones continuas en la topología y los homomorfismos en el
+álgebra abstracta.
 
 Estos patrones no son una coincidencia, pues las propiedades generales que
 exhiben son las mismas en todos los casos. Por ejemplo, la clase de funciones
 <<destacables>> entre objetos es cerrada para la composición, y el producto de
 subobjetos de dos objetos es un subobjeto del producto de los objetos
-originales. Esto motiva el estudio de dichos patrones como otra área de las
+originales. Esto motiva el estudio de dichos patrones como parte de las
 matemáticas, con el fin de obtener propiedades aplicables a muchas de las áreas
-de las matemáticas existentes o, incluso, a áreas desarrolladas posteriormente,
-como veremos que ocurre con la teoría de la computación. Así, en este área de
-las matemáticas los objetos de estudio son representaciones de los conceptos
-fundamentales de otras áreas, que podemos representar como la clase de los
-objetos de estudio junto con la clase de funciones destacables entre ellos,
-llamadas \emph{morfismos}, lo que da lugar al concepto de \emph{categoría}.
-Este capítulo introduce las categorías y estudia sus propiedades de manera
-general, y se basa principalmente en \cite[caps. 3, 4, 7 y 10]{joyofcats}.
+existentes o, incluso, a áreas desarrolladas posteriormente, como veremos que
+ocurre con la teoría de la computación. Así, en la teoría de categorías, los
+objetos de estudio son representaciones de los conceptos fundamentales de otras
+teorías matemáticas, que podemos representar como la clase de los objetos de
+estudio junto con la clase de funciones destacables entre ellos, llamadas
+\emph{morfismos}, dando lugar al concepto de \emph{categoría}.  Este capítulo
+introduce las categorías y estudia sus propiedades de manera general, y se basa
+principalmente en \cite[caps. 3, 4, 7 y 10]{joyofcats}.
 
 \begin{definition}
   \label{def:category}
@@ -47,12 +47,11 @@ general, y se basa principalmente en \cite[caps. 3, 4, 7 y 10]{joyofcats}.
   \end{enumerate}
 \end{definition}
 
-Es común en teoría de categorías representar situaciones con diagramas, como los
-usados en buena parte del álgebra, donde los vértices representan objetos y las
-flechas representan morfismos, y una flecha aparece punteada si su existencia se
-debe a la existencia de las otras flechas del diagrama. No se suelen representar
-las flechas identidad ni la composición de flechas que ya aparecen en el
-diagrama.
+Es común en teoría de categorías representar situaciones con diagramas, en los
+que los vértices representan objetos y las flechas representan morfismos, y una
+flecha aparece punteada si su existencia se debe a la existencia de las otras
+flechas del diagrama. No se suelen representar las flechas identidad ni la
+composición de otras flechas del diagrama.
 
 Un diagrama \conc{conmuta} si, dados dos caminos cualesquiera del diagrama con
 el mismo objeto de origen y de destino, la composición de los morfismos en cada
@@ -87,35 +86,33 @@ categorías se pueden expresar como en la figura \ref{fig:cat-axiom}.
     \end{diagram}
     \caption{Elemento neutro}
   \end{subfigure}
-  \caption{Axiomas de categoría}
+  \caption{Axiomas de categoría.}
   \label{fig:cat-axiom}
 \end{figure}
 
-\begin{samepage}
-  \begin{example}
-    Ciertos conceptos fundacionales se pueden ver como categorías:
-    \begin{enumerate}
-    \item La categoría $\bSet$ tiene como objetos todos los conjuntos y como
-      morfismos todas las funciones, cualificadas por su dominio y codominio, con
-      la composición e identidad obvias.
-    \item Un \conc{preorden} es una relación reflexiva y transitiva, que se puede
-      ver intuitivamente como un orden parcial entre clases de equivalencia. Un
-      \conc{conjunto preordenado} es un conjunto con un preorden asociado, y
-      llamamos $\bPrord$ a la categoría de los conjuntos preordenados cuyos
-      morfismos son funciones que conservan el preorden, es decir, funciones
-      $f:(a,\preceq)\to(b,\preccurlyeq)$ tales que para $x,y\in a$,
-      $x\preceq y\implies f(x)\preccurlyeq f(y)$.
-    \item \label{enu:mot-subcat} La categoría $\bOrd$ tiene como objetos los
-      conjuntos parcialmente ordenados y como morfismos las funciones que
-      conservan el orden. $\bLat$ es similar pero los objetos son retículos y los
-      morfismos deben además preservar supremos e ínfimos de pares de elementos.
-    \item La categoría $\bGrph$ tiene como objetos los grafos dirigidos,
-      permitiendo ejes reflexivos, y como morfismos las funciones entre los
-      vértices de dos grafos que llevan ejes del primer grafo a ejes del
-      segundo.
-    \end{enumerate}
-  \end{example}
-\end{samepage}
+\begin{example}
+  Ciertos conceptos fundacionales se pueden ver como categorías:
+  \begin{enumerate}
+  \item La categoría $\bSet$ tiene como objetos todos los conjuntos y como
+    morfismos todas las funciones, cualificadas por su dominio y codominio, con
+    la composición e identidad obvias.
+  \item Un \conc{preorden} es una relación reflexiva y transitiva, que se puede
+    ver intuitivamente como un orden parcial entre clases de equivalencia. Un
+    \conc{conjunto preordenado} es un conjunto con un preorden asociado, y
+    llamamos $\bPrord$ a la categoría de los conjuntos preordenados cuyos
+    morfismos son funciones que conservan el preorden, es decir, funciones
+    $f:(a,\preceq)\to(b,\preccurlyeq)$ tales que para $x,y\in a$,
+    $x\preceq y\implies f(x)\preccurlyeq f(y)$.
+  \item \label{enu:mot-subcat} La categoría $\bOrd$ tiene como objetos los
+    conjuntos parcialmente ordenados y como morfismos las funciones que
+    conservan el orden. $\bLat$ es similar pero los objetos son retículos y los
+    morfismos deben además preservar supremos e ínfimos de pares de elementos.
+  \item La categoría $\bGrph$ tiene como objetos los grafos dirigidos,
+    permitiendo ejes reflexivos, y como morfismos las funciones entre los
+    vértices de dos grafos que llevan ejes del primer grafo a ejes del
+    segundo.
+  \end{enumerate}
+\end{example}
 
 El apartado \ref{enu:mot-subcat} de la lista anterior lleva naturalmente al
 concepto de subcategoría.
@@ -180,12 +177,22 @@ operadores.
     \item Para $\lambda\in \Lambda$ de aridad $n$ y
       $f:\{1,\dots,n\}\to\{1,\dots,m\}$, $\lambda_f$ de aridad $m$.
     \end{enumerate}
-  \item Si $\mu$ es una acción sobre $I$, la extensión de $\mu$ a $\Lambda$ es
-    la acción $\nu$ sobre $\Lambda$ dada por $\nu_i=\mu_i$ para $i\in I$,
-    $nmu_{id}(x)\coloneqq x$,
-    $\nu_{\omega(i_1,\dots,i_n)}(x_{11},\dots,x_{1a_1},\dots,x_{n1},\dots,x_{na_n})\coloneqq\nu_\omega(\nu_{i_1}(x_{11},\dots,x_{1a_1}),\dots,\nu_{i_n}(x_{n1},\dots,x_{na_n}))$
-    y
-    $\nu_{\lambda_f}(x_1,\dots,x_m)\coloneqq\nu_\lambda(x_{f(1)},\dots,x_{f(n)})$.
+  \item Si $\mu$ es una acción sobre $I$, la \conc{extensión} de $\mu$ a $\Lambda$ es
+    la acción $\nu$ sobre $\Lambda$ definida por las siguientes ecuaciones:
+    \bgroup
+    \setlength{\belowdisplayskip}{0pt}
+    \setlength{\abovedisplayskip}{0pt}
+    \begin{eqnarray*}
+      \nu_i & \coloneqq & \mu_i,\quad i\in I;\\
+      \nu_{id}(x) & \coloneqq & x;\\
+      \nu_{\lambda_f}(x_1,\dots,x_m) & \coloneqq & \nu_\lambda(x_{f(1)},\dots,x_{f(n)});
+    \end{eqnarray*}
+    \begin{multline*}
+      \nu_{\omega(i_1,\dots,i_n)}(x_{11},\dots,x_{1a_1},\dots,x_{n1},\dots,x_{na_n})\coloneqq\\
+      \coloneqq\nu_\omega(\nu_{i_1}(x_{11},\dots,x_{1a_1}),\dots,\nu_{i_n}(x_{n1},\dots,x_{na_n})).
+    \end{multline*}
+    \vspace{0pt}
+    \egroup
   \item Una \conc{identidad} sobre $I$ es un par $(\lambda,\sigma)$ de
     operadores $\Lambda$ de igual aridad.
   \item Una acción $\mu$ sobre $I$ \conc{satisface} una identidad
@@ -202,7 +209,7 @@ $x+(-x)=0$ y $x+y=y+x$.
 
 \begin{definition}
   Sean $\Omega$ un conjunto graduado finito y $E$ un conjunto finito de
-  identidades sobre $\Omega$:
+  identidades sobre $\Omega$.
   \begin{enumerate}
   \item Una $(\Omega,E)$-álgebra es un par $(S,\mu)$ formado por un conjunto $S$
     y una acción $\mu$ de $\Omega$ sobre $S$ que satisface las identidades en
@@ -218,7 +225,7 @@ $x+(-x)=0$ y $x+y=y+x$.
 Claramente todas las categorías del ejemplo \ref{ex:variety} son variedades
 algebraicas, y de hecho podemos ver $\bSet$ como
 $(\emptyset,\emptyset)\dash\bAlg$, pero sin embargo $\bField$, la subcategoría
-completa de $\bRing$ de los cuerpos (incluyendo el cuerpo trivial), no es una
+completa de $\bCRng$ de los cuerpos (incluyendo el cuerpo trivial), no es una
 variedad algebraica, ya que requiere una propiedad de la inversa del producto,
 que no está definida en el 0.
 
@@ -233,7 +240,7 @@ simplemente $\bVec$ si $K=\sReal$.
 Hasta ahora, en todas las categorías que hemos visto, los objetos son conjuntos
 con estructura y los morfismos son funciones entre ellos. Las categorías de esta
 forma se llaman \emph{constructos}\footnote{Veremos una definición más abstracta
-  de constructo cuando veamos los funtores.}, y aunque son muy comunes, también
+  de constructo al estudiar los funtores.}, y aunque son muy comunes, también
 hay muchas categorías relevantes que no son constructos.
 
 \begin{example}
@@ -243,22 +250,24 @@ hay muchas categorías relevantes que no son constructos.
   del tamaño correspondiente.
 \end{example}
 
-\begin{example}
-  Algunas estructuras matemáticas se pueden ver como categorías.
-  \begin{enumerate}
-  \item Una categoría es \conc{discreta} si sólo tiene los morfismos
-    identidad. Un conjunto, o en general una clase, se puede ver como una
-    categoría discreta cuyos objetos son los elementos del conjunto.
-  \item Una categoría es \conc{fina} si sus \conc{conjuntos hom} (conjuntos de
-    la forma $\hom(a,b)$) tienen como máximo un elemento. Un conjunto
-    preordenado $(X,\preceq)$ se puede ver como una categoría fina cuyos objetos
-    son los elementos del conjunto y tal que, para $x,y\in X$, $\hom(x,y)$ está
-    habitado si y sólo si $x\preceq y$.
-  \item Un monoide se puede ver como una categoría con un solo objeto, cuyos
-    morfismos son los elementos del monoide, la identidad es su elemento neutro
-    y la composición es el producto.
-  \end{enumerate}
-\end{example}
+\begin{samepage}
+  \begin{example}
+    Algunas estructuras matemáticas se pueden ver como categorías.
+    \begin{enumerate}
+    \item Una categoría es \conc{discreta} si sólo tiene los morfismos
+      identidad. Un conjunto, o en general una clase, se puede ver como una
+      categoría discreta cuyos objetos son los elementos del conjunto.
+    \item Una categoría es \conc{fina} si sus \conc{conjuntos hom} (conjuntos de
+      la forma $\hom(a,b)$) tienen como máximo un elemento. Un conjunto
+      preordenado $(X,\preceq)$ se puede ver como una categoría fina cuyos
+      objetos son los elementos del conjunto y tal que, para $x,y\in X$,
+      $\hom(x,y)$ está habitado si y sólo si $x\preceq y$.
+    \item Un monoide se puede ver como una categoría con un solo objeto, cuyos
+      morfismos son los elementos del monoide y donde la identidad es su
+      elemento neutro y la composición es el producto.
+    \end{enumerate}
+  \end{example}
+\end{samepage}
 
 \begin{example}
   Las siguientes categorías se usan principalmente en el estudio de categorías
@@ -288,8 +297,8 @@ topológicos y las funciones continuas entre ellos.
   \begin{enumerate}
   \item $\bMetc$, con las funciones continuas.
   \item $\bMetu$, con las funciones uniformemente continuas.
-  \item $\bMet$, con las contracciones, funciones continuas que
-    \emph{acercan} los puntos.
+  \item $\bMet$, con las contracciones, funciones continuas que <<acercan>> los
+    puntos.
   \end{enumerate}
   Asimismo tenemos la categoría $\bBanb$ de los espacios de Banach con las formas
   lineales acotadas y $\bBan$ con las contracciones lineales.
@@ -318,26 +327,26 @@ topológicos y las funciones continuas entre ellos.
 
 \section{Isomorfismos}
 
-Ya hemos visto las categorías más importantes de distintas áreas, por lo que
-pasamos a ver algunas propiedades de sus objetos y morfismos. Un primer ejemplo
-es el de isomorfismo, que se suele definir como un homomorfismo biyectivo cuya
-inversa también es un homomorfismo. En topología tenemos también el concepto
-de homeomorfismo, que viene a ser lo mismo salvo por el cambio de terminología.
+Una vez vistas las categorías más importantes de distintas áreas, pasamos a ver
+algunas propiedades de sus objetos y morfismos. Por ejemplo, en álgebra, se
+suele definir un isomorfismo como un homomorfismo biyectivo cuya inversa también
+es un homomorfismo. En topología tenemos también el concepto de homeomorfismo,
+que viene a ser lo mismo salvo por el cambio de terminología.
 
 \begin{definition}
-  Un morfismo $f:a\to b$ es un \conc{isomorfismo}, si existe otro morfismo
+  Un morfismo $f:a\to b$ es un \conc{isomorfismo} si existe otro morfismo
   $g:b\to a$ tal que $g\circ f=1_a$ y $f\circ g=1_b$, en cuyo caso escribimos
-  $f:a\cong b$ y decimos que $a$ y $b$ son \conc{isomorfos}, $a\cong b$.
+  $f:a\cong b$ y decimos que $a$ y $b$ son \conc{isomorfos}, $a\cong b$, y que
+  $g$ es el \conc{inverso} de $f$, $g=f^{-1}$.
 \end{definition}
 
-Claramente el inverso de un isomorfismo es único, pues si $f:a\to b$ tiene
-inversos $g,h:b\to a$, entonces $g=g\circ 1_b=g\circ f\circ h=1_a\circ h=h$.
-Llamamos entonces $f^{-1}$ a la inversa de $f$. Además, la composición de dos
-isomorfismos es un isomorfismo.
+El inverso de un isomorfismo es único, pues si $f:a\to b$ tiene inversos
+$g,h:b\to a$, entonces $g=g\circ 1_b=g\circ f\circ h=1_a\circ h=h$.
 
-\begin{example}
-  Algunos isomorfismos:
+\begin{example}\;
   \begin{enumerate}
+  \item Son isomorfismos las identidades, el inverso de un isomorfismo y la
+    composición de isomorfismos.
   \item En $\bSmgrp$, $\bMon$, $\bGrp$, $\bAb$, $\bRing$ y $R\dash\bMod$, el
     concepto de isomorfismo categórico se corresponde con el concepto usual de
     isomorfismo.
@@ -348,7 +357,8 @@ isomorfismos es un isomorfismo.
     son los isomorfismos isométricos.
   \item En $\bSet$, los isomorfismos son las funciones biyectivas.
   \item Un \conc{grupoide} es una categoría en la que todos los morfismos son
-    isomorfismos. Esto ocurre, por ejemplo, en el grupoide fundamental.
+    isomorfismos. Esto ocurre, por ejemplo, en el grupoide fundamental. Entonces
+    un grupo es un grupoide con un solo objeto.
   \item En un conjunto preordenado visto como categoría, dos objetos $a$ y $b$
     son isomorfos si y sólo si $a\preceq b\preceq a$, por lo que en particular
     un conjunto (parcialmente) ordenado visto como categoría no tiene
@@ -362,13 +372,12 @@ isomorfismos es un isomorfismo.
 \section{Objetos iniciales y finales}
 
 En álgebra, muchas categorías tienen un objeto trivial, como el cuerpo trivial,
-el grupo trivial o el espacio vectorial trivial. Sin embargo, a la hora de
-intentar definir la topología trivial nos encontramos que hay dos candidatos
-posibles, la topología vacía y la unipuntual, y ninguna es enteramente
-satisfactoria.  Esto se debe a que, al hablar de un objeto trivial estamos
-juntando dos propiedades: por un lado, el objeto trivial está contenido en todos
-los demás, y por otro, siempre es posible pasar de un objeto al objeto trivial
-por un morfismo.
+el espacio vectorial trivial, etc. A la hora de definir la topología trivial,
+sin embargo, no está claro si deberíamos tomar la topología vacía o la
+unipuntual, y ninguna de las dos opciones es enteramente satisfactoria. Esto se
+debe a que, al hablar de un objeto trivial estamos juntando dos propiedades: por
+un lado, el objeto trivial está contenido en todos los demás, y por otro,
+siempre es posible pasar de un objeto al objeto trivial por un morfismo.
 
 \begin{definition}
   Un objeto $a$ es \conc{inicial} si para cualquier otro objeto $x$ existe un
@@ -377,15 +386,14 @@ por un morfismo.
 \end{definition}
 
 \begin{example}
-  Veamos los objetos iniciales y finales de algunas categorías típicas.
+  Muchas categorías típicas tienen objetos iniciales y finales.
   \begin{enumerate}
   \item En $\bMon$, $\bGrp$ y $\bAb$, el grupo trivial es un objeto cero; en
-    $\bRing$ y $\bField$ lo es el cuerpo trivial, y en $R\dash\bMod$ lo es el
+    $\bCRng$ y $\bField$ lo es el cuerpo trivial, y en $R\dash\bMod$ lo es el
     módulo trivial.
   \item En $\bSet$, el conjunto vacío $\emptyset$ es inicial, mientras que los
     conjuntos unipuntuales $\{*\}$ son finales. Lo mismo ocurre en $\bTop$ y en
-    $\bOrd$ dotando a $\emptyset$ y $\{*\}$ de la única estructura posible en
-    cada caso.
+    $\bOrd$ dotando a $\emptyset$ y $\{*\}$ de la única estructura posible.
   \item En un conjunto ordenado visto como categoría, un objeto inicial es un
     mínimo y un objeto final es un máximo. En particular el único conjunto
     ordenado con un cero es el unipuntual.
@@ -409,7 +417,7 @@ La respuesta es que no, como se deduce de las siguientes proposiciones.
     \end{proof}
   \item Si $a\cong b$ y $a$ es inicial, entonces $b$ es inicial.
     \begin{proof}
-      Sea $f:b\to a$ un isomorfismo y $x$ un objeto cualquiera, existe un único
+      Sean $f:b\to a$ un isomorfismo y $x$ un objeto cualquiera, existe un único
       $h:a\to x$ y por tanto $h\circ f$ es un morfismo de $b$ a $x$, que es
       único ya que, para $k:b\to x$, $k\circ f^{-1}:a\to x$ y así
       $k\circ f^{-1}=h$, con lo que $k=h\circ f$.
@@ -434,7 +442,7 @@ general diremos que un objeto con una cierta propiedad es \conc{único salvo
 son isomorfos a dicho objeto.
 
 \begin{corollary}
-  En los grupoides no vacíos, las siguientes condiciones son equivalentes:
+  En los grupoides no vacíos, son equivalentes:
   \begin{enumerate}
   \item \label{enu:goid-initial} Existe un objeto inicial.
   \item \label{enu:goid-final} Existe un objeto final.
@@ -446,19 +454,20 @@ son isomorfos a dicho objeto.
 \end{corollary}
 \begin{proof}
   La equivalencia (\ref{enu:goid-initial}$\iff$\ref{enu:goid-final}) se debe a
-  que, por unicidad del isomorfismo inverso, $\hom(a,b)=\hom(b,a)$ para
+  que, por unicidad del isomorfismo inverso, $|\hom(a,b)|=|\hom(b,a)|$ para
   cualesquiera $a$ y $b$, y esto prueba la equivalencia con
   (\ref{enu:goid-zero}). Ahora bien, si $a$ es cero y $x$ es otro objeto, el
   único morfismo $a\to x$ es un isomorfismo, por lo que $x$ es cero y queda
-  probado (\ref{enu:goid-zero}$\iff$\ref{enu:goid-all}).  La última
-  observación es por definición.
+  probado (\ref{enu:goid-zero}$\iff$\ref{enu:goid-all}).  La última observación
+  es por definición.
 \end{proof}
 
 \section{Monomorfismos y epimorfismos}
 
 En muchas ramas del álgebra llamamos monomorfismos a los morfismos inyectivos y
 epimorfismos a los morfismos suprayectivos. Esta definición depende de que los
-morfismos sean funciones, por lo que no nos sirve para categorías generales.
+morfismos sean funciones, por lo que para categorías generales debemos buscar
+una definición alternativa.
 
 Para los monomorfismos podemos basarnos en que, en $\bSet$, los elementos de un
 conjunto $S$ se identifican con los morfismos $\{*\}\to S$, con lo que la
@@ -471,40 +480,31 @@ propiedad de que $f(x)=f(y)\implies x=y$ se puede traducir como sigue.
 \end{definition}
 
 \begin{example}[Monomorfismos en constructos]\;
-  % En el caso de $\bSet$, tomando $c=\{*\}$ se tiene por construcción que todo
-  % monomorfismo es inyectivo, y recíprocamente, si $f:X\to Y$ es una función
-  % inyectiva y $h,k:S\to X$ con $f\circ h=f\circ k$, entonces para $x\in S$ es
-  % $f(h(x))=f(k(x))$ y por tanto $h(x)=k(x)$, por lo que $h=k$ y $f$ es un
-  % monomorfismo. Veamos lo que ocurre en otros constructos.
   \begin{enumerate}
-  \item En $\bSet$, por construcción, todo monomorfismo es inyectivo sin más que
-    tomar $c=\{*\}$ en la definición anterior. Lo mismo ocurre en $\bTop$,
-    $\bMet$, $\bOrd$ y otros constructos en que los elementos de un conjunto se
-    identifiquen con los morfismos $\{*\}\to S$.
+  \item \label{enu:mono-free-point} En $\bSet$, por construcción, todo
+    monomorfismo es inyectivo sin más que tomar $c=\{*\}$ en la definición
+    anterior. Lo mismo ocurre en $\bTop$, $\bMet$, $\bOrd$ y otros constructos
+    en que los elementos de un objeto $S$ se identifiquen con los morfismos
+    $\{*\}\to S$.
   \item En todos los constructos, los morfismos inyectivos son monomorfismos,
     pues si $f:X\to Y$ es un morfismo inyectivo y $h,k:S\to X$ con
     $f\circ h=f\circ k$, entonces para $x\in S$, $f(h(x))=f(k(x))$ y por tanto
     $h(x)=k(x)$, de modo que $h=k$.
-  \item En $R\dash\bMod$, si $f:M\to N$ es un monomorfismo y $x,y\in M$ cumplen
-    $f(x)=f(y)$, los morfismos $R\to M$ dados por $a\mapsto ax$ y $a\mapsto ay$
-    quedan iguales al componerlos con $f$ y por tanto son iguales, por lo que
-    $x=1x=1y=y$ y los monomorfismos son inyectivos.
   \item Aunque en la mayoría de constructos relevantes los monomorfismos son
     precisamente los morfismos inyectivos, esto no es siempre así, como muestra
-    el constructo con objetos $\{*\}$, $\{\$\}$ y $\{x,y\}$ y como morfismos las
-    identidades, las funciones con codominio $\{\$\}$ y el morfismo
-    $*\mapsto x$, en el cual el morfismo $\{x,y\}\to\{\$\}$ es un monomorfismo
-    pero no es inyectivo.
+    el constructo cuyos objetos son $\{*\}$, $\{\$\}$ y $\{x,y\}$ y cuyos
+    morfismos son las identidades, las funciones con codominio $\{\$\}$ y el
+    morfismo $*\mapsto x$, en el cual el morfismo $\{x,y\}\to\{\$\}$ es un
+    monomorfismo pero no es inyectivo.
   \end{enumerate}
 \end{example}
 
-Hasta ahora para probar que los monomorfismos de un constructo son inyectivos
-hemos tomado un objeto $D$ y un elemento $*\in D$ tal que, para cualquier otro
-objeto $A$ y $a\in A$, podemos definir un morfismo $f:D\to A$ tal que $f(*)=a$.
-Para las variedades algebraicas, sin embargo, no es inmediato ver cuál es este
-objeto.
+En el ejemplo \ref{enu:mono-free-point} de la lista anterior usamos que los
+elementos de un objeto se identifican con los morfismos desde un objeto
+unipuntual. En otras categorías como $R\dash\bMod$ nos gustaría hacer lo mismo,
+pero el objeto unipuntual no nos sirve.
 
-\begin{definition}
+\begin{definition}\label{def:free-object}
   En un constructo, un objeto $D$ es \conc{libre} sobre un conjunto
   $X\in\Ob{\bSet}$ respecto a una función $u:X\to D$ si, para todo objeto $A$
   del constructo y función $f:X\to A$, existe un único morfismo $\hat f:D\to A$
@@ -514,19 +514,22 @@ objeto.
 Es fácil ver que el objeto libre sobre un cierto conjunto, si existe, es único
 salvo isomorfismo, y que un objeto libre sobre un conjunto $X$ también es libre
 sobre cualquier otro conjunto del mismo tamaño que $X$. Además, en un constructo
-en que exista algún objeto con al menos dos elementos, la función $u$ asociada a
-un objeto libre es inyectiva, por lo que en general supondremos que es una
+en que algún objeto tenga más de un elemento, la función $u$ asociada a un
+objeto libre es inyectiva, por lo que en general supondremos que es una
 inclusión. Si $X$ es unipuntual, identificamos los morfismos de $D$ hacia un
 objeto $A$ con los elementos de $A$.
 
-\begin{proposition}
+Así, por ejemplo, el $R$-módulo libre sobre $X$ es $R^{(X)}$, la suma directa
+externa de $|X|$ copias de $R$, y el conjunto libre sobre $X$ es el propio $X$.
+
+\begin{proposition}\label{prop:free-algebra}
   Dados un conjunto graduado $\Omega=\{s_1,\dots,s_k\}$ donde cada $s_i$ tiene
   aridad $n_i$ y un conjunto finito $E$ de identidades en $\Omega$, el objeto
   libre de $(\Omega,E)\dash\bAlg$ sobre el conjunto $X$ se construye tomando el
-  conjunto de los árboles con raíz cuyos nodos se etiquetan con un $s_i$ y
-  tienen $n_i$ hijos, o con un $x\in X$ y tienen 0 hijos, haciendo el conjunto
-  cociente por reescritura según las identidades en $E$, y definiendo las
-  operaciones por construcción de árboles.
+  conjunto de los árboles finitos con raíz y ordenados cuyos nodos se etiquetan
+  con un $s_i$ y tienen $n_i$ hijos, o con un $x\in X$ y tienen 0 hijos,
+  haciendo el conjunto cociente por reescritura según las identidades en $E$, y
+  definiendo las operaciones por construcción de árboles.
 \end{proposition}
 
 \begin{example}[Objetos libres en variedades algebraicas comunes]\;
@@ -535,9 +538,9 @@ objeto $A$ con los elementos de $A$.
     $X$ junto a la concatenación, mientras que el semigrupo libre es similar
     pero excluyendo la cadena vacía.
   \item El grupo libre sobre $X$ está formado por cadenas de símbolos de la
-    forma $x$ o $\overline x$ para $x\in X$, con la condición de que no aparecen
-    subsecuencias $x\overline x$ u $\overline xx$, y la operación es la
-    concatenación eliminando sucesivamente las subcadenas de esta forma.
+    forma $x$ o $\overline x$ para $x\in X$ en las que no aparecen subsecuencias
+    $x\overline x$ u $\overline xx$, y la operación es la concatenación
+    eliminando sucesivamente las subcadenas de esta forma.
   \item El grupo abeliano libre sobre $X$ es $\mathbb{Z}^X$.
   \item El anillo conmutativo libre sobre $\{x_1,\dots,x_n\}$ es el anillo de
     polinomios $\mathbb{Z}[x_1,\dots,x_n]$.
@@ -545,16 +548,15 @@ objeto $A$ con los elementos de $A$.
 \end{example}
 
 \begin{proposition}
-  En las variedades algebraicas, los monomorfismos son precisamente los
-  morfismos inyectivos.
+  En los constructos con un objeto libre sobre el conjunto unipuntual, los
+  monomorfismos son precisamente los morfismos inyectivos.
 \end{proposition}
 \begin{proof}
-  Sean $f:A\to B$ un monomorfismo en $(\Omega,E)\dash\bAlg$ y $x,y\in A$ con
-  $f(x)=f(y)$. Si $F$ es la $(\Omega,E)$-álgebra libre sobre $\{*\}$, $h$ es el
-  único morfismo $F\to A$ con $h(*)=x$ y $k:F\to A$ es el único con $h(*)=y$,
-  para $c\in F$, $f(h(c))$ y $f(k(c))$ vienen dados por $f(h(*))$ y $f(k(*))$
-  siguiendo la estructura de $c$, por lo que $f\circ h=f\circ k$, $h=k$ y,
-  finalmente, $x=y$.
+  Sean $f:A\to B$ un monomorfismo en un tal constructo $\cC$ y $x,y\in A$ con
+  $f(x)=f(y)$. Si $F$ es el objeto libre sobre $\{*\}$, $h$ es el único morfismo
+  $F\to A$ con $h(*)=x$ y $k:F\to A$ es el único con $h(*)=y$, para $c\in F$,
+  $f(h(c))$ y $f(k(c))$ vienen dados por $f(h(*))$ y $f(k(*))$ siguiendo la
+  estructura de $c$, por lo que $f\circ h=f\circ k$, $h=k$ y, finalmente, $x=y$.
 \end{proof}
 
 \begin{proposition}\label{prop:mono-comp}\;
@@ -573,10 +575,10 @@ objeto $A$ con los elementos de $A$.
   \end{enumerate}
 \end{proposition}
 
-Para caracterizar los epimorfismos vemos que, en $\bSet$, si $f:A\to B$ no
-es suprayectiva, sea $y\in B\setminus\Img{f}$, es posible crear dos funciones
-$g,h:B\to\{0,1\}$ con $g\circ f=h\circ f$ pero $g(y)=0$ y $h(y)=1$, mientras
-que fuera suprayectiva, $g\circ f=h\circ f$ implica claramente $g=h$.
+Respecto a los epimorfismos, en $\bSet$, si $f:A\to B$ no es suprayectiva,
+existe $y\in B\setminus\Img{f}$ y podemos crear dos funciones $g,h:B\to\{0,1\}$
+con $g\circ f=h\circ f$ pero que difieran en $y$, mientras que si $f$ es
+suprayectiva, $g\circ f=h\circ f$ implica claramente $g=h$.
 
 \begin{definition}
   Un morfismo $f:a\to b$ es un \conc{epimorfismo}, $f:a\epicTo b$, si es
@@ -602,18 +604,19 @@ correspondiente para epimorfismos.
     suprayectivas, pues para $f:A\to B$ no suprayectiva es fácil encontrar
     $g,h:B\to\{0,1\}$ distintas con $g\circ f=h\circ f$. Lo mismo ocurre en
     $\bTop$ dotando a $\{0,1\}$ de la topología indiscreta y en $\bGrph$ usando
-    el grafo completo de dos elementos.
+    el grafo completo de dos elementos.\footnote{En este trabajo, por comodidad,
+      consideramos que el grafo completo tiene también las aristas reflexivas.}
   \item En $R\dash\bMod$, si $f:M\to N$ es un epimorfismo, sean
     $p,z:N\to\frac{N}{\Img{f}}$ la proyección canónica y la función constante en
     0, respectivamente, entonces $p\circ f=z\circ f$, luego $p=z$,
     $\frac{N}{\Img{f}}\cong0$ y así $\Img{f}=N$, con lo que los epimorfismos son
     suprayectivos.
-  \item No en todas las variedades algebraicas los epimorfismos son son
+  \item No en todas las variedades algebraicas los epimorfismos son
     suprayectivos. Por ejemplo, en $\bRing$, la inclusión $u:\sInt\to\sRat$ es
     suprayectiva, pues si $f,g:\sRat\to R$ cumplen que
-    $f\circ u=g\circ u:\sInt\to R$, entonces $f=g$ ya que para $x,y\in\sInt$,
+    $f\circ u=g\circ u:\sInt\to R$, para $x,y\in\sInt$,
     $f(\frac xy)=\frac{f(x)}{f(y)}=\frac{(f\circ u)(x)}{(f\circ u)(y)}$, y lo
-    mismo ocurre con $g$.
+    mismo ocurre con $g$, luego $f=g$.
   \item En $\bMet$ y $\bMetc$, los epimorfismos son precisamente las funciones
     con imagen densa.
     \begin{proof}
@@ -629,9 +632,9 @@ correspondiente para epimorfismos.
   \end{enumerate}
 \end{example}
 
-Los dos últimos ejemplos muestran que, al contrario de lo que ocurre en muchos
-campos del álgebra, no siempre los morfismos que son a la vez monomorfismos y
-epimorfismos son isomorfismos.
+Los dos últimos ejemplos muestran que, al contrario que en muchos campos del
+álgebra, no siempre los morfismos que son a la vez monomorfismos y epimorfismos
+son isomorfismos.
 
 \begin{definition}
   Un \conc{bimorfismo} es un morfismo que es a la vez un monomorfismo y un
@@ -656,18 +659,18 @@ epimorfismos son isomorfismos.
 
 Hemos estudiado los morfismos cancelables por uno de los lados, por lo que cabe
 preguntarse qué ocurre con los morfismos invertibles por uno de los
-lados. Claramente este es un concepto más fuerte, y de hecho es estrictamente
-más fuerte.
+lados. Claramente este es un concepto más fuerte, y de hecho lo es
+estrictamente.
 
 \begin{definition}
   Una \conc{sección} es un morfismo con inverso por la izquierda, y una
-  \conc{retracción} es un morfismo con inverso por la derecha.  Es decir, si
-  $f:a\to b$ y $g:b\to a$ son tales que $g\circ f=1_a$, entonces $f$ es una
-  sección y $g$ es una retracción.
+  \conc{retracción} es un morfismo con inverso por la derecha.  Dicho de otro
+  modo, si $f:a\to b$ y $g:b\to a$ son tales que $g\circ f=1_a$, decimos que $f$
+  es una sección y $g$ es una retracción.
 \end{definition}
 
 Claramente las secciones son monomorfismos y las retracciones son
-epimorfismos. Veamos algunos ejemplos.
+epimorfismos.
 
 \begin{example}\;
   \begin{enumerate}
@@ -679,23 +682,23 @@ epimorfismos. Veamos algunos ejemplos.
     sumando directo del codominio, y las retracciones son los epimorfismos cuyo
     núcleo es un sumando directo del dominio.
     \begin{proof}
-      Si $f:M\to N$ es un monomorfismo cuya imagen es un sumando directo de $N$,
-      por ejemplo $N=\Img{f}\oplus P$, un $g:N\to M$ que lleva los elementos de
-      $\Img{f}$ a su única preimagen por $f$ y los $p\in P$ a 0 es inverso de
-      $f$ por la derecha. Si es un epimorfismo cuyo núcleo es un sumando directo
-      de $M$, por ejemplo $M=\ker{f}\oplus L$, sean $p:M\to\frac{M}{\ker{f}}$ la
-      proyección canónica, $h:\frac{M}{\ker{f}}\cong L$ el isomorfismo <<obvio>>
-      y $u:L\inTo M$ la inclusión, entonces $p\circ u\circ h=1$, pero el teorema
-      del factor nos da un único isomorfismo
-      $\overline{f}:\frac{M}{\ker{f}}\cong N$ con $\overline{f}\circ p=f$, por
-      lo que $\overline{f}=f\circ u\circ h$ y
+      Si $f:M\to N$ es un monomorfismo cuya imagen es un sumando directo de
+      $N$, por ejemplo $N=\Img{f}\oplus P$, un $g:N\epicTo M$ que lleva los
+      elementos de $\Img{f}$ a su única preimagen por $f$ y los $p\in P$ a 0 es
+      su inverso por la derecha. Si es un epimorfismo cuyo núcleo es un sumando
+      directo de $M$, por ejemplo $M=\ker{f}\oplus L$, sean
+      $p:M\to\frac{M}{\ker{f}}$ la proyección canónica,
+      $h:\frac{M}{\ker{f}}\cong L$ el isomorfismo <<obvio>> y $u:L\inTo M$ la
+      inclusión, entonces $p\circ u\circ h=1$, pero el teorema del factor nos da
+      un único isomorfismo $\overline{f}:\frac{M}{\ker{f}}\cong N$ con
+      $\overline{f}\circ p=f$, por lo que $\overline{f}=f\circ u\circ h$ y
       $f\circ(u\circ h\circ\overline{f}^{-1})=1$.
       
       Para el recíproco, sean $f:M\monicTo N$ y $g:N\epicTo M$ con
       $g\circ f=1_M$, basta ver que $N=\Img{f}\oplus\ker{g}$. En efecto, todo
       $n\in N$ se descompone como suma de $n_1\coloneqq f(g(n))\in\Img{f}$ y
       $n_2\coloneqq n-f(g(n))\in\ker{g}$, y si $p_1\in\Img{f}$ y $p_2\in\ker{g}$
-      cumplen $n=p_1+p_2$, sea $m_1\in M$ la preimagen de $p_1$ por $f$,
+      cumplen $n=p_1+p_2$ y $m_1\in M$ es la preimagen de $p_1$ por $f$,
       entonces $g(n)=g(p_1+p_2)=g(f(m_1))+g(p_2)=m_1+0$ y
       $n_1=f(g(n))=g(m_1)=p_1$, con lo que $n_2=p_2$.
     \end{proof}
@@ -765,9 +768,8 @@ invertible. La respuesta es que sí, y además esta condición se puede relajar.
 
 La mayoría de las propiedades que hemos visto hasta ahora vienen en pares con
 definiciones muy parecidas, y de hecho, cada vez que demostrábamos algo sobre
-una de los propiedades, la misma idea servía para demostrar algo similar sobre
-la otra. Esto ocurre mucho en teoría de categorías, y para sacar ventaja de esto
-definimos el concepto de dualidad.
+una de ellas, la misma idea permitía demostrar algo similar sobre la otra. Esto
+ocurre mucho en teoría de categorías, y se conoce como dualidad.
 
 \begin{definition}
   Dada una categoría $\cC$, su \conc{categoría dual} es una categoría
@@ -777,16 +779,13 @@ definimos el concepto de dualidad.
   la composición se define como $f\circ_{\dual{\cC}}g\coloneqq g\circ_{\cC}f$.
 \end{definition}
 
-\begin{example}
+\begin{example}\;
   \begin{enumerate}
   \item Si $(X,\preceq)$ es un conjunto preordenado, su dual visto como
     categoría es $(X,\succeq)$.
   \item El dual de una categoría discreta es ella misma.
   \end{enumerate}
 \end{example}
-
-La principal utilidad de la categoría dual está en definir el dual de un
-concepto o propiedad.
 
 \begin{definition}
   Si $P$ es un predicado aplicable a una o más categorías $\cC_1,\dots,\cC_n$,
@@ -795,30 +794,28 @@ concepto o propiedad.
   decimos que $P$ es \conc{auto-dual} si $P\equiv\dual{P}$.
 \end{definition}
 
-En esencia, tomar la categoría dual consiste en invertir el sentido de las
-flechas en la categoría, y tomar el predicado dual consiste en invertir el
-sentido de los morfismos que se mencionan. En general al tratar un concepto
-categórico es conveniente fijarse en el dual del concepto, ya que suele ser un
-concepto relevante y, además, las propiedades de dicho concepto se derivan
-directamente de las del concepto original, sin necesidad de demostración aparte.
+En esencia, tomar la categoría dual o el predicado dual consiste en invertir el
+sentido de los morfismos. En general al tratar un concepto categórico es
+conveniente fijarse en el dual del concepto, ya que suele ser un concepto
+relevante, y además las propiedades de dicho concepto se derivan directamente
+de las del concepto original, sin demostración aparte.
 
 \section{Producto y coproducto}
 
 En muchas categorías es posible tomar el producto de dos o más objetos, como el
-de dos conjuntos, el espacio topológico producto, el espacio vectorial producto,
-etc. Para definir productos en una categoría arbitraria tenemos que encontrar
-una propiedad universal del producto, de modo que el producto quede definido de
-forma única salvo homomorfismo.
+de dos conjuntos, espacios topológicos, espacios vectoriales, etc. Para definir
+productos en una categoría arbitraria tenemos que encontrar una propiedad
+universal del producto, de modo que este quede definido de forma única
+salvo homomorfismo.
 
-Para ello, si, por ejemplo, $A$ y $B$ son conjuntos, el producto $A\times B$ es
-un conjunto de pares de un elemento $a\in A$ y un elemento $b\in B$, de modo que
-dadas dos funciones $f:X\to A$ y $g:X\to B$ existe una única función
-$h:X\to (A\times B)$ tal que, para todo $x\in X$, $h(x)=(f(x),g(x))$. Dicho de
-otro modo, si $p:A\times B\to A$ y $q:A\times B\to B$ son las proyecciones sobre
-las componentes, $h$ es la única función con $f=p\circ h$ y $g=q\circ h$. Esta
-definición se puede generalizar a categorías arbitrarias y a una cantidad
-arbitraria de factores, y la figura \ref{fig:product} muestra el caso para dos
-factores.
+Para ello, si, por ejemplo, $A$ y $B$ son conjuntos, el producto $A\times B$
+cumple que, dadas dos funciones $f:X\to A$ y $g:X\to B$, existe una única
+función $h:X\to (A\times B)$ tal que para todo $x\in X$,
+$h(x)=(f(x),g(x))$. Dicho de otro modo, si $p:A\times B\to A$ y
+$q:A\times B\to B$ son las proyecciones sobre las componentes, $h$ es la única
+función con $f=p\circ h$ y $g=q\circ h$. Esta definición se puede generalizar a
+categorías arbitrarias y a una cantidad arbitraria de factores. La figura
+\ref{fig:product} muestra el caso para dos factores.
 
 \begin{figure}
   \centering
@@ -829,10 +826,10 @@ factores.
     \draw[->] (AB) -- node[below]{$q$} (B);
     \draw[->] (X) -- node[left]{$f$} (A);
     \draw[->] (X) -- node[right]{$g$} (B);
-    \draw[->,dotted] (X) -- node{$f\times g$} (AB);
+    \draw[->,dotted] (X) -- node{$h$} (AB);
   \end{diagram}
-  \caption[Objeto producto]{Objeto producto de $a$ y $b$. Para
-    cualesquiera $x$, $f$ y $g$, existe un único $f\times g$ de modo
+  \caption[Objeto producto.]{Objeto producto de $a$ y $b$. Para
+    cualesquiera $x$, $f$ y $g$, existe un único $h$ de modo
     que el diagrama conmuta.}
   \label{fig:product}
 \end{figure}
@@ -874,20 +871,19 @@ factores.
   El producto de una familia de objetos es único salvo isomorfismo.
 \end{proposition}
 \begin{proof}
-  Sean $b$ y $c$ productos de $(a_i)_{i\in I}$ con familias de proyecciones
+  Sean $b$ y $c$ productos de $(a_i)_{i\in I}$ con proyecciones
   $(f_i:b\to a_i)_{i\in I}$ y $(g_i:c\to a_i)_{i\in I}$, existe $h:b\to c$ tal
   que cada $f_i=g_i\circ h$ y $k:c\to b$ tal que cada $g_i=f_i\circ k$, pero
-  entonces $g_i=g_i=g_i\circ h\circ k$ para cada $i$, y como para la familia
+  entonces $g_i=g_i\circ h\circ k$ para cada $i$, y como para la familia
   $(g_i)_i$ debe haber un único $f:c\to c$ con cada $g_i=g_i\circ f$, debe ser
   $h\circ k=f=1_c$, y análogamente $k\circ h=1_b$. Es fácil ver que los
   isomorfismos conservan productos.
 \end{proof}
 
 En vista de esto, llamamos $\prod_{i\in I}a_i$ al objeto producto de
-$(a_i)_{i\in I}$. Denotamos el objeto producto de dos objetos $a$ y $b$ como
-$a\times b$, y esta notación se puede extender a un número finito de factores
-($a_1\times\dots\times a_n$) debido a que el producto es asociativo, en el
-sentido de la siguiente proposición.
+$(a_i)_{i\in I}$, y $a\times b$ al objeto producto de dos objetos $a$ y
+$b$. Esta última notación se puede extender a un número finito de factores
+($a_1\times\dots\times a_n$), en vista de la siguiente proposición.
 
 \begin{proposition}
   Si $(p_i:c\to b_i)_{i\in I}$ es un producto y, para cada $i$,
@@ -904,8 +900,8 @@ sentido de la siguiente proposición.
   $p_i\circ k=g_i$ y por tanto $k=h$.
 \end{proof}
 
-Así, en particular, $(a\times b)\times c=a\times b\times c$ y una categoría
-tiene todos los productos finitos si y sólo si tiene objetos terminales y
+En particular $a\times b\times c=(a\times b)\times c=a\times(b\times c)$, y una
+categoría tiene todos los productos finitos si y sólo si tiene objeto final y
 productos de todos los pares de objetos.
 
 \begin{definition}
@@ -923,17 +919,17 @@ la figura \ref{fig:coproduct}.
 \begin{figure}
   \centering
   \begin{diagram}
-    \path (0,2) node(A){$a$} (2,2) node(AB){$a\times b$} (4,2) node(B){$b$}
+    \path (0,2) node(A){$a$} (2,2) node(AB){$a\oplus b$} (4,2) node(B){$b$}
                              (2,0) node(X){$x$};
     \draw[->] (A) -- node[above]{$u$} (AB);
     \draw[->] (B) -- node[above]{$v$} (AB);
     \draw[->] (A) -- node[left]{$f$} (X);
     \draw[->] (B) -- node[right]{$g$} (X);
-    \draw[->,dotted] (AB) -- node{$f\oplus g$} (X);
+    \draw[->,dotted] (AB) -- node{$h$} (X);
   \end{diagram}
-  \caption[Objeto coproducto]{Objeto coproducto de $a$ y $b$. Para cualesquiera
-    $X$, $f$ y $g$, existe un único $f\oplus g$ de modo que el
-    diagrama conmuta.}
+  \caption[Objeto coproducto.]{Objeto coproducto de $a$ y $b$. Para cualesquiera
+    $X$, $f$ y $g$, existe un único $f\oplus g$ de modo que el diagrama
+    conmuta.}
   \label{fig:coproduct}
 \end{figure}
 
@@ -946,23 +942,23 @@ la figura \ref{fig:coproduct}.
   inyecciones.
 \end{definition}
 
-\begin{example}
+\begin{example}\;
   \begin{enumerate}
-  \item En $\bSet$, el coproducto de una familia pequeña de conjuntos (pequeños)
-    $(a_i)_{i\in I}$ es la \conc{unión disjunta},
-    $\biguplus_{i\in I}a_i\coloneqq\bigcup_{i\in I}(a_i\times\{i\})$, aunque si
+  \item En $\bSet$, el coproducto de una familia de conjuntos $(a_i)_{i\in I}$
+    es la \conc{unión disjunta},
+    $\biguplus_{i\in I}a_i\coloneqq\bigcup_{i\in I}(\{i\}\times a_i)$, aunque si
     los $a_i$ son disjuntos dos a dos se puede tomar como coproducto la unión
     convencional.
-  \item En $\bTop$, el coproducto de una familia pequeña de espacios topológicos
-    es el espacio topológico de la unión disjunta, que tiene como abiertos las
-    uniones de abiertos de cada espacio.
+  \item En $\bTop$, el coproducto de una familia de espacios topológicos es la
+    unión disjunta con la topología formada por las uniones de abiertos de cada
+    espacio.
   \item En $R\dash\bMod$, el coproducto de una familia pequeña de módulos
     $\{a_i\}_{i\in I}$ es la suma directa $\bigoplus_{i\in I}a_i$, el subespacio
     del producto directo $\prod_{i\in I}a_i$ formado por los elementos con casi
     todas las entradas nulas. En particular, si $I$ es finito el producto
     coincide con el coproducto.
   \item Todo objeto es coproducto de sí mismo.
-  \item Un objeto es coproducto de la familia vacía si y sólo si es final.
+  \item Un objeto es coproducto de la familia vacía si y sólo si es inicial.
   \item En un conjunto preordenado visto como categoría, el coproducto de una
     familia de elementos es su ínfimo, si existe.
   \end{enumerate}  
@@ -975,8 +971,7 @@ Las siguientes propiedades son duales de las correspondientes del producto.
 \end{proposition}
 
 Esto nos permite llamar $\coprod_{i\in I}a_i$ al objeto coproducto de
-$(a_i)_{i\in I}$, y $a\oplus b$ al objeto coproducto de dos objetos $a$
-y $b$.
+$(a_i)_{i\in I}$, y $a\oplus b$ al objeto coproducto de dos objetos $a$ y $b$.
 
 \begin{proposition}
   Si $(u_i:b_i\to c)_{i\in I}$ es un coproducto y, para cada $i$,
@@ -993,19 +988,18 @@ y $b$.
 
 En álgebra es común hablar del núcleo de un morfismo $f:a\to b$ como el conjunto
 de puntos $x\in a$ con $f(x)=0$, que es un subobjeto de $a$.  Entonces, si
-$k\subseteq a$ es el núcleo de $f$ y $u:k\inTo a$ es la inclusión, se tiene
-$f\circ u=0$ y, si $u':k'\to a$ es otro morfismo tal que $f\circ u'=0$, existe
+$k\subseteq a$ es el núcleo de $f$ y $u:k\inTo a$ es la inclusión, $f\circ u=0$,
+y si $u':k'\to a$ es otro morfismo con $f\circ u'=0$, existe
 $\tilde u:k'\to k$ tal que $u'=u\circ\tilde u$. Esta definición nos sirve para
 teoría de categorías salvo por la presencia del 0.
 
 Si, para cada objeto $a$, llamamos $i_a:0\to a$ a la única flecha desde el
-objeto cero hasta $a$ y llamamos $t_a:a\to 0$ a la única flecha desde $a$ hasta
+objeto cero hasta $a$ y $t_a:a\to 0$ a la única flecha desde $a$ hasta
 el objeto 0, entonces podríamos escribir <<$f\circ u=0$>> como
 <<$f\circ u=i_b\circ t_k$>>, pero esta caracterización sólo nos sirve para el
 caso de categorías con cero. En general, podemos notar que $t_k=t_a\circ u$, de
 modo que $u$ <<iguala>> $f$ con $i_b\circ t_a$, y aunque no podemos hablar del
-núcleo de un morfismo, podemos hablar del núcleo de un par de morfismos en el
-sentido siguiente.
+núcleo de un morfismo, podemos hablar del núcleo de un par de morfismos.
 
 \begin{definition}
   Dados dos morfismos $f,g:a\to b$, un morfismo $e:k\to a$ es un \conc{núcleo}
@@ -1028,37 +1022,38 @@ sentido siguiente.
     \draw[->] (A.15) -- node[above]{$f$} (B.165);
     \draw[->] (A.345) -- node[below]{$g$} (B.195);
   \end{diagram}
-  \caption[Núcleo de dos morfismos]{Núcleo $e$ de un par de morfismos $f$ y $g$.}
+  \caption[Núcleo de dos morfismos.]{Núcleo $e$ de un par de morfismos $f$ y
+    $g$.}
   \label{fig:equalizer}
 \end{figure}
 
 \begin{example}\;
   \label{ex:equalizer}
   \begin{enumerate}
-  \item En $\bSet$, para $f,g:a\to b$, $k\coloneqq\{x\in a\mid f(x)=g(x)\}$ es
-    un subconjunto de $a$ y la inclusión $u:k\inTo a$ es un núcleo de $f$ y
-    $g$. Lo mismo ocurre en $R\dash\bMod$, $\bTop$, $\bGrp$ y $\bGrph$ dotando a
-    $k$ de su estructura como submódulo, subespacio topológico, subgrupo o
-    subgrafo.
-  \item En $\bRng$, al contrario que en muchas estructuras algebraicas, el
-    concepto de núcleo de un morfismo en teoría de categorías que en álgebra no
-    coincide con el convencional, ya que convencionalmente el núcleo de un
-    anillo no es un anillo sino un ideal.
-  \item En $R\dash\bMat$, dadas dos matrices $n\times m$ $A,B:m\to n$, un núcleo
-    de $A$ y $B$ es precisamente una matriz $X:p\to m$ cuyas columnas forman una
-    base de soluciones de la ecuación $Ax=Bx$. En efecto, $AX=BX$ y, si
-    $Y:q\to m$ cumple que $AY=BY$, cada columna de $Y$ es combinación lineal
-    única de las columnas de $X$ y hay por tanto existe una única $Z$ con
-    $Y=XZ$. La existencia de $Z$ implica que las columnas de $X$ deben generar
-    el espacio de soluciones, y la unicidad implica que estan deben ser
-    linealmente independientes. % Ref. by siguiente párrafo ("último ejemplo")
+  \item En $\bSet$, para $f,g:a\to b$, si $k\coloneqq\{x\in a\mid f(x)=g(x)\}$,
+    la inclusión $u:k\inTo a$ es un núcleo de $f$ y $g$. Lo mismo ocurre en
+    $R\dash\bMod$, $\bTop$, $\bGrp$, $\bGrph$ y $(\Omega,E)\dash\bAlg$, dotando
+    a $k$ de su estructura como submódulo, subespacio topológico, subgrupo,
+    subgrafo o subálgebra.
+  \item En $\bCRng$, al contrario que en muchas estructuras algebraicas, el
+    concepto de núcleo de un morfismo en teoría de categorías no coincide con el
+    convencional, pues convencionalmente el núcleo de un anillo no es un
+    subanillo sino un ideal.
+  \item En $R\dash\bMat$, dadas dos matrices $A_{n\times m},B_{n\times m}$, un
+    núcleo de $A$ y $B$ es precisamente una matriz $X_{m\times p}$ cuyas
+    columnas forman una base de soluciones de la ecuación $Ax=Bx$. En efecto,
+    $AX=BX$ y, si $Y_{m\times q}$ cumple que $AY=BY$, cada columna de $Y$ es
+    combinación lineal única de las columnas de $X$ y hay por tanto una única
+    $Z$ con $Y=XZ$. La existencia de $Z$ implica que las columnas de $X$ deben
+    generar el espacio de soluciones, y la unicidad implica que estan deben ser
+    linealmente independientes.
   \end{enumerate}
-  % TODO Ejemplo en (Ω,E)-Alg
 \end{example}
 
-En el último ejemplo hemos demostrado que todos los núcleos tienen la misma
-forma. Esto no es necesario, y basta con encontrar un núcleo, por la siguiente
-definición.
+En el último ejemplo hemos tenido que demostrar no sólo que una cierta matriz es
+el núcleo sino que todos los demás núcleos también tienen la misma forma. A
+continuación vemos que esto último no es necesario, y basta con encontrar un
+núcleo.
 
 \begin{proposition}
   \label{prop:equ-uniq}
@@ -1077,37 +1072,34 @@ definición.
   análogamente $1_{k'}=h'\circ h$, luego $h$ es un isomorfismo.
 \end{proof}
 
-Esta prueba parece sugerir que los núcleos son monomorfismos. Parece interesante
-entonces comparar el concepto de núcleo con el de monomorfismo, así como con el
-concepto relacionado de sección.
+Hasta ahora todos los núcleos que hemos visto son monomorfismos, por lo que
+parece interesante comparar el concepto de núcleo con el de monomorfismo y con
+el de sección.
 
 \begin{proposition}\;
   \label{prop:equ-middle}
   \begin{enumerate}
   \item Todo núcleo es un monomorfismo.
     \begin{proof}
-      Si $e:k\to a$ es el núcleo de $f,g:a\to b$ y $h,k:c\to k$ cumplen
-      $e\circ h=e\circ k\eqqcolon e'$, entonces $f\circ e'=g\circ e'$, luego el
-      $h$ con $e'=e\circ h$ es único y por tanto $h=k$.
+      Si $e:k\to a$ es el núcleo de $f,g:a\to b$ y $h,h':c\to k$ cumplen
+      $e\circ h=e\circ h'\eqqcolon e'$, entonces $f\circ e'=g\circ e'$, luego el
+      $h$ con $e'=e\circ h$ es único y por tanto $h=h'$.
     \end{proof}
   \item Toda sección es un núcleo. En concreto, si $f:a\to b$ es una sección y
     $g:b\to a$ es la correspondiente retracción, entonces $f$ es núcleo de
     $f\circ g$ y $1_b$.
     \begin{proof}
-      Para empezar, $(f\circ g)\circ f=f\circ(g\circ f)=f=1_b\circ f$, pero si
-      $e:k\to b$ es tal que $(f\circ g)\circ e=1_b\circ e$, entonces $g\circ e$
-      es el morfismo con $f\circ(g\circ e)=e$, y es único porque $f$ es un
-      monomorfismo.
+      $(f\circ g)\circ f=f\circ(g\circ f)=f=1_b\circ f$, pero si $e:k\to b$ es
+      tal que $(f\circ g)\circ e=1_b\circ e$, entonces $g\circ e$ es el morfismo
+      con $f\circ(g\circ e)=e$, y es único porque $f$ es un monomorfismo.
     \end{proof}
   \item \label{enu:equ-mid-strict} Los recíprocos no se cumplen.
     \begin{proof}
       En $\bAb$, el único homomorfismo $\sInt\to\sInt_2$ tiene como núcleo la
-      inclusión $2\sInt\inTo\sInt$, que claramente no es una seccion (no tiene
-      inverso por la izquierda). Y en $\bRng$, la inclusión $\sInt\inTo\sRat$ es
-      un monomorfismo pero no es un núcleo, ya que de serlo, como también es un
-      epimorfismo, sería un isomorfismo por la siguiente proposición
-      (\ref{prop:iso-equalizer}).
-      % TODO Igual debería poner la "siguiente" proposición antes.
+      inclusión $2\sInt\inTo\sInt$, que claramente no es una sección. Y en
+      $\bCRng$, la inclusión $\sInt\inTo\sRat$ es un monomorfismo pero no es un
+      núcleo, ya que de serlo, como también es un epimorfismo, sería un
+      isomorfismo por la siguiente proposición \ref{prop:iso-equalizer}.
     \end{proof}
   \end{enumerate}
 \end{proposition}
@@ -1126,8 +1118,8 @@ concepto relacionado de sección.
   Claramente (\ref{enu:eq-equal})$\implies$(\ref{enu:eq-ident});
   (\ref{enu:eq-ident})$\implies$(\ref{enu:eq-iso}) por (\ref{prop:equ-uniq});
   obviamente (\ref{enu:eq-iso})$\implies$(\ref{enu:eq-epi}), y
-  (\ref{enu:eq-epi})$\implies$(\ref{enu:eq-equal}) por definición de
-  núcleo y de epimorfismo.
+  (\ref{enu:eq-epi})$\implies$(\ref{enu:eq-equal}) es por definición de núcleo y
+  de epimorfismo.
 \end{proof}
 
 El concepto dual de núcleo es el de conúcleo.
@@ -1153,7 +1145,8 @@ El concepto dual de núcleo es el de conúcleo.
     \draw[<-] (A.165) -- node[above]{$f$} (B.15);
     \draw[<-] (A.195) -- node[below]{$g$} (B.345);
   \end{diagram}
-  \caption[Conúcleo de dos morfismos]{Conúcleo $q$ de un par de morfismos $f$ y $g$.}
+  \caption[Conúcleo de dos morfismos.]{Conúcleo $q$ de un par de morfismos $f$ y
+    $g$.}
   \label{fig:coequalizer}
 \end{figure}
 
@@ -1167,30 +1160,31 @@ El concepto dual de núcleo es el de conúcleo.
       $c'\circ f=c'\circ g$, entonces $\overline c:\frac{b}{\sim}\to r$ dada por
       $\overline c(\overline x)=c'(x)$ es la única función con
       $\overline c\circ c=c'$, y queda ver que está bien definida. Pero si
-      $x\sim{}y$, bien $x=y$, bien hay una cadena $x=t_0,\dots,t_k=y\in b$ y
-      $s_1,\dots,s_k\in a$ con $(t_{i-1},t_i)$ igual a $(f(s_i),g(s_i))$ o a
-      $(g(s_i),f(s_i))$ para cada $i$, pero entonces por hipótesis
+      $x\sim{}y$, bien $x=y$, bien existen una cadena $x=t_0,\dots,t_k=y\in b$ y
+      objetos $s_1,\dots,s_k\in a$ con $(t_{i-1},t_i)$ igual a $(f(s_i),g(s_i))$
+      o $(g(s_i),f(s_i))$ para cada $i$, pero entonces por hipótesis
       $c'(t_{i-1})=c'(t_i)$ para cada $i$ y por tanto $c'(x)=c'(y)$.
     \end{proof}
   \item En $\bTop$, los conúcleos se calculan como en $\bSet$ asignando a
     $\frac{b}{\sim}$ la topología cociente, cuyos abiertos son los subconjuntos
-    de $\frac{b}{\sim}$ con $c^{-1}\subseteq b$ abierto. Es fácil ver que esta
+    $S\subseteq\frac{b}{\sim}$ con $c^{-1}(S)\subseteq b$ abierto, pues esta
     topología hace a $c$ y $\overline c$ del apartado anterior continuas
-    (supuesto que $c'$ es continua).
-  \item En $\bGrph$, ocurre lo mismo, estableciendo como ejes en
+    (supuesto que $c'$ sea continua). Esto significa que superficies como el
+    toro, la cinta de Möbius o la botella de Klein se definen naturalmente como
+    conúcleos.
+  \item En $\bGrph$ ocurre lo mismo, estableciendo como ejes en
     $\frac{b}{\sim}$ las imágenes de ejes en $b$. En $\bPrord$ los conúcleos se
     construyen de igual forma pero tomando la clausura transitiva de la relación
     resultante en $\frac{b}{\sim}$.
-  \item En $(\Omega,E)\dash\bAlg$ el conúcleo se establece de la misma forma
-    pero sustituyendo $\sim$ por la menor relación de congruencia en $b$ con
-    $f(x)\sim g(x)$ para todo $x\in a$. Una \conc{relación de congruencia} es
-    una relación de equivalencia en que, para cada operación $f:b^n\to b$ en la
-    acción de $\Omega$ asociada a $b$ y cada $x_1,\dots,x_n,y_1,\dots,y_n\in b$
-    se tiene que, si cada $x_i\sim y_i$, entonces
-    $f(x_1,\dots,x_n)\sim f(y_1,\dots,y_n)$. Esta propiedad permite dotar a
-    $\frac{b}{\sim}$ una estructura algebraica cuyas operaciones se derivan de
-    las de $b$ de la forma evidente.
-  \item En $\bRng$, el conúcleo de $f,g:A\to B$ es la proyección canónica
+  \item En $(\Omega,E)\dash\bAlg$ el conúcleo es similar pero tomando como
+    $\sim$ la menor relación de congruencia en $b$ con $f(x)\sim g(x)$ para todo
+    $x\in a$. Una \conc{relación de congruencia} es una relación de equivalencia
+    en que, para cada operación $f:b^n\to b$ en la acción de $\Omega$ asociada a
+    $b$ y cada $x_1,\dots,x_n,y_1,\dots,y_n\in b$ se tiene que, si cada
+    $x_i\sim y_i$, entonces $f(x_1,\dots,x_n)\sim f(y_1,\dots,y_n)$. Esta
+    propiedad permite dotar a $\frac{b}{\sim}$ de una estructura algebraica cuyas
+    operaciones se derivan de las de $b$ de la forma evidente.
+  \item En $\bCRng$, el conúcleo de $f,g:A\to B$ es la proyección canónica
     $p:B\to\frac{B}{I}$, donde $I\coloneqq(\Img{f-g})$ es el ideal generado por
     la imagen de $f-g$.
     \begin{proof}
@@ -1230,7 +1224,7 @@ Las siguientes proposiciones son las duales de las vistas para el núcleo.
   \item $f=g$.
   \item $1_b$ es conúcleo de $f$ y $g$.
   \item $c$ es un isomorfismo.
-  \item $c$ es un epimorfismo.
+  \item $c$ es un monomorfismo.
   \end{enumerate}
 \end{proposition}
 
@@ -1252,9 +1246,8 @@ Las distintas definiciones dependen, pues, de qué conjunto $M$ usemos. Si
 estamos en un constructo tiene sentido considerar el conjunto de morfismos que
 son inclusiones. Para el caso general, sin embargo, existen varios conceptos
 usados en la práctica, siendo el más amplio el de monomorfismo y el más
-restringido el de sección. Por supuesto, uno de los conceptos intermedios, útil
-para categorías algebraicas como $R\dash\bMod$, es el de un monomorfismo que es
-el núcleo de algún morfismo.
+restringido el de sección. Para categorías algebraicas como $R\dash\bMod$, es
+útil el concepto de un monomorfismo que es el núcleo de algún morfismo.
 
 \begin{definition}
   Un monomorfismo es \conc{regular} si es el núcleo de algún par de morfismos.
@@ -1262,10 +1255,9 @@ el núcleo de algún morfismo.
 
 Así, si $M$ es el conjunto de los monomorfismos regulares, los $M$-subobjetos se
 llamarían \conc{subobjetos regulares}, mientras que si $M$ es el conjunto de
-todos los monomorfismos, los $M$-subobjetos son los \conc{subobjetos} a secas.
-
-Para todos estos conceptos aplicables en general, el conjunto de subobjetos es
-cerrado para isomorfismos, en el sentido siguiente.
+todos los monomorfismos, los $M$-subobjetos son los \conc{subobjetos} a
+secas. Para estos conceptos, el conjunto de subobjetos es cerrado para
+isomorfismos, en el sentido siguiente.
 
 \begin{definition}
   Dados dos $M$-subobjetos $(a,m)$ y $(b,n)$ de un objeto $c$, $(a,m)$ es
@@ -1274,13 +1266,17 @@ cerrado para isomorfismos, en el sentido siguiente.
   además $f$ es un isomorfismo.
 \end{definition}
 
-Cabe destacar la importancia de los morfismos en la definición de
-subobjetos. Por ejemplo, en $\bOrd$, $\{1,3,5\}$ y $\{2,4,6\}$ son subconjuntos
-ordenados de $\sNat$ y, vistos como objetos, son isomorfos y por tanto
-<<esencialmente lo mismo>>; lo que los distingue es el monomorfismo inclusión en
-$\sNat$. A lo largo de la teoría de categorías se da mucho esta situación, en
-que los objetos como tales, <<vistos desde fuera>>, no dan demasiada información
-y, sin embargo, los morfismos permiten codificar la información relevante.
+Cabe destacar la importancia del uso de morfismos para definir subobjetos, pues
+estos en general aportan mucha más información que los objetos. Por ejemplo, en
+$\bOrd$, $\{1,3,5\}$ y $\{2,4,6\}$ son subconjuntos ordenados de $\sNat$ y,
+vistos como objetos, son isomorfos, pero como subobjetos son distintos aun tras
+componer el monomorfismo inclusión con un isomorfismo a cada lado. En $\bSet$,
+aunque no son isomorfos como subobjetos, se pueden igualar componiendo con un
+isomorfismo por la izquierda, pues la única información que conservaríamos es
+que se trata de subconjuntos de tamaño 3 de un conjunto numerable. Esto refleja
+el hecho de que la teoría de categorías estudia la estructura de los objetos,
+viéndolos <<desde fuera>>, y no estudia su contenido, que es materia de la
+teoría de conjuntos.
 
 \begin{example}\;
   \label{ex:reg-mono}
@@ -1294,26 +1290,25 @@ y, sin embargo, los morfismos permiten codificar la información relevante.
     isomorfismo) con los subconjuntos, y un subobjeto es más pequeño que otro si
     y sólo si es un subconjunto del otro.
   \item En $\bTop$ los monomorfismos regulares son, salvo isomorfismo, las
-    inclusiones de subespacios, sin más que tomar la prueba del apartado
-    anterior y dotar a $\{0,1\}$ de la topología indiscreta, por lo que los
-    monomorfismos regulares son los subespacios topológicos.
+    inclusiones de subespacios, usando la prueba del apartado anterior y dotando
+    a $\{0,1\}$ de la topología indiscreta, por lo que los subobjetos regulares
+    son los subespacios topológicos.
   \item En muchas categorías algebraicas como $R\dash\bMod$ o $\bGrp$, todos los
-    monomorfismos son regulares, de modo que los subobjetos regulares son
-    respectivamente los submódulos y los subgrupos. En el caso de $R\dash\bMod$,
-    si $e:K\monicTo M$ es un monomorfismo de módulos, $e$ es el núcleo de la
-    proyección canónica $M\mapsto\frac{M}{\Img{e}}$, y en $\bGrp$ la prueba es
-    similar.
+    monomorfismos son regulares, con lo que los subobjetos regulares son
+    respectivamente los submódulos y los subgrupos. Esto es porque todo
+    monomorfismo $e:K\monicTo M$ es núcleo de la proyección canónica
+    $M\mapsto\frac{M}{\Img{e}}$.
   \item En $R\dash\bMod$, todos los monomorfismos son regulares. En efecto, un
     monomorfismo $m:M\to N$ es núcleo de la proyección canónica
-    $p:N\to\frac{N}{\Img{m}}$ y el correspondiente morfismo cero.
-  \item En $\bRing$ hemos visto (\ref{prop:equ-middle}, apartado
+    $p:N\to\frac{N}{\Img{m}}$.
+  \item En $\bCRng$ hemos visto (\ref{prop:equ-middle}, apartado
     \ref{enu:equ-mid-strict}) que no todos los monomorfismos son regulares. Sin
     embargo, los subobjetos (a secas) son precisamente los subanillos.
   \item En una categoría fina, sólo las identidades son regulares.
   \item En $R\dash\bMat$, los núcleos son las matrices $m\times p$, $p\leq m$,
-    de rango máximo (\ref{ex:equalizer}), con lo que los subobjetos de un número
-    $m$ son los pares formados por un $p\leq m$ y una matriz $m\times p$ de
-    rango $p$.
+    de rango máximo (\ref{ex:equalizer}), con lo que los subobjetos regulares de
+    un número $m$ son los pares formados por un $p\leq m$ y una matriz
+    $m\times p$ de rango $p$.
   \end{enumerate}
 \end{example}
 
@@ -1330,14 +1325,15 @@ El concepto dual de subobjeto es el de objeto cociente.
 \end{definition}
 
 Si $E$ es el conjunto de los epimorfismos regulares, hablamos de \conc{objetos
-  cociente regulares}, mientras que si $E$ es el conjunto de todos los
-epimorfismos hablamos de \conc{objetos cociente} a secas.
+  cociente regulares}, mientras que si es el conjunto de todos los epimorfismos
+hablamos de \conc{objetos cociente}.
 
-Si estamos en constructos tiene sentido considerar los epimorfismos que son
-proyecciones al conjunto cociente por alguna relación de equivalencia en el
-dominio, o a algún conjunto irredundante de representantes de dicha relación. En
-la mayoría de constructos relevantes, si para una cierta relación de
-equivalencia existe una de estas proyecciones, el resto también existe y son
+En constructos, tiene sentido considerar los epimorfismos que son proyecciones
+al conjunto cociente por alguna relación de equivalencia en el dominio, o a
+algún conjunto irredundante de representantes de dicha relación. En la mayoría
+de constructos relevantes, si para una cierta relación de equivalencia existe
+una de estas proyecciones (al cociente o algún conjunto irredundante de
+representantes, con la estructura apropiada), el resto también existe y son
 isomorfas en el sentido siguiente.
 
 \begin{definition}
@@ -1350,25 +1346,24 @@ isomorfas en el sentido siguiente.
 \begin{example}\;
   \begin{enumerate}
   \item \label{enu:reg-epi-set} En $\bSet$, todos los epimorfismos son
-    regulares, pues si $e:A\to B$ es suprayectiva, es el conúcleo de las dos
+    regulares, pues si $e:A\epicTo B$ es suprayectiva, es el conúcleo de las dos
     proyecciones $D_e\to A$ con
-    $D_e\coloneqq\{(a,a')\in A\times A\mid e(a)=e(a')\}$, por un argumento
+    \[D_e\coloneqq\{(a,a')\in A\times A\mid e(a)=e(a')\},\] por un argumento
     similar al usado en el ejemplo \ref{ex:reg-mono}, apartado
     \ref{enu:reg-mono-set}. Además, claramente los objetos cociente de $A$ son,
     salvo isomorfismo, los conjuntos cociente con sus proyecciones, y si $(B,d)$
     y $(C,e)$ son objetos cociente (regulares) de $A$, entonces $(B,d)\geq(C,e)$
     si y sólo si $D_d\subseteq D_e$.
-  \item De forma similar se ve que los objetos cocientes regulares en $\bTop$
-    son, salvo isomorfismo, los objetos topológicos cociente y las
+  \item De forma similar se ve que los objetos cociente regulares en $\bTop$
+    son, salvo isomorfismo, los espacios topológicos cociente con las
     correspondientes proyecciones. Aquí, sin embargo, no todos los epimorfismos
-    son regulares, pues el codominio debe tener la topología <<correcta>>, y no
-    una más gruesa.
+    son regulares, pues para ello el codominio debe tener la topología final y
+    no una más gruesa.
   \item En $R\dash\bMod$, todos los epimorfismos son regulares. En efecto, si
     $e:M\to N$ es un morfismo, $D_e$ (apartado \ref{enu:reg-epi-set}) es el
     núcleo del homomorfismo $(m,m')\mapsto e(m-m')$, por lo que es un $R$-módulo
-    y, por el argumento del apartado \ref{enu:reg-epi-set}, $e$ es el conúcleo
-    de las dos proyecciones $D_e\to M$. Además es fácil comprobar que los
-    objetos cociente son los módulos cociente.
+    y $e$ es el conúcleo de las dos proyecciones $D_e\to M$. Además, los objetos
+    cociente son los módulos cociente.
   \end{enumerate}
 \end{example}
 

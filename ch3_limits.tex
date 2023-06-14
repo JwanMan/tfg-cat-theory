@@ -4,7 +4,8 @@ objetos y morfismos son los puntos y flechas del diagrama, y una instanciación
 de ese diagrama como un funtor de dicha categoría a la categoría que nos
 interesa. Este capítulo estudia una serie de conceptos que nos permitirán
 razonar sobre propiedades algebraicas en base a diagramas, y se basa
-principalmente en \cite[caps. 11--13]{joyofcats} y \cite[cap. III]{maclane}.
+principalmente en \cite[caps. 11--13]{joyofcats} y
+\cite[cap. III.3--4]{maclane}.
 
 \section{Diagramas}
 
@@ -118,7 +119,7 @@ razonamientos mediante el concepto de límite.
         \draw[->] (KP) -- (B);
         \draw[->,dotted] (KP) -- node[left]{$\tilde e$} (K);
       \end{diagram}
-      \caption{Límite de un diagrama $\bDDown\to\cC$}
+      \caption{Límite de un diagrama $\bDDown\to\cC$.}
       \label{fig:equ-diagram}
     \end{figure}
 
@@ -170,7 +171,7 @@ El concepto dual al de límite es el de colímite.
   \end{enumerate}
 \end{definition}
 
-\begin{example}
+\begin{example}\;
   \begin{enumerate}
   \item El coproducto de una familia $(a_i)_{i\in I}$ en $\cC$ es el colímite de
     un diagrama $D:I\to\cC$ que a cada objeto del conjunto $I$ visto como
@@ -200,7 +201,7 @@ diagrama identidad.
   los sumideros $(h\circ g_i:Di\to b)_i$ donde $h:c\to b$ es un isomorfismo.
 \end{proposition}
 
-\section{Productos y coproductos fibrados}
+\section{Productos fibrados}
 
 Los límites y colímites, al ser fuentes y sumideros, respectivamente, se pueden
 ver como diagramas que pueden tener a su vez un límite y un colímite. Claramente
@@ -237,7 +238,7 @@ fuente. Empezamos con el primer caso, y vemos algunas definiciones.
     \draw[->] (X) -- (B);
     \draw[->,dotted] (X) -- (D);
   \end{diagram}
-  \caption[Producto fibrado]{Producto fibrado de $a$ y $b$ respecto a $f$ y $g$}
+  \caption[Producto fibrado]{Producto fibrado de $a$ y $b$ respecto a $f$ y $g$.}
   \label{fig:pullback}
 \end{figure}
 
@@ -289,22 +290,24 @@ todas las categorías en las que dichos límites existen.
       \draw[->] (K) -- node[above]{$p_1\circ e$} (A);
       \draw[->] (K) -- node[left]{$p_2\circ e$} (B);
     \end{diagram}
-    \caption{Construcción canónica de productos fibrados}
+    \caption{Construcción canónica de productos fibrados.}
     \label{fig:pullback-canon}
   \end{figure}
 \end{proposition}
 \begin{proof}
-  Obviamente el cuadrado conmuta, y si $r:p\to b$ y $s:p\to a$ son tales que
-  $f\circ s=g\circ r$, entonces $f\circ p_1\circ(s,r)=g\circ p_2\circ(s,r)$ y
-  existe un único $h:p\to k$ tal que $(s,r)=e\circ h$ y así
+  Obviamente el cuadrado conmuta, y si $r:x\to b$ y $s:x\to a$ son
+  tales que $f\circ s=g\circ r$, existe $t:x\to a\times b$ con
+  $p_1\circ t=s$ y $p_2\circ t=r$, y entonces
+  $f\circ p_1\circ t=f\circ s=g\circ r=g\circ p_2\circ t$ y existe un
+  único $h:x\to k$ tal que $t=e\circ h$, con lo que
   $s=(p_1\circ e)\circ h$ y $r=(p_2\circ e)\circ h$.
 \end{proof}
 
 \begin{example}
-  La anterior proposición caracteriza el producto fibrado en la mayoría de
-  categorías como un subobjeto regular de un objeto producto. Así:
+  La anterior proposición permite calcular el producto fibrado en
+  muchas categorías comunes.
   \begin{enumerate}
-  \item En $\bRing$, $\bGrp$, $R\dash\bMod$ y $\bTop$, dados dos homomorfismos
+  \item En $\bCRng$, $\bGrp$, $R\dash\bMod$ y $\bTop$, dados dos homomorfismos
     $f:A\to C$ y $g:B\to C$, el producto fibrado de $A$ y $B$ por $C$ es el
     subanillo, subgrupo, submódulo o subespacio topológico, respectivamente, de
     $A\times B$ dado por $A\times_C B=\{ (a,b)\in A\times B\mid f(a)=g(b) \}$.
@@ -345,7 +348,7 @@ inclusiones es la intersección de los dominios, lo cual podemos generalizar.
 \begin{proof}
   Sea $(b,n)$ una intersección de la familia $\{(a_i,m_i)\}_{i\in I}$ de
   subobjetos de $c$ y sea $(f_i:b\to a_i)_{i\in I\sqcup\{*\}}$ el producto
-  fibrado correspondiente, con $f_*=n$, para $g,h:d\to b$ con
+  fibrado correspondiente, con $f_*=n$. Para $g,h:d\to b$ con
   $n\circ g=n\circ h$, $m_i\circ f_i\circ g=m_i\circ f_i\circ h$ para cada
   $i\in I$ y por tanto $f_i\circ g=f_i\circ h$, y por la unicidad en la
   definición de límite es $g=h$, con lo que $n$ es un monomorfismo.
@@ -360,6 +363,8 @@ inclusiones es la intersección de los dominios, lo cual podemos generalizar.
   \item En una categoría fina, las intersecciones son los productos.
   \end{enumerate}
 \end{example}
+
+\section{Coproductos fibrados}
 
 El concepto dual al producto fibrado es el coproducto fibrado.
 
@@ -391,7 +396,8 @@ la figura \ref{fig:pushout}.
     \draw[<-] (X) -- (B);
     \draw[<-,dotted] (X) -- (D);
   \end{diagram}
-  \caption[Coproducto fibrado]{Coproducto fibrado de $a$ y $b$ respecto a $f$ y $g$}
+  \caption[Coproducto fibrado]{Coproducto fibrado de $a$ y $b$ respecto a $f$ y
+    $g$.}
   \label{fig:pushout}
 \end{figure}
 
@@ -406,15 +412,15 @@ la figura \ref{fig:pushout}.
     \begin{diagram}
       \path (0,0) node(B){$b$} (-3,0) node(C){$d$} (-3,-3) node(A){$a$};
       \path (-1.5,-1.5) node(AB){$a\oplus b$} (0,-3) node(K){$q$};
-      \draw[->] (A) -- node[left]{$f$} (C);
-      \draw[->] (B) -- node[above]{$g$} (C);
-      \draw[->] (K) -- node[above]{$c$} (AB);
-      \draw[->] (AB) -- node[above]{$u_1$} (A);
-      \draw[->] (AB) -- node[left]{$u_2$} (B);
-      \draw[->] (K) -- node[below]{$u_1\circ c$} (A);
-      \draw[->] (K) -- node[right]{$u_2\circ c$} (B);
+      \draw[<-] (A) -- node[left]{$f$} (C);
+      \draw[<-] (B) -- node[above]{$g$} (C);
+      \draw[<-] (K) -- node[above]{$c$} (AB);
+      \draw[<-] (AB) -- node[above]{$u_1$} (A);
+      \draw[<-] (AB) -- node[left]{$u_2$} (B);
+      \draw[<-] (K) -- node[below]{$c\circ u_1$} (A);
+      \draw[<-] (K) -- node[right]{$c\circ u_2$} (B);
     \end{diagram}
-    \caption{Construcción canónica de coproductos fibrados}
+    \caption{Construcción canónica de coproductos fibrados.}
     \label{fig:pushout-canon}
   \end{figure}
 \end{proposition}
@@ -425,8 +431,11 @@ la figura \ref{fig:pushout}.
     fibrado de $A$ y $B$ por $D$ es el conjunto cociente de $A\sqcup B$ por la
     menor relación de equivalencia que identifica $f(d)$ con $g(d)$ para cada
     $d\in D$.
-  \item En $\bRing$, $\bGrp$, $R\dash\bMod$ y $\bTop$, el coproducto se obtiene
-    de manera similar.
+  \item En $\bRing$, $\bGrp$, $R\dash\bMod$ y $\bTop$, el coproducto fibrado se
+    obtiene de manera similar.
+  \item La unión de espacios topológicos por un punto se puede expresar como el
+    coproducto fibrado respecto a $\{*\}$ en $\bTop$ o como el coproducto
+    convencional en $\bTop_*$.
   \item En una categoría fina, un coproducto fibrado es un coproducto
     convencional.
   \item El concepto dual de la intersección es el de \conc{cointersección} de
@@ -441,14 +450,17 @@ la figura \ref{fig:pushout}.
 
 \section{Completitud}
 
-Hemos visto que los límites y colímites, cuando existen, son únicos, pero
-todavía no hemos estudiado su existencia. Sabemos que esta depende del caso; por
-ejemplo, en $\bSet$ todos los productos existen, pero en una categoría discreta
-no existe el producto de dos o más elementos distintos, y en conjuntos
-parcialmente ordenados puede haber pares de elementos que tengan producto y
-otros que no. Se podría pensar entonces que caracterizar la existencia de
-límites de diagramas arbitrarios es una tarea excesivamente compleja, pero de
-hecho esta se puede reducir a casos familiares, como veremos a continuación.
+Hemos visto que los límites y colímites, cuando existen, son únicos salvo
+isomorfismo, pero todavía no hemos estudiado su existencia. Sabemos que esta
+depende del caso; por ejemplo, en $\bSet$ todos los productos existen, pero en
+una categoría discreta no existe el producto de dos o más elementos distintos, y
+en conjuntos parcialmente ordenados puede haber pares de elementos que tengan
+producto y otros que no. Se podría pensar entonces que caracterizar la
+existencia de límites de diagramas arbitrarios es una tarea excesivamente
+compleja, pero de hecho esta se puede reducir a la existencia de ciertos tipos
+de límites, como veremos a continuación.
+
+Por brevedad no vemos los casos duales, aunque estos se pueden deducir fácilmente.
 
 \begin{definition}
   Sea $\cC$ una categoría:
@@ -467,6 +479,8 @@ hecho esta se puede reducir a casos familiares, como veremos a continuación.
   \end{enumerate}
 \end{definition}
 
+El concepto dual de la completitud es la cocompletitud.
+
 \begin{theorem}
   Para una categoría $\cC$, son equivalentes:
   \begin{enumerate}
@@ -479,34 +493,41 @@ hecho esta se puede reducir a casos familiares, como veremos a continuación.
   (\ref{enu:lim-complete})$\implies$(\ref{enu:lim-prodint}) es obvio.
 
   Veamos (\ref{enu:lim-prodint})$\implies$(\ref{enu:lim-prodeq}). Si $\cC$ tiene
-  productos e intersecciones finitas, sean $f,g:a\to b$, existe $a\times b$ y
-  $(a,(1_a,f))$ y $(a,(1_a,g))$ son subobjetos de $a\times b$ con una cierta
-  intersección $(k,n)$. Sean entonces $p_1:a\times b\to a$ y
-  $p_2:a\times b\to b$ las proyecciones canónicas y $e_1,e_2:k\to a$ tales que
-  $n=(1_a,f)\circ e_1=(1_a,g)\circ e_2$, y queremos ver que $e_1=p_1\circ n=e_2$
-  es un núcleo de $f$ y $g$. Pero $f\circ e_1=p_2\circ n=g\circ e_2=g\circ e_1$,
-  y si $e':k'\to a$ cumple $f\circ e'=g\circ e'$, entonces es fácil ver que
-  $(1_a,f)\circ e'=(1_a,g)\circ e'$, y por la definición de intersección existe
+  productos e intersecciones finitas, para $f,g:a\to b$, existe $a\times
+  b$. Sean entonces $p_1:a\times b\to a$ y $p_2:a\times b\to b$ las proyecciones
+  canónicas y $\hat f,\hat g:a\monicTo a\times b$ los únicos morfismos con
+  $p_1\circ\hat f=p_2\circ\hat f=1_a$, $p_2\circ\hat f=f$ y $p_2\circ\hat g=g$,
+  que claramente son monomorfismos, los subobjetos $(a,\hat f)$ y $(a,\hat g)$
+  de $a\times b$ tienen una intersección $(k,n)$. Sean entonces $e_1,e_2:k\to a$
+  tales que $n=\hat f\circ e_1=\hat g\circ e_2$, y queremos ver que
+  $e_1=p_1\circ\hat f\circ e_1=p_1\circ\hat g\circ e_2=e_2$ es un núcleo de $f$
+  y $g$. Pero $f\circ e_1=p_2\circ n=g\circ e_2=g\circ e_1$, y si $e':k'\to a$
+  cumple $f\circ e'=g\circ e'$, entonces es fácil ver que
+  $\hat f\circ e'=\hat g\circ e'$, y por la definición de intersección existe
   un único $h:k'\to k$ con $e'=e_1\circ h$.
 
-  Queda por probar (\ref{enu:lim-prodeq})$\implies$\ref{enu:lim-complete}. Si
-  $D:\cS\to\cC$ un diagrama pequeño y $\cC$ tiene productos y núcleos, existen
-  los productos $(p_j:O\coloneqq\prod_{i\in\Ob{\cS}}Di\to Dj)_{j\in\Ob{\cS}}$ y
+  Queda por probar (\ref{enu:lim-prodeq})$\implies$(\ref{enu:lim-complete}). Si
+  $D:\cS\to\cC$ es un diagrama pequeño y $\cC$ tiene productos y núcleos,
+  existen los productos
+  $(p_j:O\coloneqq\prod_{i\in\Ob{\cS}}Di\to Dj)_{j\in\Ob{\cS}}$ y
   $(\pi_s:C\coloneqq\prod_{t\in\Mor{\cS}}D(\cod t)\to D(\cod
-  s))_{s\in\Mor{\cS}}$. Además, si tomamos
-  $p_{\cod t},Dt\circ p_{\dom t}:O\to D(\cod t)$ para cada $t\in\Mor{\cS}$, el
-  par de morfismos
-  $\hat c\coloneqq(p_{\cod t})_{t\in\Mor{\cS}},\hat d\coloneqq(Dt\circ p_{\dom
-    t})_{t\in\Mor{\cS}}:O\to M$ tiene un núcleo $e:k\to O$, y queremos ver que
-  $(p_i\circ e:E\to Di)_{i\in\Ob{\cS}}$ es límite de $D$. En primer lugar, para
-  cada $s:i\to j$ en $\cS$,
-  $p_i\circ e=p_{\cod s}\circ e=\pi_s\circ\hat c\circ e=\pi_s\circ\hat d\circ
-  e=Ds\circ p_{\dom t}\circ e=Ds\circ(p_i\circ e)$. En segundo lugar, si
-  $(f_i:x\to Di)_{i\in\Ob{\cS}}$ es otra fuente tal que $f_j=Ds\circ f_i$ para
-  todo $s:i\to j$ en $\cS$, sea $\hat f\coloneqq(f_i)_{i\in\Ob{\cS}}:x\to O$,
-  para $s:i\to j$ en $\cS$,
-  $\pi_s\circ\hat c\circ\hat f=p_j\circ\hat f=f_j=Ds\circ f_i=Ds\circ
-  p_i\circ\hat f=\pi_s\circ\hat d\circ\hat f$, y como esto se da para todo $s$,
+  s))_{s\in\Mor{\cS}}$. Tomando $p_{\cod t},Dt\circ p_{\dom t}:O\to D(\cod t)$
+  para cada $t\in\Mor{\cS}$, el par de morfismos $\hat c,\hat d:O\to M$ dados
+  por $\pi_t\circ\hat c\coloneqq p_{\cod t}$ y
+  $\pi_t\circ\hat d\coloneqq Dt\circ p_{\dom t}$ tiene un núcleo $e:k\to O$, y
+  queremos ver que $(p_i\circ e:E\to Di)_{i\in\Ob{\cS}}$ es límite de $D$. En
+  primer lugar, para cada $s:i\to j$ en $\cS$,
+  \[
+    p_j\circ e=\pi_s\circ\hat c\circ e=\pi_s\circ\hat d\circ e=Ds\circ p_i\circ e.
+  \]
+  En segundo lugar, si $(f_i:x\to Di)_{i\in\Ob{\cS}}$ es otra fuente tal que
+  $f_j=Ds\circ f_i$ para todo $s:i\to j$ en $\cS$, sea $\hat f:x\to O$ dada por
+  $p_i\circ\hat f\coloneqq f_i$, para $s:i\to j$ en $\cS$,
+  \[
+    \pi_s\circ\hat c\circ\hat f=p_j\circ\hat f=f_j=Ds\circ f_i=Ds\circ
+    p_i\circ\hat f=\pi_s\circ\hat d\circ\hat f,
+  \]
+  y como esto se da para todo $s$,
   por definición de producto, $\hat c\circ\hat f=\hat d\circ\hat f$, pero por
   definición de núcleo, existe un único $g:x\to k$ con $\hat f=e\circ g$, de
   modo que $f_i=p_i\circ e\circ g$ para cada $i$ y $g$ es el único morfismo con
@@ -536,23 +557,21 @@ Para el caso finito tenemos una propiedad similar.
   producto de una familia vacía es un objeto terminal, los de una unipuntual
   siempre existen y los de dos objetos son productos fibrados respecto a un
   objeto terminal, y basta usar la asociatividad del producto. Además, una
-  intersección de una familia vacía es un morfismo identidad, la de un sólo
+  intersección de una familia vacía es el subobjeto total, la de un sólo
   subobjeto es el propio subobjeto, la de dos subobjetos es un producto fibrado
   y es fácil ver que, si $(a_1,m_1),\dots,(a_n,m_n)$ son subobjetos de $c$ con
   $n>2$, $(b,q)$ es intersección de $(a_1,m_1),\dots,(a_{n-1},m_{n-1})$ y
-  $(b',q')$ es intersección de $(b,q)$ y $(a_n,m_n)$, entonces $(b',q')$ es
+  $(b',q')$ es intersección de $(b,q)$ y de $(a_n,m_n)$, entonces $(b',q')$ es
   intersección de $(a_1,m_1),\dots,(a_n,m_n)$.
 \end{proof}
-
-El dual de una categoría completa es una categoría \emph{cocompleta}, y
-análogamente se define tener colímites, coproductos, conúcleos, etc.
 
 \begin{example}\;
   \begin{enumerate}
   \item Las categorías $\bSet$, $R\dash\bMod$, $\bTop$, $\bOrd$ y $\bGrp$ tienen
-    productos y núcleos, por lo que son completas.
+    productos y núcleos, por lo que son completas.\pagebreak
   \item Un conjunto pequeño parcialmente ordenado visto como categoría es
-    completo si y sólo si es un retículo completo, si y sólo si es cocompleto.
+    completo si y sólo si es un retículo completo, si y sólo si es
+    cocompleto.\nopagebreak
     \begin{proof}
       Sea $(C,\leq)$ este conjunto. Claramente, si $(C,\leq)$ es un retículo
       completo, es una categoría completa y cocompleta, pues tiene productos y
@@ -575,22 +594,18 @@ análogamente se define tener colímites, coproductos, conúcleos, etc.
 
 \section{Preservación por funtores}
 
-En esta sección estudiamos si los funtores conservan los límites y colímites, o
+En esta sección estudiamos si los funtores respetan los límites y colímites, o
 más precisamente, qué funtores preservan qué límites y qué colímites, y qué nos
 dice eso.
 
-El concepto de <<conservar límites>> se puede entender de varias formas. Una es
-que la imagen conserve el límite, es decir, que al aplicar el funtor a un límite
-de un diagrama, se obtiene uno de la composición del diagrama con el funtor. Sin
-embargo, el que la preimagen lo conserve no es tan fácil de definir. Por
-ejemplo, se puede hablar de que, si la composición del diagrama con el funtor
-tiene un límite, entonces todas las preimágenes del límite son límites, o al
-menos una lo es, o si simplemente esto implica que el diagrama original tiene
-límite pero este no tiene que estar en la preimagen.
+Como sabemos, el concepto de respetar una propiedad es ambiguo, y podemos hablar
+de que la preserva, la refleja, etc. A continuación formalizamos las formas en
+que un funtor puede respetar un límite y estudiamos sus relaciones. Algunas de
+estas definiciones son redundantes porque ya se han definido para propiedades,
+pero las definimos también para límites por claridad.
 
-A continuación formalizamos estos conceptos y estudiamos su relación. Por
-brevedad, nos enfocamos en los conceptos relativos a límites, pero los conceptos
-duales se obtienen fácilmente.
+Por brevedad nos enfocamos en los conceptos relativos a límites, pero los
+conceptos y las propiedades duales se deducen fácilmente.
 
 \begin{definition}
   Un funtor $F:\cC\to\cD$ \conc{preserva} un límite $(f_i:L\to Di)_i$ de un
@@ -624,16 +639,16 @@ duales se obtienen fácilmente.
       Sea $(f_i:l\to Di)_i$ un límite de $D:\cS\to\cC$, y sea $(g_i:x\to FDi)_i$
       una fuente conmutativa al diagrama $F\circ D$, donde $F:\cC\to\bSet$ es el
       funtor olvidadizo. Si $\hat x\in\Ob{\cC}$ es el objeto libre asociado a
-      $x$ y $u:x\to F\hat x$ es la función asociada, entonces para cada $i$
+      $x$ por la función $u:x\to F\hat x$, entonces para cada $i$
       existe ${\hat g}_i:\hat x\to Di$ con $g_i=F{\hat g}_i\circ u$, pero por
       hipótesis existe un único $h:\hat x\to l$ con cada
       ${\hat g}_i=f_i\circ h$, con lo que $g_i=Ff_i\circ(Fh\circ u)$. La
       unicidad de $Fh\circ u$ es clara si $u$ es inyectiva, lo que ocurre si
       $\cC$ tiene algún objeto que, como conjunto, tiene al menos 2 elementos,
-      pero si este no es el caso sólo hay como mucho una función $x\to l$.
+      pero si este no es el caso sólo existe una función $x\to l$ a lo sumo.
     \end{proof}
   \item En $\bGrp$, $\bRing$ y $\bVec$, los funtores
-    olvidadizos preservan límites pero no coproductos ni conúcleos.
+    olvidadizos preservan límites, pero no coproductos ni conúcleos.
     \begin{proof}
       La preservación de límites es por el apartado anterior. Para los
       coproductos, el coproducto en estas categorías es la suma directa y en
@@ -650,12 +665,13 @@ duales se obtienen fácilmente.
     \end{proof}
   \item Los funtores hom preservan límites.
     \begin{proof}
-      Sean $F=\hom(c,-):\cC\to\bSet$ un funtor hom, $(f_i:l\to Di)_i$ un límite
-      de $D:\cS\to\cC$ y $(g_i:X\to\hom(c,Di))_i$ una fuente en $\bSet$ que
-      conmuta con $F\circ D$. Para cada $x\in X$, $(g_i(x):c\to Di)_i$ es una
-      fuente en $\cC$ que conmuta con $D$, por lo que existe un único morfismo
-      $\hat g(x):c\to l$ con cada $g_i(x)=f_i\circ\hat g(x)$ y así
-      $\hat g:X\to\hom(c,l)$ es la única función con $g_i=f_i\circ\hat g$.
+      Sean $c\in\Ob{\cC}$,$F\coloneqq\hom(c,-):\cC\to\bSet$, $(f_i:l\to Di)_i$
+      un límite de $D:\cS\to\cC$ y $(g_i:X\to\hom(c,Di))_i$ una fuente en
+      $\bSet$ que conmuta con $F\circ D$. Para cada $x\in X$,
+      $(g_i(x):c\to Di)_i$ es una fuente en $\cC$ que conmuta con $D$, por lo
+      que existe un único morfismo $\hat g(x):c\to l$ con cada
+      $g_i(x)=f_i\circ\hat g(x)$ y así $\hat g:X\to\hom(c,l)$ es la única
+      función con $g_i=f_i\circ\hat g$.
     \end{proof}
   \item El funtor potencia $\power:\bSet\to\bSet$ no preserva productos,
     coproductos, núcleos ni conúcleos.
@@ -663,7 +679,8 @@ duales se obtienen fácilmente.
 \end{example}
 
 Las propiedades de completitud y cocompletitud se pueden usar a la hora de
-determinar si un determinado funtor preserva límites.
+determinar si un determinado funtor preserva límites, como vemos en las
+siguientes proposiciones fáciles de probar.
 
 \begin{proposition}
   Si $\cC$ es finitamente completa, un funtor $F:\cC\to\cD$ preserva límites
@@ -682,8 +699,8 @@ determinar si un determinado funtor preserva límites.
 \end{proposition}
 \begin{proof}
   Claramente conserva monomorfismos regulares ya que conserva núcleos, y
-  claramente un morfismo $f$ es un monomorfismo si y sólo si $(1,1)$ es producto
-  fibrado de $(f,f)$ como se muestra en la figura \ref{fig:monic-pullback}.
+  claramente un morfismo $f$ es un monomorfismo si y sólo si la figura
+  \ref{fig:monic-pullback} muestra un producto fibrado.
   \begin{figure}
     \centering
     \begin{diagram}
@@ -694,7 +711,7 @@ determinar si un determinado funtor preserva límites.
       \draw[->] (I1) -- node[below]{$f$} (B);
       \draw[->] (I2) -- node[right]{$f$} (B);
     \end{diagram}
-    \caption{Caracterización de un monomorfismo por producto fibrado}
+    \caption{Caracterización de un monomorfismo por producto fibrado.}
     \label{fig:monic-pullback}
   \end{figure}
 \end{proof}
@@ -732,15 +749,15 @@ son ciertos, como vemos a continuación.
       $f_i\circ\mu_p=t_{pi}=\nu_p\circ(f_i\times\dots\times f_i)$. Pero esta es
       precisamente la condición para que cada $f_i$ sea un homomorfismo
       $(L,(\mu_1,\dots,\mu_n))\to Di$, con lo que la fuente existe y es
-      única. Que las operaciones $\mu_p$ respetan las igualdades se debe, al
-      componerlas con cada $f_i$, las operaciones resultantes en términos de las
-      $\nu_{pi}$ las respetan, y por la unicidad en la definición del límite en
-      $\bSet$.
+      única. Que las operaciones $\mu_p$ respetan las igualdades en $E$ se debe
+      a que, al componerlas con cada $f_i$, las operaciones resultantes en
+      términos de las $\nu_{pi}$ las respetan, y a la unicidad en la definición
+      del límite en $\bSet$.
 
-      Para ver que es un límite, si $(g_i:(X,\gamma)\to Di)_i$ es otra fuente
-      que conmuta con $D$, $(Fg_i)_i$ conmuta con $F\circ D$ y por tanto existe
-      una única función $h:X\to L$ con cada $g_i=f_i\circ h$, y queda ver que
-      $h$ es un homomorfismo. Pero para cada $p$ y cada $i$, usando que los
+      Para ver que la fuente es un límite, si $(g_i:(X,\gamma)\to Di)_i$ es otra
+      fuente que conmuta con $D$, $(Fg_i)_i$ conmuta con $F\circ D$ y por tanto
+      existe una única función $h:X\to L$ con cada $g_i=f_i\circ h$, y queda ver
+      que $h$ es un homomorfismo. Pero para cada $p$ y cada $i$, usando que los
       $g_i$ son homomorfismos,
       \begin{multline*}
         f_i\circ h\circ\gamma_p = g_i\circ\gamma_p
@@ -750,12 +767,14 @@ son ciertos, como vemos a continuación.
       \end{multline*}
       y como $(f_i)_i$ es un límite,
       $h\circ\gamma_p=\mu_p\circ(h\times\dots\times h)$, lo que termina la
-      prueba. El caso de $R\dash\bMod$ se puede reducir a este último
-      convirtiendo el producto por elementos de $R$ una cantidad potencialmente
-      infinita de operaciones de aridad 1 en el módulo y convirtiendo cada
-      instancia de una propiedad de este producto en una igualdad en la lista de
-      igualdades, y usando que esta prueba no depende de que el número de
-      operaciones e igualdades sea finito.
+      prueba.
+
+      El caso de $R\dash\bMod$ se puede reducir al anterior convirtiendo el
+      producto por elementos de $R$ una cantidad potencialmente infinita de
+      operaciones de aridad 1 en el módulo y convirtiendo cada instancia de una
+      propiedad de este producto en una igualdad en la lista de igualdades, y
+      usando que esta prueba no depende de que el número de operaciones e
+      igualdades sea finito.
     \end{proof}
   \item Los funtores olvidadizos de $\bTop$ y $\bGrph$ a $\bSet$ levantan
     límites y colímites de forma única, pero no los crean.
@@ -768,8 +787,7 @@ son ciertos, como vemos a continuación.
       o colímites que son preimagen del correspondiente en $\bSet$ por el
       funtor, pero en general hay más fuentes o sumideros que también son
       preimagen, por ejemplo tomando la topología discreta, la indiscreta, el
-      grafo discreto y el grafo total (completo con ejes reflexivos),
-      respectivamente.
+      grafo discreto y el grafo completo, respectivamente.
     \end{proof}
   \item El funtor olvidadizo de $\bMetc$ levanta límites finitos, pero no de
     forma única.
@@ -823,10 +841,17 @@ son ciertos, como vemos a continuación.
   \end{enumerate}
 \end{proposition}
 
-Otros tipos de relaciones no tienen por qué darse. Por ejemplo, el funtor
-olvidadizo $\bTop\to\bSet$ levanta límites de forma única pero no los refleja, y
-un funtor biyectivo en objetos que lleva una categoría discreta a una no
-discreta refleja límites pero no los levanta ni los detecta.
+\begin{example}
+  No hay una relación de implicación entre los conceptos de levantar límites y
+  reflejarlos, como vemos en estos ejemplos.
+  \begin{enumerate}
+  \item El funtor olvidadizo $\bTop\to\bSet$ levanta límites de forma única pero
+    no los refleja.
+  \item Un funtor biyectivo en objetos que lleva una categoría discreta a una no
+    discreta refleja límites pero no los levanta ni los detecta.
+  \end{enumerate}
+\end{example}
+
 
 %%% Local Variables:
 %%% mode: latex
