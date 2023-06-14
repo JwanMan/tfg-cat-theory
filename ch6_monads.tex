@@ -1,0 +1,153 @@
+Al igual que cuando el dominio y el codominio de un morfismo coinciden hablamos
+de un \conc{endomorfismo}, cuando esto le ocurre a un funtor hablamos de un
+\conc{endofuntor}. Los endofuntores son particularmente relevantes en tanto que
+se puede estudiar, por ejemplo, la relación de un objeto o morfismo con su
+imagen, o lo que ocurre al aplicar el endofuntor varias veces.
+
+Por ejemplo, tomemos el endofuntor $\power:\bSet\to\bSet$. Dado un conjunto $X$,
+entre $X$ y $\power X$ podemos tomar una inyección $\eta_X:X\to\power X$ dada
+por $\eta_X(x)\coloneqq\{x\}$, que es natural. Por otro lado, aunque podemos
+aplicar este funtor a $X$ varias veces, siempre podemos volver de $\power^nX$ a
+$\power X$ aplicando sucesivamente la unión, que podemos ver como una función
+$\mu_X:\power\power X\to\power X$ dada por $\mu_X(\cA)\coloneqq\bigcup\cA$. Esto
+también define una transformación natural, que, además, <<da igual>> en qué
+orden se aplique, en el sentido de que, si $S\in\power^3X$, aplicar primero
+$\mu_{\power X}$ a $S$ y luego $\mu_X$ al resultado es lo mismo que aplicar
+$\mu_X$ a cada elemento de $S$ y a continuación aplicar $\mu_X$ al resultado.
+Además, intuitivamente $\mu$ se puede ver como una inversa por un lado de
+$\eta$, en tanto que $\mu_X(\eta_{\power X}(S))\equiv S$.
+
+Muchos endofuntores relevantes admiten transformaciones naturales con
+propiedades similares, y para estudiar estos casos existe el concepto de mónada.
+Este capítulo se basa principalmente en \cite[VI]{maclane}.
+
+\begin{definition}
+  Una \conc{mónada} en una categoría $\cC$ es una tupla $(T,\eta,\mu)$ formada
+  por un funtor $T:\cC\to\cC$ y dos transformaciones naturales $\eta:1_\cC\to T$
+  y $\mu:T^2\to T$ tales que, para cada objeto $c$ en $\cC$:
+  \begin{enumerate}
+  \item $\mu_c\circ T\mu_c=\mu_c\circ\mu_{Tc}$.
+  \item $\mu_c\circ\eta_{Tc}=\mu_c\circ T\eta_c=1_{Tc}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Si $(T,\eta,\mu)$ es una mónada en $\cC$ y $c$ es un objeto de $\cC$,
+  $\eta_c:c\monicTo Tc$ es una sección y $\mu_c:TTc\epicTo Tc$ es una
+  retracción.
+\end{proposition}
+
+Si $\tau:R\to S$ es una transformación natural entre dos funtores
+$R,S:\cB\to\cC$ y $T:\cC\to\cD$ es otro funtor, podemos definir la
+transformación natural $T\tau:T\circ R\to T\circ S$ como
+$(T\tau)_b\coloneqq T(\tau_b)$ para cada objeto $b$ en $\cB$. Por otro lado, si
+$U:\cA\to\cB$ es otro funtor, podemos definir la transformación natural
+$\tau U:R\circ U\to G\circ U$ como $(\tau U)_a\coloneqq\tau_{Ka}$ para cada
+objeto $a$ en $\cA$.
+
+Esto nos permite resumir las condiciones en la definición de mónada diciendo que
+$\mu\circ T\mu=\mu\circ\mu T$ y $\mu\circ T\eta=\mu\circ\eta T=1_T$, como se
+muestra en la figura \ref{fig:monad}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{.45\linewidth}
+    \begin{diagram}
+      \path (0,2) node(TTT){$T^3$} (2,2) node(TTP){$T^2$};
+      \path (0,0) node(PTT){$T^2$} (2,0) node(T){$T$};
+      \draw[->] (TTT) -- node[above]{$T\mu$} (TTP);
+      \draw[->] (TTT) -- node[left]{$\mu T$}(PTT);
+      \draw[->] (TTP) -- node[right]{$\mu$} (T);
+      \draw[->] (PTT) -- node[below]{$\mu$} (T);
+    \end{diagram}
+    \caption{Conmutatividad de $\mu$ con $T$.}
+  \end{subfigure}
+  \hfil
+  \begin{subfigure}{.45\linewidth}
+    \begin{diagram}
+      \path (0,2) node(IT){$1\circ T$} (2,2) node(TT){$T^2$} (4,2) node(TI){$T\circ 1$};
+      \path                            (2,0) node(T){$T$};
+      \draw[->] (IT) -- node[above]{$\eta T$} (TT);
+      \draw[->] (TI) -- node[above]{$T\eta$} (TT);
+      \draw[->] (TT) -- node[right]{$\mu$} (T);
+      \draw[->] (IT) -- node[left]{$1$} (T);
+      \draw[->] (TI) -- node[right]{$1$} (T);
+    \end{diagram}
+    \caption{Relación entre $\eta$ y $\mu$.}
+  \end{subfigure}
+  \caption[Definición de mónada.]{Definición de mónada en una categoría $\cC$
+    mediante diagramas en $\cC^\cC$.}
+  \label{fig:monad}
+\end{figure}
+
+\begin{example}\;
+  \begin{enumerate}
+  \item $\power:\bSet\to\bSet$ es una mónada con las operaciones indicadas en la
+    introducción del capítulo.
+  \item Sea $(^*):\bSet\to\bSet$ el endofuntor que asocia a cada objeto $X$ el
+    conjunto subyacente de su monoide libre, dado por $\bigcup_{n\in\sNat}X^n$,
+    y que lleva cada función $f:X\to Y$ a la función
+    $(x_1,\dots,x_k)\mapsto(fx_1,\dots,fx_k)$. Este endofuntor es una mónada con
+    las transformaciones naturales $\eta:1\to(^*)$ que lleva cada elemento de un
+    conjunto a la lista de un elemento ($\eta_X(x)=(x)$) y $\mu:(^*)^2\to(^*)$
+    que concatena una lista de listas en una sola lista.
+  \item Esto se puede generalizar a todas las variedades algebraicas. El álgebra
+    libre sobre un conjunto $X$ es un conjunto cociente de árboles formados por
+    operadores y elementos de $X$ (\ref{prop:free-algebra}), y las funciones
+    entre conjuntos se pueden llevar a morfismos de álgebras libres operando
+    sobre los elementos del dominio en el árbol.  Entonces el equivalente a la
+    lista de un elemento sería (la clase de equivalencia de) un árbol cuya raíz
+    es dicho elemento, y el equivalente a concatenar listas es sustituir cada
+    elemento base del árbol, que es a su vez una clase de equivalencia de
+    árboles, por un representante de esta clase a modo de subárbol. Claramente
+    estas transformaciones son naturales y forman una mónada.
+  \item Sean $\cC$ una categoría con coproductos finitos y $d$ un objeto de
+    $\cC$. Sea $E:\cC\to\cC$ un endofuntor que a cada objeto $c$ le asocia
+    $c\oplus d$ y a cada morfismo $f:b\to c$ el morfismo <<suma>>
+    $Ef=f\oplus 1_d:b\oplus d\to c\oplus d$. Si $\eta_c:c\monicTo c\oplus d$ es
+    la inclusión canónica y $\mu_c:c\oplus d\oplus d\epicTo c\oplus d$ es la
+    función que <<identifica>> las dos copias de $d$ en el sentido evidente,
+    entonces $(E,\eta,\mu)$ es una mónada.
+  \item Sean $s$ un conjunto y $S\coloneqq\hom(s,-\times s)$ un endofuntor en
+    $\bSet$ que lleva cada conjunto $X$ al conjunto de funciones
+    $s\to X\times s$ y cada función $f$ a $\hom(s,f\times 1_s)$. Entonces $S$ es
+    una mónada con las transformaciones naturales $\eta:1\to S$ y $\mu:S^2\to S$
+    dadas por la formación de pares $\eta_X(x)(y)\coloneqq(x,y)$ y la <<doble
+    evaluación>> $\mu_X(f)(y)\coloneqq (p_1fy)(p_2fy)$, donde $p_1$ y $p_2$ son
+    las proyecciones canónicas de $\hom(X,s)\times s$.
+    % \begin{proof}
+    %   Escribiendo $e(f,y)\coloneqq f(y)$, se tiene $\mu_X(f)(y)\equiv e(f(y))$ y
+    %   $\mu_X(f)\equiv e\circ f$ (por abuso de notación, $e$ no representa una
+    %   función fija, sino cualquier función expresada así independientemente de
+    %   dominio y codominio). Entonces, para $f\in S^3X$,
+    %   \begin{multline*}
+    %     \mu_X((S\mu_X)(f))=\mu_X(\hom(s,\mu_X\times 1_s)(f))=\mu_X((\mu_X\times 1_s)\circ f)=
+    %     e\circ(\mu_X\times 1_s)\circ f=\\
+    %     =(y\mapsto e(\mu_Xpfy,qfy))=(y\mapsto(\mu_Xpfy)(qfy))=(y\mapsto e((pfy)(qfy)))=\\
+    %     =e\circ e\circ f=e\circ(\mu_{SX}\circ f)=\mu_X(\mu_{SX}(f)),
+    %   \end{multline*}
+    %   y para $f\in SX$,
+    %   \begin{multline*}
+    %     \mu_X((S\eta_X)(f))=\mu_X(\hom(s,\eta_X\times 1_s)(f))=e\circ(\eta_X\times 1_s)\circ f=\\
+    %     =(y\mapsto e(\eta_Xpfy,qfy))=
+    %     (y\mapsto(\eta_Xpfy,qfy))=(y\mapsto fy)=f\\=e\circ(y\mapsto(f,y))=
+    %     =e\circ(\eta_{SX}(f))=\mu_X(\eta_{SX}(f)).
+    %   \end{multline*}
+    % \end{proof}
+  \item En un conjunto parcialmente ordenado $(S,\leq)$ visto como categoría, un
+    endofuntor es una función $f:S\to S$ monótona, es decir, tal que
+    $x\leq y\implies fx\leq fy$. Las transformaciones naturales asociadas a $f$
+    en una mónada están unívocamente determinadas y existen si y sólo si, para
+    todo $x\in S$, $x\leq fx$ y $f^2x\leq fx$, pues al ser una categoría fina
+    los diagramas correspondientes siempre conmutan. Estas ecuaciones implican
+    que $f$ es idempotente. Así, las mónadas en conjuntos parcialmente ordenados
+    son \conc{operaciones de clausura}, funciones monótonas e idempotentes con
+    $x\leq fx$ para todo $x$. Este término se usa especialmente cuando el orden
+    es la inclusión de conjuntos.
+  \end{enumerate}
+\end{example}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
