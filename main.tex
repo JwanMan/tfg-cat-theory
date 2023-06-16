@@ -44,6 +44,7 @@ decorate, decoration={
 \newtheorem{proposition}{Proposición}[chapter]
 \newtheorem{theorem}[proposition]{Teorema}
 \newtheorem{corollary}[proposition]{Corolario}
+\newtheorem{lemma}[proposition]{Lema}
 \theoremstyle{definition}
 \newtheorem{definition}[proposition]{Definición}
 \newtheorem{axiom}[proposition]{Axioma}
@@ -57,6 +58,7 @@ decorate, decoration={
 \newcommand{\dCat}[2]{\newcommand{#1}{{\bf #2}}}
 \newcommand{\conc}[1]{\emph{#1}}
 \newcommand{\concsuffix}[1]{\emph{#1}}
+\newcommand{\eps}{\varepsilon}
 \dCat{\bAlg}{Alg}
 \dCat{\bSet}{Set}
 \dCat{\bRel}{Rel}
@@ -64,6 +66,7 @@ decorate, decoration={
 \dCat{\bOrd}{Ord}
 \dCat{\bLat}{Lat}
 \dCat{\bGrph}{Grph}
+\dCat{\bMGrph}{MGrph}
 \dCat{\bMat}{Mat}
 \dCat{\bSmgrp}{Smgrp}
 \dCat{\bMon}{Mon}
@@ -72,6 +75,7 @@ decorate, decoration={
 \dCat{\bRing}{Rng} % Backwards compat
 \dCat{\bRng}{Rng}
 \dCat{\bCRng}{CRng}
+\dCat{\bDom}{Dom}
 \dCat{\bField}{Field}
 \dCat{\bMod}{Mod}
 \dCat{\bVec}{Vec}
@@ -118,7 +122,7 @@ decorate, decoration={
 \newcommand{\inTo}{\hookrightarrow}
 \renewcommand{\mapsto}{\rightsquigarrow}
 \renewcommand{\Im}{\error{You probably meant \backslash{}Img}}
-\newcommand{\dual}[1]{#1^{\text{op}}}
+\newcommand{\dual}[1]{#1^{\mathrm{op}}}
 \newcommand{\power}{\mathcal{P}}
 \newcommand{\copower}{\mathcal{Q}}
 \newcommand{\UNIVERSE}{\mathcal{U}}
@@ -185,7 +189,7 @@ decorate, decoration={
 \input{ch4_trans}
 
 \chapter{Adjunciones}
-% TODO
+\input{ch5_adjoints}
 
 \chapter{Mónadas}
 \input{ch6_monads}

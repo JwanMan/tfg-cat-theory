@@ -1,0 +1,436 @@
+La definición que hemos visto de objeto libre (\ref{def:free-object}) está
+asociada a constructos y por tanto a la categoría $\bSet$. Sin embargo, no hay
+razón para limitarse a este caso, y de hecho los objetos libres son un caso
+particular de flecha universal en el que el codominio del funtor olvidadizo es
+$\bSet$. Cuando todos los elementos de dicho codominio admiten una flecha
+universal podemos definir un funtor libre asociado al funtor olvidadizo, y este
+funtor tiene propiedades interesantes que conviene estudiar. Este capítulo se
+basa principalmente en \cite[II.5, III.1--2 y IV.1]{maclane}.%TODO Citar todo
+
+\section{Flechas universales}
+
+\begin{definition}
+  Sean $U:\cC\to\cB$ un funtor y $b$ un objeto de $\cB$, una \conc{flecha
+    universal} de $b$ a $U$ es un par $(c,u)$ formado por un objeto $c$ de
+  $\cC$, el \conc{objeto libre}, y un morfismo $u:b\to Uc$ en $\cB$, tales que
+  para todo morfismo $f:b\to Ux$ en $\cB$ existe un único morfismo
+  $\hat f:c\to x$ en $\cC$ tal que $f=U\hat f\circ u$, como se muestra en la figura
+  \ref{fig:universal}.
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,2) node(B){$b$} (2,2) node(UC){$Uc$} (4,2) node(C){$c$};
+      \path                    (2,0) node(UX){$Ux$} (4,0) node(X){$x$};
+      \draw[->] (B) -- node[above]{$u$} (UC);
+      \draw[->] (B) -- node[left]{$f$} (UX);
+      \draw[->,dotted] (UC) -- node[right]{$U\hat f$} (UX);
+      \draw[->,dotted] (C) -- node[right]{$\hat f$} (X);
+    \end{diagram}
+    \caption{Flecha universal de un objeto a un funtor.}
+    \label{fig:universal}
+  \end{figure}
+\end{definition}
+
+\begin{example}
+  Las flechas universales suelen representar inmersiones de objetos en un
+  cierto objeto completado o con estructura adicional.
+  \begin{enumerate}
+  \item Un objeto libre sobre un conjunto $X$ en un constructo es una flecha
+    universal de $X$ al constructo.
+  \item Si $U:\bField\inTo\bDom$ es el funtor inclusión de la subcategoría
+    completa de los cuerpos en la categoría de dominios, una flecha universal de
+    un dominio $D$ en $U$ es el conjunto cociente $Q(D)$ junto con la inclusión.
+  \item Consideremos la categoría $\bMGrph$ de los \conc{multigrafos}, los
+    grafos dirigidos (no necesariamente finitos) que admiten varios ejes entre
+    dos mismos vértices. Si $U:\bCat\to\bMGrph$ es el funtor que <<olvida>> la
+    composición y la identidad, un objeto libre de un multigrafo $M$ a $U$ es
+    una categoría cuyos objetos son los vértices de $M$ y cuyos morfismos entre
+    dos objetos son los caminos entre ellos en $M$, tomando como composición la
+    concatenación de caminos y como identidad el camino vacío.
+  \item Si $D:\cS\to\cC$ es un diagrama, un morfismo $f:D\to\Delta c$ en
+    $\cC^\cS$ es un sumidero con codominio $c$ que conmuta con $D$, de modo que
+    un colímite de $D$ es una flecha universal de $D$ a $\Delta:\cC\to\cC^\cS$.
+  \end{enumerate}
+\end{example}
+
+Nos gustaría ver que las flechas universales son únicas salvo isomorfismo, pero
+para ello primero tenemos que ver qué significa esto. Una forma de hacerlo es
+definir la categoría en la que <<viven>> estas flechas.
+
+\begin{definition}
+  Si $U:\cC\to\cB$ es un funtor y $b$ es un objeto de $\cB$, la \conc{categoría
+    de objetos $U$-bajo $b$}, $(b\downarrow U)$, tiene como objetos los pares
+  $(c,f)$ formados por un objeto $c$ de $\cC$ y un morfismo $f:b\to Uc$; como
+  morfismos $h:(c,f)\to(c',f')$ los morfismos $h:c\to c'$ en $\cC$ tales que
+  $f'=Uh\circ f$, y como composición e identidad las correspondientes en $\cC$.
+\end{definition}
+
+\begin{proposition}
+  La flecha universal de un objeto $b$ de $\cB$ a un funtor $U:\cC\to\cB$, si
+  existe, es única salvo isomorfismo en $(b\downarrow U)$.
+\end{proposition}
+\begin{proof}
+  Es el objeto inicial de $(b\downarrow U)$.
+\end{proof}
+
+El concepto dual al de flecha universal de un objeto a un funtor es el de flecha
+universal de un funtor a un objeto.
+
+\begin{definition}
+  Sean $T:\cC\to\cB$ un funtor y $b$ un objeto de $\cB$, una \conc{flecha
+    universal} de $T$ a $b$ es un par $(c,v)$ formado por un objeto $c$ de $\cC$
+  y un morfismo $v:Tc\to b$ en $\cB$, tales que para todo morfismo $f:Tx\to b$
+  en $\cB$ existe un único morfismo $\hat f:x\to c$ tal que $f=v\circ T\hat f$,
+  como se muestra en la figura \ref{fig:couniversal}.
+  
+  \begin{figure}
+    \centering
+    \begin{diagram}
+      \path (0,-2) node(B){$b$} (-2,-2) node(UC){$Tc$} (-4,-2) node(C){$c$};
+      \path                     (-2,0) node(UX){$Tx$}  (-4,0) node(X){$x$};
+      \draw[<-] (B) -- node[below]{$v$} (UC);
+      \draw[<-] (B) -- node[right]{$f$} (UX);
+      \draw[<-,dotted] (UC) -- node[left]{$T\hat f$} (UX);
+      \draw[<-,dotted] (C) -- node[left]{$\hat f$} (X);
+    \end{diagram}
+    \caption{Flecha universal de un funtor a un objeto.}
+    \label{fig:couniversal}
+  \end{figure}
+\end{definition}
+
+\begin{example}
+  Si $D:\cS\to\cC$ es un diagrama, un morfismo $f:\Delta c\to D$ en $\cC^\cS$ es
+  una fuente con dominio $c$ que conmuta con $D$, con lo que un límite de $D$ es
+  una flecha universal de $\Delta$ a $D$.
+\end{example}
+
+\begin{definition}
+  Si $T:\cC\to\cB$ es un funtor y $b$ es un objeto de $\cB$, la \conc{categoría
+    de objetos $T$-sobre $b$}, $(T\downarrow b)$, tiene como objetos los pares
+  $(c,f)$ formados por un objeto $c$ de $\cC$ y un morfismo $f:Tc\to b$; como
+  morfismos $h:(c,f)\to(c',f')$ los morfismos $h:c\to c'$ en $\cC$ tales que
+  $f=f'\circ Th$.
+\end{definition}
+
+\begin{proposition}
+  La flecha universal de un objeto $b$ de $\cB$ a un funtor $T:\cC\to\cB$, si
+  existe, es única salvo isomorfismo en $(T\downarrow b)$.
+\end{proposition}
+
+\section{Lema de Yoneda}
+
+El lema de Yoneda es un resultado clásico sobre transformaciones naturales que
+permite relacionar las mismas con transformaciones naturales. Antes de verlo
+conviene definir algunos funtores útiles.
+
+\begin{definition}
+  Si $\cC$ es una categoría con conjuntos hom pequeños, definimos el
+  \conc{bifuntor hom} $\hom_\cC:\dual{\cC}\times\cC$ sobre objetos $(a,b)$ como
+  $\hom_\cC(a,b)$, y sobre morfismos $(f,g):(a,b)\to(a',b')$ como
+  $\hom_\cC(f,g)(h)\coloneqq g\circ h\circ f$. Dados dos funtores $S:\cA\to\cC$
+  y $T:\cB\to\cC$, definimos el bifuntor
+  $\hom_\cC(S-,T-):\dual{\cA}\times\cB\to\cC$ como $\hom_\cC\circ(S\times T)$.
+\end{definition}
+
+\begin{definition}
+  Dadas dos categorías $\cC$ y $\cD$, definimos el \conc{funtor de evaluación}
+  $E:\cD^\cC\times\cC\to\cD$ sobre objetos como $E(T,c)\coloneqq Tc$ y sobre
+  morfismos $(\tau,f):(T,c)\to(U,c')$ como
+  $E(\tau,f)\coloneqq \tau f\coloneqq\tau_{c'}\circ Tf=Uf\circ\tau_c$.
+\end{definition}
+
+\begin{definition}
+  Si $\cC$ es una categoría con conjuntos hom pequeños, llamamos \conc{funtor de
+    Yoneda} al funtor $Y:\dual{\cC}\to\bSet^\cC$ que lleva objetos $c$ a
+  funtores $\hom(c,-)$ y morfismos $f:a\to b$ en $\cC$ a transformaciones
+  naturales $\hom(f,-):\hom(b,-)\to\hom(a,-)$ dadas por
+  $\hom(f,-)_c(g)\coloneqq g\circ f$.
+\end{definition}
+
+\begin{lemma}[Yoneda]\label{lem:yoneda}
+  Sea $\cC$ una categoría con conjuntos hom pequeños. Para cada funtor $T:\cC\to\bSet$
+  y objeto $c$ de $\cC$, la función
+  \[
+    \gamma_{T,c}:\hom_{\bSet^\cC}(\hom_\cC(c,-),T)\to Tc
+  \]
+  dada por $\gamma_{T,c}(\tau)\coloneqq\tau_c1_c$ es una biyección natural entre
+  el funtor $\hom(Y-,-)$ (con el orden de las entradas cambiado) y
+  el funtor de evaluación $\bSet^\cC\times\cC\to\bSet$.
+\end{lemma}
+\begin{proof}
+  \begin{figure}
+    \hfil
+    \begin{subfigure}{0.45\textwidth}
+      \centering
+      \begin{diagram}
+        \path (0,2) node(UL){$\hom_\cC(c,c)$} (3,2) node(UR){$Tc$};
+        \path (0,0) node(BL){$\hom_\cC(c,x)$} (3,0) node(BR){$Tx$};
+        \draw[->] (UL) -- node[above]{$\tau_c$} (UR);
+        \draw[->] (BL) -- node[above]{$\tau_x$} (BR);
+        \draw[->] (UL) -- node[left]{$\hom_\cC(c,f)$}  (BL);
+        \draw[->] (UR) -- node[right]{$Tf$} (BR);
+      \end{diagram}
+    \end{subfigure}
+    \hfil
+    \begin{subfigure}{0.45\textwidth}
+      \centering
+      \begin{diagram}
+        \path (0,2) node(UL){$1_c$} (3,2) node(UR){$\tau_c1_c$};
+        \path (0,0) node(BL){$f$}   (3,0) node(BR){$\tau_xf=(Tf)(\tau_c1_c)$};
+        \tikzsquig(UL)--(UR); \tikzsquig(BL)--(BR);
+        \tikzsquig(UL)--(BL); \tikzsquig(UR)--(BR);
+      \end{diagram}
+    \end{subfigure}
+    \hfil
+    
+    \caption{Representación del lema de Yoneda.}
+    \label{fig:yoneda}
+  \end{figure}
+
+  Para la biyección basta observar la figura \ref{fig:yoneda}. Para la
+  naturalidad, fijado un morfismo $(\varphi,f):(S,a)\to(T,b)$ de
+  $\bSet^\cC\times\cC$, debemos comprobar que el siguiente diagrama conmuta.
+  
+  \begin{center}
+    \begin{diagram}
+      \path (0,2) node(UL){$\hom(\hom(a,-),S)$} (3,2) node(UR){$Sa$};
+      \path (0,0) node(BL){$\hom(\hom(b,-),T)$} (3,0) node(BR){$Tb$};
+      \draw[->] (UL) -- node[above]{$\gamma_{S,a}$} (UR);
+      \draw[->] (BL) -- node[above]{$\gamma_{T,b}$} (BR);
+      \draw[->] (UL) -- node[left]{$\hom(\hom(f,-),\varphi)$} (BL);
+      \draw[->] (UR) -- node[right]{$\varphi f$} (BR);
+    \end{diagram}
+  \end{center}
+
+  Sea entonces $\tau:\hom(a,-)\to S$ una transformación natural,
+  \begin{multline*}
+    (\varphi f)(\gamma_{S,a}(\tau))
+    = (\varphi f)(\tau_a1_a)
+    = \varphi_b((Sf)(\tau_a1_a))
+    = \varphi_b(\tau_b\hom(a,f)(1_a))
+    = \varphi_b\tau_bf = \\
+    = \gamma_{T,b}(\varphi\cdot\tau\cdot\hom(f,-))
+    = \gamma_{T,b}(\hom(\hom(f,-),\varphi)(\tau)).
+  \end{multline*}
+\end{proof}
+
+Este lema permite demostrar la siguiente relación entre isomorfismos naturales y
+flechas universales.
+
+\begin{proposition}\label{prop:yoneda-prop}
+  Dado un funtor $U:\cC\to\cB$ y un objeto $b$ de $\cB$, un par $(c,u:b\to Uc)$
+  es una flecha universal de $b$ a $U$ si y sólo si, para cada objeto $x$ en
+  $\cC$, la función $\tau_x:\hom_\cC(c,x)\to\hom_\cB(b,Ux)$ dada por
+  $\tau_x(f)\coloneqq Uf\circ u$ es biyectiva, en cuyo caso $\tau$ es un
+  isomorfismo natural. Además, dados objetos $b$ de $\cB$ y $c$ de $\cC$, todo
+  isomorfismo natural \[
+    \hom_\cC(c,-)\cong\hom_\cB(b,U-)
+  \]
+  es de esta forma para un único morfismo $u:b\to Uc$ para el que $(c,u)$ es una
+  flecha universal.
+\end{proposition}
+\begin{proof}
+  La definición de flecha universal equivale a esta biyección, que es natural ya
+  que, para cada morfismo $g:x\to y$ en $\cC$ y $f:c\to x$,
+  $\hom(b,Ug)(\tau_x(f))=Ug\circ Uf\circ u=U(g\circ f)\circ
+  u=U(\hom(c,g)(f))=\tau_y(\hom(c,g)(f))$.
+
+  Para el recíproco, si $\tau:\hom_\cC(c,-)\to\hom_\cB(b,U-)$ es un isomorfismo
+  natural, por el lema de Yoneda y la biyectividad de $\tau_x$ se tiene que todo
+  morfismo $b\to Ux$ se expresa de forma única como
+  $\tau_xf=\hom(b,Uf)(\tau_c1_c)=Uf\circ\tau_c1_c$ para cierto $f:c\to x$, lo
+  que significa precisamente que $\tau_c1_c$ es universal de $b$ a $U$.
+\end{proof}
+
+\section{Adjunciones}
+
+Sea $U:\cC\to\cB$ un funtor tal que todo objeto $b$ en $\cB$ admite una flecha
+universal $(Fb,u_b)$ de $b$ a $U$. Para cada morfismo $f:b\to b'$ en $\cB$,
+siguiendo la figura \ref{fig:universal} existe un único morfismo $Ff:Fb\to Fb'$
+en $\cC$ tal que $UFf\circ u_b=u_{b'}\circ f$, y además claramente $F1_b=1_{Cb}$
+y $Fg\circ Ff=F(g\circ f)$, de modo que $F:\cB\to\cC$ es un funtor y
+$u:1_\cB\to U\circ F$ es una transformación natural.
+
+El que la imagen de $u$ esté formada por flechas universales permite obtener una
+especie de inversa. Dados un objeto $b$ en $\cB$ y un objeto $c$ en $\cC$, para
+cada morfismo $f:b\to Uc$ existe un único $\hat f:Fb\to c$ tal que
+$f=U\hat f\circ u_b$, de modo que $\psi_{b,c}:\hom_\cC(Fb,c)\to\hom_\cB(b,Uc)$
+dada por $\psi_{b,c}(g)\coloneqq Ug\circ u_b$ es una biyección, y como $U$ es un
+funtor y $u$ es natural, $\psi$ es un isomorfismo natural entre los funtores
+$\hom_\cC\circ(F\times 1),\hom_\cB\circ(1\times U):\dual{\cB}\times\cC\to\bSet$
+(si los conjuntos hom no son siempre pequeños, basta sustituir $\bSet$ por una
+clase de conjuntos más grande).  Entonces $u_b\equiv\psi_{b,Fb}(1)$ y, del mismo
+modo, podemos definir la transformación natural $e:F\circ U\to 1_\cC$ como
+$e_c\coloneqq\psi_{Uc,c}^{-1}(1)$, de modo que para cada objeto $c$, $(Uc,e_c)$
+es una flecha universal de $F$ a $c$.
+
+La relación entre las transformaciones naturales $u$ y $e$ es más estrecha que
+esto. Para un objeto $c$, $1_{Uc}=\psi(e_c)=Ue_c\circ u_{Uc}$, y de forma dual,
+para un objeto $b$,
+$\psi(e_{Fb}\circ Fu_b)=Ue_{Fb}\circ Ue_{Fb}\circ UFu_b\circ u_b=Ue_{Fb}\circ
+u_{UFb}\circ u_b=1_{UFb}\circ u_b=u_b$ y por tanto
+$1_{Fb}=\psi^{-1}(u_b)=e_{Fb}\circ Fu_b$.
+
+Esto motiva la siguiente definición.
+
+\begin{definition}
+  Una \conc{adjunción} entre dos categorías $\cB$ y $\cC$ es una tupla
+  $(F,G,\eta,\eps)$ formada por dos funtores $F:\cB\to\cC$ y $G:\cC\to\cB$ y dos
+  transformaciones naturales $\eta:1\to GF$ y $\eps:FG\to 1$, llamadas
+  respectivamente \conc{unidad} y \conc{co-unidad}, tales que
+  $G\eps\cdot\eta G=1_G$ y $\eps F\cdot F\eta=1_F$.
+\end{definition}
+
+Cabe preguntarse si todas las adjunciones se pueden construir como en el
+razonamiento anterior. La respuesta es que sí, como vemos a continuación.
+
+\begin{theorem}\label{thm:adjoint-elems}
+  Una adjunción $(F,G,\eta,\eps)$ entre $\cB$ y $\cC$ viene determinada por
+  cualquiera de las siguientes listas de elementos:
+  \begin{enumerate}
+  \item \label{enu:adj-canon} Funtores $F$ y $G$ y un isomorfismo natural
+    $\psi:\hom\circ(F\times 1)\to\hom\circ(1\times G)$. Entonces se definen
+    $\eta_b\coloneqq\psi_{b,Fb}(1)$ y $\eps_c\coloneqq\psi_{Uc,c}^{-1}(1)$.
+  \item \label{enu:adj-univ} El funtor $G$ y, para cada objeto $b$ en $\cB$, una
+    flecha universal $(c_b,\eta_b)$ de $b$ a $G$. Entonces $F$ se define sobre
+    cada objeto $b$ como $c_b$ y sobre cada morfismo $f:b\to b'$ como el único
+    $Ff$ tal que $GFf\circ\eta_b=\eta_{b'}\circ f$, y el isomorfismo
+    $\psi_{b,c}$ del apartado \ref{enu:adj-canon} se define como
+    $g\mapsto Gg\circ\eta_b$.
+  \item \label{enu:adj-couniv} El funtor $F$ y, para cada objeto $c$ en $\cC$,
+    una flecha universal $(b_c,\eps_c)$ de $F$ a $b$. Entonces $G$ se define
+    sobre cada objeto $c$ como $b_c$ y sobre cada morfismo $g:c\to c'$ como el
+    único $Gg$ tal que $\eps_c\circ FGg=g\circ\eps_{c'}$, y el isomorfismo
+    $\psi_{b,c}$ se define como el inverso de $f\mapsto\eps_c\circ Ff$.
+  \end{enumerate}
+  En particular, cada $(Fb,\eta_b)$ es una flecha universal de $b$ a $G$ y cada
+  $(Gc,\eps_c)$ es una flecha universal de $F$ a $u$.
+\end{theorem}
+\begin{proof}
+  Para (\ref{enu:adj-canon}), si $b$ es un objeto de $\cB$ y $c$ uno de $\cC$,
+  definimos $\psi:\hom(Fb,c)\to\hom(b,Gc)$ como $\psi(g)\coloneqq Gg\circ\eta_b$
+  y $\theta:\hom(b,Gc)\to\hom(Fb,c)$ como $\theta(f)\coloneqq\eps_c\circ
+  Ff$. Entonces, como $\eta$ es natural,
+  \[
+    \psi(\theta(f))=G\eps_c\circ GFf\circ\eta_b=G\eps_c\circ\eta_{Gc}\circ f=f,
+  \]
+  por lo que $\psi\circ\theta=1$, y análogamente $\theta\circ\psi=1$, por lo que
+  $\psi$ es un isomorfismo, claramente natural respecto a $b$ y $c$, y se tiene
+  $\psi(1)=\eta_b$ y $\theta(1)=\eps_c$. Para el recíproco, definiendo $\eta_b$
+  y $\eps_c$ a partir de $\psi$ como en el enunciado, para todo morfismo
+  $f:Fb\to c$ podemos seguir flechas como sigue.
+
+  \hfil
+  \begin{diagram}
+    \path (0,2) node(UL){$\hom(Fb,Fb)$} (3,2) node(UR){$\hom(b,GFb)$};
+    \path (0,0) node(BL){$\hom(Fb,c)$}  (3,0) node(BR){$\hom(b,Gc)$};
+    \draw[->] (UL) -- node[above]{$\psi_{b,Fb}$} (UR);
+    \draw[->] (BL) -- node[above]{$\psi_{b,c}$} (BR);
+    \draw[->] (UL) -- node[left]{$\hom(Fb,f)$} (BL);
+    \draw[->] (UR) -- node[right]{$\hom(b,Gf)$} (BR);
+  \end{diagram}
+  \hfil
+  \begin{diagram}
+    \path (0,2) node(UL){$1$} (3,2) node(UR){$\eta_b$};
+    \path (0,0) node(BL){$f$} (3,0) node(BR){$\psi_{b,c}(f)=Gf\circ\eta_b$};
+    \tikzsquig (UL) -- (UR); \tikzsquig (BL) -- (BR);
+    \tikzsquig (UL) -- (BL); \tikzsquig (UR) -- (BR);
+  \end{diagram}
+  \hfil
+
+  Con esto $1_{Gc}=\psi(\eps_c)=G\eps_c\circ\eta_{Gc}$, y la otra identidad es
+  dual a esta y se demuestra de forma análoga.
+
+  Para (\ref{enu:adj-univ}), $(Fb,\eta_b)$ es una flecha universal, pues para
+  cada objeto $x$ en $\cC$, $\psi_{b,x}(g)=Gg\circ\eta_b$ es una biyección
+  $\hom(Fb,x)\to\hom(b,Ux)$ natural respecto a $x$
+  (\ref{prop:yoneda-prop}). Recíprocamente, si sólo tenemos $G$ y las flechas
+  universales $(c_b,\eta_b)$, $F$ definido de esta forma es un funtor que hace a
+  $\eta$ natural y $\psi_{b,c}$ definido de esta forma es un isomorfismo por
+  (\ref{prop:yoneda-prop}) y es claramente natural.
+
+  Finalmente, (\ref{enu:adj-couniv}) es dual a (\ref{enu:adj-univ}).
+\end{proof}
+
+\begin{example}
+  Este teorema permite definir una gran variedad de adjunciones.
+  \begin{enumerate}
+  \item El caso más sencillo de adjunción se da cuando todos los conjuntos
+    admiten un objeto libre en un cierto constructo $\cC$. Entonces tenemos una
+    adjunción $(F,U,\eta,\eps)$, donde $U:\cC\to\bSet$ es el funtor olvidadizo,
+    $F:\bSet\to\cC$ es el funtor libre, $\eta_X:X\inTo UFX$ es la inclusión de
+    la base en el conjunto subyacente del objeto y $\eps_c:FUc\epicTo c$ es el
+    epimorfismo que aparece al describir un objeto como cociente de un cierto
+    objeto libre, que resulta ser el que tiene los propios elementos de $c$ como
+    generadores. Por ejemplo, en el caso de $R\dash\bMod$, $\eps_M$ lleva sumas
+    formales $\sum_{i=1}^ka_im_i$, con cada $a_i\in R$ y cada $m_i\in M$, a su
+    evaluación en el módulo $M$.
+  \item Entre $\bDom$ y $\bField$ hay una adjunción $(Q,U,\eta,\eps)$ formada
+    por la creación de cuerpos de fracciones $Q:\bDom\to\bField$, la inclusión
+    de categorías $U:\bField\inTo\bDom$, la inclusión canónica $\eta_D:D\to UQX$
+    y la identidad $\eps_K:QUK\to K$ (recordemos que el cuerpo de fracciones de
+    un cuerpo es el propio cuerpo).
+  \item Si $\cC$ es una categoría que tiene colímites con diagrama $\cS$, entre
+    $\cC^\cS$ y $\cC$ hay una adjunción
+    $(\underrightarrow{\lim},\Delta,\eta,\eps)$, donde $\underrightarrow{\lim}$
+    lleva cada diagrama a su objeto colímite, $\Delta:\cC\to\cC^\cS$ es el
+    funtor diagonal y $\eta_D:D\to\Delta\underrightarrow{\lim}D$ es el sumidero
+    colímite. Respecto a $\eps_c:\underrightarrow{\lim}\Delta c\to c$, el
+    colímite de $\Delta c$ es $^Ic$, siendo $I$ el número (cardinal) de
+    componentes conexas de $\cS$, y $\eps_c$ es el morfismo que <<une todas las
+    copias de $c$>>.
+  \item Análogamente, si $\cC$ tiene límites con diagrama $\cS$, tenemos una
+    adjunción $(\Delta,\underleftarrow{\lim},\eta,\eps)$ donde
+    $\underleftarrow{\lim}$ lleva cada diagrama a su límite, $\eta_c$ es el
+    límite de $\Delta c$ (una potencia de $c$) y $\eps_D$ es el límite como
+    fuente.
+  \end{enumerate}
+\end{example}
+
+\section{Adjuntos laterales}
+
+\begin{definition}
+  Dada una adjunción $(F,G,\eta,\eps)$, decimos que $F$ es un \conc{adjunto
+    izquierdo} de $G$ y que $G$ es un \conc{adjunto derecho} de $F$.
+\end{definition}
+
+\begin{example}
+  El funtor olvidadizo $U:\bTop\to\bSet$ tiene una adjunción por cada
+  lado:\cite[4.1]{riehl}
+  \begin{enumerate}
+  \item Por la izquierda tiene el funtor $D:\bSet\to\bTop$ que asocia a cada
+    conjunto su topología discreta. Entonces $\eta_X:X\to UDX$ es la identidad
+    en $X$ y $\eps_T:DUT\to T$ es la identidad hacia $T$ desde el mismo conjunto
+    pero con la topología discreta.
+  \item Por la derecha tiene el funtor $N:\bSet\to\bTop$ que asocia a cada
+    conjunto su topología discreta. Aquí $\eps_X:UNX\to X$ es la identidad en
+    $X$ y $\eta_T:T\to NUT$ es la identidad desde $T$ hacia el mismo conjunto
+    pero con la topología indiscreta.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}
+  El adjunto por la izquierda o por la derecha de un funtor es único salvo
+  isomorfismo natural.
+\end{proposition}
+\begin{proof}
+  El adjunto por la izquierda de un funtor $G:\cC\to\cB$ viene dado por una
+  flecha universal $(Fb,\eta_b)$ de $b$ a $G$ para cada objeto $b$ en $\cB$
+  (\ref{thm:adjoint-elems}), pero estas flechas son únicas salvo
+  isomorfismo. Así, si $(Fb,\eta_b)_b$ y $(F'b,\eta'_b)_b$ son familias de estas
+  flechas, para cada $b$ existe un único isomorfismo $h_b:Fb\to F'b$ tal que
+  $\eta'_b=Gh_b\circ\eta_b$. Para ver que este es natural, para $f:b\to b'$, por
+  la construcción de $Ff$ en \ref{thm:adjoint-elems},
+  \[
+    G(h_{b'}\circ Ff\circ h_b^{-1})\circ\eta'_b = Gh_{b'}\circ GFf\circ\eta_b
+    = Gh_{b'}\circ GFf\circ\eta_b = Gh_{b'}\circ\eta_{b'}\circ f = \eta'_{b'}\circ f,
+  \]
+  y por la unicidad en dicha construcción, $F'f=h_{b'}\circ Ff\circ h_b^{-1}$.
+
+  El concepto de adjunto por la derecha es el dual.
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
