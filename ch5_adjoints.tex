@@ -271,7 +271,16 @@ $\psi(e_{Fb}\circ Fu_b)=Ue_{Fb}\circ Ue_{Fb}\circ UFu_b\circ u_b=Ue_{Fb}\circ
 u_{UFb}\circ u_b=1_{UFb}\circ u_b=u_b$ y por tanto
 $1_{Fb}=\psi^{-1}(u_b)=e_{Fb}\circ Fu_b$.
 
-Esto motiva la siguiente definición.
+Estas dos identidades se pueden expresar más elegantemente con la notación
+adecuada. Si $\tau:R\to S$ es una transformación natural entre dos funtores
+$R,S:\cB\to\cC$ y $T:\cC\to\cD$ es otro funtor, podemos definir la
+transformación natural $T\tau:T\circ R\to T\circ S$ como
+$(T\tau)_b\coloneqq T(\tau_b)$ para cada objeto $b$ en $\cB$. Por otro lado, si
+$U:\cA\to\cB$ es otro funtor, podemos definir la transformación natural
+$\tau U:R\circ U\to G\circ U$ como $(\tau U)_a\coloneqq\tau_{Ka}$ para cada
+objeto $a$ en $\cA$.
+
+Con todo esto en mente, definimos las adjunciones como sigue.
 
 \begin{definition}
   Una \conc{adjunción} entre dos categorías $\cB$ y $\cC$ es una tupla
@@ -282,7 +291,8 @@ Esto motiva la siguiente definición.
 \end{definition}
 
 Cabe preguntarse si todas las adjunciones se pueden construir como en el
-razonamiento anterior. La respuesta es que sí, como vemos a continuación.
+razonamiento anterior. La respuesta es que sí, como vemos en el siguiente
+teorema.
 
 \begin{theorem}\label{thm:adjoint-elems}
   Una adjunción $(F,G,\eta,\eps)$ entre $\cB$ y $\cC$ viene determinada por

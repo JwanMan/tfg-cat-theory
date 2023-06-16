@@ -22,12 +22,13 @@ propiedades similares, y para estudiar estos casos existe el concepto de mónada
 Este capítulo se basa principalmente en \cite[VI]{maclane}.
 
 \begin{definition}
-  Una \conc{mónada} en una categoría $\cC$ es una tupla $(T,\eta,\mu)$ formada
-  por un funtor $T:\cC\to\cC$ y dos transformaciones naturales $\eta:1_\cC\to T$
-  y $\mu:T^2\to T$ tales que, para cada objeto $c$ en $\cC$:
+  Una \conc{mónada} en una categoría $\cC$ es una tupla $(T,\eta,\mu)$
+  formada por un funtor $T:\cC\to\cC$ y dos transformaciones naturales
+  $\eta:1_\cC\to T$ y $\mu:T^2\to T$ que cumplen las siguientes
+  condiciones, ilustradas en la figura \ref{fig:monad}.
   \begin{enumerate}
-  \item $\mu_c\circ T\mu_c=\mu_c\circ\mu_{Tc}$.
-  \item $\mu_c\circ\eta_{Tc}=\mu_c\circ T\eta_c=1_{Tc}$.
+  \item $\mu\cdot T\mu = \mu\cdot\mu T$.
+  \item $\mu\cdot\eta T = \mu\cdot T\eta = 1$.
   \end{enumerate}
 \end{definition}
 
@@ -37,21 +38,10 @@ Este capítulo se basa principalmente en \cite[VI]{maclane}.
   retracción.
 \end{proposition}
 
-Si $\tau:R\to S$ es una transformación natural entre dos funtores
-$R,S:\cB\to\cC$ y $T:\cC\to\cD$ es otro funtor, podemos definir la
-transformación natural $T\tau:T\circ R\to T\circ S$ como
-$(T\tau)_b\coloneqq T(\tau_b)$ para cada objeto $b$ en $\cB$. Por otro lado, si
-$U:\cA\to\cB$ es otro funtor, podemos definir la transformación natural
-$\tau U:R\circ U\to G\circ U$ como $(\tau U)_a\coloneqq\tau_{Ka}$ para cada
-objeto $a$ en $\cA$.
-
-Esto nos permite resumir las condiciones en la definición de mónada diciendo que
-$\mu\circ T\mu=\mu\circ\mu T$ y $\mu\circ T\eta=\mu\circ\eta T=1_T$, como se
-muestra en la figura \ref{fig:monad}.
-
 \begin{figure}
   \centering
   \begin{subfigure}{.45\linewidth}
+    \centering
     \begin{diagram}
       \path (0,2) node(TTT){$T^3$} (2,2) node(TTP){$T^2$};
       \path (0,0) node(PTT){$T^2$} (2,0) node(T){$T$};
@@ -60,10 +50,11 @@ muestra en la figura \ref{fig:monad}.
       \draw[->] (TTP) -- node[right]{$\mu$} (T);
       \draw[->] (PTT) -- node[below]{$\mu$} (T);
     \end{diagram}
-    \caption{Conmutatividad de $\mu$ con $T$.}
+    \caption{Conmutatividad de la unión}
   \end{subfigure}
   \hfil
   \begin{subfigure}{.45\linewidth}
+    \centering
     \begin{diagram}
       \path (0,2) node(IT){$1\circ T$} (2,2) node(TT){$T^2$} (4,2) node(TI){$T\circ 1$};
       \path                            (2,0) node(T){$T$};
@@ -73,10 +64,9 @@ muestra en la figura \ref{fig:monad}.
       \draw[->] (IT) -- node[left]{$1$} (T);
       \draw[->] (TI) -- node[right]{$1$} (T);
     \end{diagram}
-    \caption{Relación entre $\eta$ y $\mu$.}
+    \caption{Relación entre la unidad y la unión}
   \end{subfigure}
-  \caption[Definición de mónada.]{Definición de mónada en una categoría $\cC$
-    mediante diagramas en $\cC^\cC$.}
+  \caption{Condiciones de coherencia de las mónadas.}
   \label{fig:monad}
 \end{figure}
 
@@ -146,6 +136,61 @@ muestra en la figura \ref{fig:monad}.
     es la inclusión de conjuntos.
   \end{enumerate}
 \end{example}
+
+\begin{proposition}
+  Si $(F,G,\eta,\eps)$ es una adjunción entre las categorías $\cB$ y $\cC$,
+  entonces $(G\circ F, \eta, G\eps F)$ es una mónada.
+\end{proposition}
+\begin{proof}
+  Al componer horizontalmente $\eps$ consigo mismo (\ref{def:comp-horiz})
+  obtenemos que $\eps\circ\eps=\eps\cdot\eps FG=\eps\cdot FG\eps$, y añadiendo
+  $G$ al principio y $F$ al final obtenemos
+  $G\eps F\cdot G\eps FGF=G\eps F\cdot GFG\eps F$, que es la primera ley de las
+  mónadas. Para la segunda, basta añadir $F$ al final en la identidad
+  $G\eps\cdot\eta G=1$ y $G$ al principio en $\eps F\cdot F\eta=1$.
+\end{proof}
+
+\begin{definition}
+  Dada una categoría $\cC$, la \conc{categoría de mónadas} de $\cC$ es una
+  categoría $\Mnd{\cC}$ cuyos objetos son las mónadas sobre $\cC$ y cuyos
+  morfismos $(S,\eta,\mu)\to(T,\eta',\mu')$ son las transformaciones naturales
+  $\tau:S\to T$ tales que los diagramas en la figura \ref{fig:monad-morph}
+  conmutan.
+  \begin{figure}
+    \centering
+    \begin{subfigure}{.45\linewidth}
+      \centering
+      \begin{diagram}
+        \path (0,2) node(ID){$1$} (2,2) node(S){$S$};
+        \path                     (2,0) node(T){$T$} node[below]{$\phantom{\mu'}$};
+        \draw[->] (ID) -- node[above]{$\eta$} (S);
+        \draw[->] (ID) -- node[left]{$\eta'$} (T);
+        \draw[->] (S) -- node[right]{$\tau$} (T);
+      \end{diagram}
+      \caption{Conmutatividad de la unidad}
+    \end{subfigure}
+    \hfil
+    \begin{subfigure}{.45\linewidth}
+      \centering
+      \begin{diagram}
+        \path (0,2) node(SS){$S^2$} (2,2) node(S){$S$};
+        \path (0,0) node(TT){$T^2$} (2,0) node(T){$T$};
+        \draw[->] (SS) -- node[above]{$\mu$} (S);
+        \draw[->] (TT) -- node[below]{$\mu'$} (T);
+        \draw[->] (SS) -- node[left]{$\tau\circ\tau$} (TT);
+        \draw[->] (S) -- node[right]{$\tau$} (T);
+      \end{diagram}
+      \caption{Conmutatividad de la unión}
+    \end{subfigure}
+    \caption{Morfismos de mónadas.}
+    \label{fig:monad-morph}
+  \end{figure}
+\end{definition}
+
+% TODO Todo esto el viernes:
+% TODO Definición de la categoría de mónadas
+% TODO Álgebras de una mónada (sin llegar al teorema de Beck)
+% TODO Categorías de Kleisli
 
 %%% Local Variables:
 %%% mode: latex
