@@ -1,11 +1,12 @@
 La definición que hemos visto de objeto libre (\ref{def:free-object}) está
-asociada a constructos y por tanto a la categoría $\bSet$. Sin embargo, no hay
-razón para limitarse a este caso, y de hecho los objetos libres son un caso
-particular de flecha universal en el que el codominio del funtor olvidadizo es
-$\bSet$. Cuando todos los elementos de dicho codominio admiten una flecha
-universal podemos definir un funtor libre asociado al funtor olvidadizo, y este
-funtor tiene propiedades interesantes que conviene estudiar. Este capítulo se
-basa principalmente en \cite[II.5, III.1--2 y IV.1]{maclane}.%TODO Citar todo
+asociada a constructos, pero no hay razón para limitarse a este caso. Los
+objetos libres pueden existir en categorías cualesquiera que sean el dominio de
+un cierto funtor, no sólo del funtor olvidadizo de un constructo, y cuando todos
+los elementos en el codominio del funtor admiten un objeto libre podemos definir
+un funtor libre asociado a este funtor, que tiene propiedades interesantes. En
+este capítulo estudiamos las principales propiedades de los objetos libres,
+funtores libres y otras estructuras relacionadas, basándonos principalmente en
+\cite[II.5, III.1--2 y IV.1--2,7]{maclane}.
 
 \section{Flechas universales}
 
@@ -299,7 +300,7 @@ teorema.
   cualquiera de las siguientes listas de elementos:
   \begin{enumerate}
   \item \label{enu:adj-canon} Funtores $F$ y $G$ y un isomorfismo natural
-    $\psi:\hom\circ(F\times 1)\to\hom\circ(1\times G)$. Entonces se definen
+    $\psi:\hom(F-,-)\to\hom(-,G-)$. Entonces se definen
     $\eta_b\coloneqq\psi_{b,Fb}(1)$ y $\eps_c\coloneqq\psi_{Uc,c}^{-1}(1)$.
   \item \label{enu:adj-univ} El funtor $G$ y, para cada objeto $b$ en $\cB$, una
     flecha universal $(c_b,\eta_b)$ de $b$ a $G$. Entonces $F$ se define sobre
@@ -314,7 +315,7 @@ teorema.
     $\psi_{b,c}$ se define como el inverso de $f\mapsto\eps_c\circ Ff$.
   \end{enumerate}
   En particular, cada $(Fb,\eta_b)$ es una flecha universal de $b$ a $G$ y cada
-  $(Gc,\eps_c)$ es una flecha universal de $F$ a $u$.
+  $(Gc,\eps_c)$ es una flecha universal de $F$ a $c$.
 \end{theorem}
 \begin{proof}
   Para (\ref{enu:adj-canon}), si $b$ es un objeto de $\cB$ y $c$ uno de $\cC$,
@@ -439,6 +440,58 @@ teorema.
 
   El concepto de adjunto por la derecha es el dual.
 \end{proof}
+
+\section{Transformaciones de adjunciones}
+
+\begin{definition}
+  Una \conc{transformación de adjunciones} de la adjunción $(F,G,\eta,\eps)$ de
+  $\cB$ a $\cC$ a la adjunción $(F',G',\eta',\eps')$ de $\cB'$ a $\cC'$ es un
+  par de funtores $B:\cB\to\cB'$ y $C:\cC\to\cC'$ tales que $C\circ F=F'\circ B$,
+  $B\circ G=G'\circ C$, $B\eta=\eta'B$ y $\eps'C=C\eps$.
+\end{definition}
+
+\begin{proposition}\label{prop:adj-transform}
+  Dadas dos adjunciones $(F,G,\eta,\eps)$ de $\cB$ a $\cC$ y
+  $(F',G',\eta',\eps')$ de $\cB'$ a $\cC'$ y dos funtores $B:\cB\to\cB'$ y
+  $C:\cC\to\cC'$ con $C\circ F=F'\circ B$ y $B\circ G=G'\circ C$, son
+  equivalentes:
+  \begin{enumerate}
+  \item \label{enu:adjtr-true} $(B,C)$ es una transformación de la primera
+    adjunción a la segunda.
+  \item \label{enu:adjtr-eta} $B\eta=\eta'B$.
+  \item \label{enu:adjtr-eps} $\eps'C=C\eps$.
+  \item \label{enu:adjtr-psi} Si $\psi:\hom(F-,-)\to\hom(-,G-)$ es la
+    transformación natural asociada a la primera adjunción por el teorema
+    \ref{thm:adjoint-elems} y $\psi':\hom(F'-,-)\to\hom(-,G'-)$ la
+    correspondiente a la segunda adjunción, para cada objeto $b$ de $\cB$ y $c$
+    de $\cC$, $B|_{hom(b,Gc)}\circ\psi_{b,c}=\psi'_{Bb,Cc}\circ C|_{\hom(Fb,c)}$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  Por definición
+  (\ref{enu:adjtr-true})$\implies$(\ref{enu:adjtr-eta}), (\ref{enu:adjtr-eps}). Dado
+  (\ref{enu:adjtr-eta}), por la definición de $\psi$ a partir de $\eta$, para
+  $f:Fb\to c$,
+  \[
+    B(\psi_{b,c}f) = B(Gf\circ\eta_b) = BGf\circ B\eta_b = G'Cf\circ\eta'_{Bb}
+    = \psi'_{Bb,Cc}(Cf),
+  \]
+  lo que nos da (\ref{enu:adjtr-psi}). Análogamente
+  (\ref{enu:adjtr-eps})$\implies$(\ref{enu:adjtr-psi}). Para el recíproco,
+  usando las fórmulas de $\eta$ y $\eta'$ en función de $\psi$ y $\psi'$ y
+  aplicando la fórmula en (\ref{enu:adjtr-psi}) a $1_{Fb}$,
+  \[
+    B\eta_b = B(\psi(1_{Fb})) = \psi'(C1_{Fb}) = \psi'(1_{CFb}) =
+    \psi'(1_{F'Bb}) = \eta'_{Bb},
+  \]
+  con lo que se tiene (\ref{enu:adjtr-eta}) y, análogamente,
+  (\ref{enu:adjtr-eps}), y estas condiciones equivalen a
+  (\ref{enu:adjtr-true}).
+\end{proof}
+
+Esto nos da una categoría cuyos objetos son adjunciones entre categorías de un
+cierto conjunto universal y cuyos morfismos son transformaciones de mónadas, que
+se componen de la forma evidente.
 
 %%% Local Variables:
 %%% mode: latex
