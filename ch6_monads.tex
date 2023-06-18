@@ -5,21 +5,22 @@ se puede estudiar, por ejemplo, la relación de un objeto o morfismo con su
 imagen, o lo que ocurre al aplicar el endofuntor varias veces.
 
 Por ejemplo, tomemos el endofuntor $\power:\bSet\to\bSet$. Dado un conjunto $X$,
-entre $X$ y $\power X$ podemos tomar una inyección $\eta_X:X\to\power X$ dada
-por $\eta_X(x)\coloneqq\{x\}$, que es natural. Por otro lado, aunque podemos
-aplicar este funtor a $X$ varias veces, siempre podemos volver de $\power^nX$ a
+entre $X$ y $\power X$ existe un monomorfismo $\eta_X:X\to\power X$ dado por
+$\eta_X(x)\coloneqq\{x\}$, que es natural. Por otro lado, aunque podemos aplicar
+este funtor a $X$ varias veces, siempre podemos volver de $\power^nX$ a
 $\power X$ aplicando sucesivamente la unión, que podemos ver como una función
 $\mu_X:\power\power X\to\power X$ dada por $\mu_X(\cA)\coloneqq\bigcup\cA$. Esto
-también define una transformación natural, que, además, <<da igual>> en qué
-orden se aplique, en el sentido de que, si $S\in\power^3X$, aplicar primero
+también define una transformación natural que, además, <<da igual>> en qué orden
+se aplique, en el sentido de que, si $S\in\power^3X$, aplicar primero
 $\mu_{\power X}$ a $S$ y luego $\mu_X$ al resultado es lo mismo que aplicar
 $\mu_X$ a cada elemento de $S$ y a continuación aplicar $\mu_X$ al resultado.
 Además, intuitivamente $\mu$ se puede ver como una inversa por un lado de
 $\eta$, en tanto que $\mu_X(\eta_{\power X}(S))\equiv S$.
 
-Muchos endofuntores relevantes admiten transformaciones naturales con
-propiedades similares, y para estudiar estos casos existe el concepto de mónada.
-Este capítulo se basa principalmente en \cite[VI]{maclane}.
+Muchos endofuntores comunes admiten transformaciones naturales con estas
+propiedades, y cuando esto ocurre hablamos de mónadas. En este capítulo
+estudiamos las mónadas y sus principales propiedades, basándonos principalmente
+en \cite[VI]{maclane}.
 
 \begin{definition}
   Una \conc{mónada} en una categoría $\cC$ es una tupla $(T,\eta,\mu)$
@@ -32,11 +33,11 @@ Este capítulo se basa principalmente en \cite[VI]{maclane}.
   \end{enumerate}
 \end{definition}
 
-\begin{proposition}
-  Si $(T,\eta,\mu)$ es una mónada en $\cC$ y $c$ es un objeto de $\cC$,
-  $\eta_c:c\monicTo Tc$ es una sección y $\mu_c:TTc\epicTo Tc$ es una
-  retracción.
-\end{proposition}
+% \begin{proposition}
+%   Si $(T,\eta,\mu)$ es una mónada en $\cC$ y $c$ es un objeto de $\cC$,
+%   $\eta_c:c\monicTo Tc$ es una sección y $\mu_c:TTc\epicTo Tc$ es una
+%   retracción.
+% \end{proposition}
 
 \begin{figure}
   \centering
@@ -57,7 +58,7 @@ Este capítulo se basa principalmente en \cite[VI]{maclane}.
     \centering
     \begin{diagram}
       \path (0,2) node(IT){$1\circ T$} (2,2) node(TT){$T^2$} (4,2) node(TI){$T\circ 1$};
-      \path                            (2,0) node(T){$T$};
+      \path                            (2,0) node(T){$T$} node[below]{$\phantom{\mu}$};
       \draw[->] (IT) -- node[above]{$\eta T$} (TT);
       \draw[->] (TI) -- node[above]{$T\eta$} (TT);
       \draw[->] (TT) -- node[right]{$\mu$} (T);
@@ -72,8 +73,8 @@ Este capítulo se basa principalmente en \cite[VI]{maclane}.
 
 \begin{example}\;
   \begin{enumerate}
-  \item $\power:\bSet\to\bSet$ es una mónada con las operaciones indicadas en la
-    introducción del capítulo.
+  \item $\power:\bSet\to\bSet$ es una mónada, descrita en la introducción del
+    capítulo.
   \item Toda categoría admite una \conc{mónada identidad}, formada por el
     endofuntor identidad y dos transformaciones naturales identidad.
   \item Sea $(^*):\bSet\to\bSet$ el endofuntor que asocia a cada objeto $X$ el
@@ -86,13 +87,14 @@ Este capítulo se basa principalmente en \cite[VI]{maclane}.
   \item \label{enu:monad-variety} Esto se puede generalizar a todas las
     variedades algebraicas. El álgebra libre sobre un conjunto $X$ es un
     conjunto cociente de árboles formados por operadores y elementos de $X$
-    (\ref{prop:free-algebra}), y las funciones entre conjuntos se pueden llevar
-    a morfismos de álgebras libres operando sobre los elementos del dominio en
-    el árbol.  Entonces el equivalente a la lista de un elemento sería (la clase
-    de equivalencia de) un árbol cuya raíz es dicho elemento, y el equivalente a
-    concatenar listas es sustituir cada elemento base del árbol, que es a su vez
-    una clase de equivalencia de árboles, por un representante de esta clase a
-    modo de subárbol. Claramente estas transformaciones son naturales y forman
+    (\ref{prop:free-algebra}), o de expresiones formales que involucran a dichos
+    operadores y elementos, y las funciones entre conjuntos se pueden llevar a
+    morfismos de álgebras libres que operan elemento a elemento sobre las
+    expresiones.  Entonces la unidad $\eta_X$ llevaría cada elemento de $X$ a
+    (la clase de equivalencia de) la expresión formada sólo por dicho elemento,
+    y la unión $\mu_X$ tomaría árboles cuyas hojas son (clases de equivalencia
+    de) otros árboles y sustituiría las hojas por los subárboles que
+    representan. Es fácil ver que estas transformaciones son naturales y forman
     una mónada.
   \item Sean $\cC$ una categoría con coproductos finitos y $d$ un objeto de
     $\cC$. Sea $E:\cC\to\cC$ un endofuntor que a cada objeto $c$ le asocia
@@ -150,11 +152,11 @@ un funtor libre.
 \end{proposition}
 \begin{proof}
   Al componer horizontalmente $\eps$ consigo mismo (\ref{def:comp-horiz})
-  obtenemos que $\eps\circ\eps=\eps\cdot\eps FG=\eps\cdot FG\eps$, y añadiendo
-  $G$ al principio y $F$ al final obtenemos
-  $G\eps F\cdot G\eps FGF=G\eps F\cdot GFG\eps F$, que es la primera ley de las
-  mónadas. Para la segunda, basta añadir $F$ al final en la identidad
-  $G\eps\cdot\eta G=1$ y $G$ al principio en $\eps F\cdot F\eta=1$.
+  obtenemos que $\eps\circ\eps=\eps\cdot\eps FG=\eps\cdot FG\eps$, y componiendo
+  con $G$ por la izquierda y con $F$ por la derecha obtenemos
+  $G\eps F\cdot G\eps FGF=G\eps F\cdot GFG\eps F$, que es la primera condición
+  de coherencia. Para la segunda basta componer con $F$ por la derecha en la
+  identidad $G\eps\cdot\eta G=1$ y con $G$ por la izquierda en $\eps F\cdot F\eta=1$.
 \end{proof}
 
 \begin{definition}
@@ -162,7 +164,7 @@ un funtor libre.
   categoría $\Mnd{\cC}$ cuyos objetos son las mónadas sobre $\cC$ y cuyos
   morfismos $(S,\eta,\mu)\to(T,\eta',\mu')$ son las transformaciones naturales
   $\tau:S\to T$ tales que los diagramas en la figura \ref{fig:monad-morph}
-  conmutan, con la composición vertical y la identidad evidente.
+  conmutan, con la composición vertical y las identidades evidentes.
   \begin{figure}
     \centering
     \begin{subfigure}{.45\linewidth}
@@ -200,9 +202,9 @@ las comónadas es más limitada.
 \section{Categorías de Eilenberg-Moore}
 
 Hemos visto que toda adjunción genera una mónada, por lo que cabe preguntarse si
-toda mónada es generada de esta manera por una adjunción. La respuesta es qué
+toda mónada es generada de esta manera por una adjunción. La respuesta es que
 sí, y de hecho en general cada mónada se puede describir mediante dos
-adjunciones distintas asociadas a dos categorías distintas, la categoría de
+adjunciones asociadas a dos categorías distintas, la categoría de
 Eilenberg-Moore y la categoría de Kleisli. Empezamos viendo la primera, que
 generaliza el concepto de variedad algebraica.
 
@@ -210,7 +212,7 @@ generaliza el concepto de variedad algebraica.
   Sea $T=(T,\eta,\mu)$ una mónada en una categoría $\cC$.
   \begin{enumerate}
   \item Una \conc{$T$-álgebra} es un morfismo $e:Tc\epicTo c$ para cierto objeto
-    $c$ en $\cC$ tales que los diagramas en la figura \ref{fig:T-algebra}
+    $c$ en $\cC$ tal que los diagramas en la figura \ref{fig:T-algebra}
     conmutan. Llamamos \conc{mapa de estructura} de la $T$-álgebra a $e$ y
     \conc{objeto subyacente} a $c$.
     \begin{figure}
@@ -247,7 +249,7 @@ generaliza el concepto de variedad algebraica.
   \item La \conc{categoría de Eilenberg-Moore} asociada a $T$, escrita
     $\cC^{(T,\eta,\mu)}$ o simplemente $\cC^T$, es la que tiene como objetos las
     $T$-álgebras y como morfismos los morfismos de $T$-álgebras, con la
-    composición y la identidad de $\cC$.
+    composición y las identidades de $\cC$.
   \end{enumerate}
 \end{definition}
 
@@ -263,13 +265,14 @@ generaliza el concepto de variedad algebraica.
   Para cada objeto $c$ en $\cC$, $1_{Tc}$ es la identidad de la $T$-álgebra
   $\mu_c$, y para cada morfismo $f:c\to c'$, $Tf:\mu_c\to\mu_{c'}$ es un
   morfismo de $T$-álgebras por la naturalidad de $\mu$, luego $F$ es un
-  funtor. Por otro lado, $G$ claramente es un funtor y
-  $e=\eps_e:\mu_{\cod e}\to e$ es una transformación natural. Además, dada una
-  $T$-álgebra $e:Tc\to c$, $G\eps_e\circ\eta_{Ge}=e\circ\eta_c=1$, y dado un
-  objeto $c$ de $\cC$, $\eps_{Fc}\circ F\eta_c=\mu_c\circ T\eta_c=1$, luego
-  $(F,G,\eta,\eps)$ es una adjunción. Finalmente, es obvio que $G\circ F=T$
-  siguiendo su actuación sobre morfismos, y para un objeto $c$,
-  $G\eps_{Fc}=G\eps_{\eta_c}=\eta_c$ y por tanto $G\eps F=\eta$.
+  funtor. Por otro lado, $G$ claramente es un funtor y $\eps$, que viene dado
+  por $\eps_e\coloneqq e:\mu_c\to e$ para cada $e:Tc\to c$, es una
+  transformación natural. Además, dada una $T$-álgebra $e:Tc\to c$,
+  $G\eps_e\circ\eta_{Ge}=e\circ\eta_c=1$, y dado un objeto $c$ de $\cC$,
+  $\eps_{Fc}\circ F\eta_c=\mu_c\circ T\eta_c=1$, luego $(F,G,\eta,\eps)$ es una
+  adjunción. Finalmente, es obvio que $G\circ F=T$ siguiendo su actuación sobre
+  morfismos, y para un objeto $c$, $G\eps_{Fc}=G\eps_{\eta_c}=\eta_c$ y por
+  tanto $G\eps F=\eta$.
 \end{proof}
 
 La adjunción definida en este teorema es final en el sentido siguiente.
@@ -282,30 +285,29 @@ La adjunción definida en este teorema es final en el sentido siguiente.
   $(F,G,\eta,\eps)$ a $(F',G',\eta,\eps')$.
 \end{theorem}
 \begin{proof}
-  Ya tenemos $1\eta=\eta1$, y debemos ver que $G=G'\circ K$ y $F'=K\circ F$.
-  Sea $(T,\eta,\mu)=(GF,\eta,G\eps F)$ la mónada. Para cada objeto $d$ de $\cD$,
-  $G\eps_d:GFGd\to Gd$ se puede ver como una $T$-álgebra en el objeto $Gd$, pues
-  la propiedad asociativa $G\eps_d\circ GFG\eps_d=\eps_d\circ G\eps_{FGd}$ es
-  por la identidad en la composición horizontal y la unitaria
-  $G\eps_d\circ\eta_{Gd}=1$ es una identidad de las adjunciones. Podemos
-  entonces definir $K$ sobre objetos como $Kd=G\eps_d$ y sobre morfismos como
-  $Kf=Gf$, $Kf$ es un morfismo de $T$-álgebras por la naturalidad de
-  $\eps$. Para cada objeto $c$ de $\cC$, $KFc=G\eps_{Fc}=\mu_c=F'c$, y para cada
-  morfismo $f$, $KFf=GFf=Tf=F'c$. Del mismo modo, para cada objeto $d$ de $\cD$,
+  Ya tenemos $1\eta=\eta1$, y queda ver las condiciones $G=G'\circ K$ y
+  $F'=K\circ F$.  Sea $(T,\eta,\mu)=(GF,\eta,G\eps F)$ la mónada, para cada
+  objeto $d$ de $\cD$, podemos ver $G\eps_d:GFGd\to Gd$ como una $T$-álgebra en
+  el objeto $Gd$, pues la propiedad asociativa
+  $G\eps_d\circ GFG\eps_d=\eps_d\circ G\eps_{FGd}$ se deduce de la identidad en
+  la composición horizontal y la unitaria $G\eps_d\circ\eta_{Gd}=1$ es una
+  identidad de las adjunciones. Podemos entonces definir $K$ sobre objetos como
+  $Kd=G\eps_d$, y sobre morfismos como $Kf=Gf$, pues la naturalidad de $\eps$
+  asegura que $Gf$ es un morfismo de $T$-álgebras. Para cada objeto $c$ de
+  $\cC$, $KFc=G\eps_{Fc}=\mu_c=F'c$, y para cada morfismo $f$,
+  $KFf=GFf=Tf=F'c$. Del mismo modo, para cada objeto $d$ de $\cD$,
   $G'Kd=G'G\eps_d=Gd$, y para cada morfismo $f$, $G'Kf=G'Gf=Gf$.
 
-  Queda ver que $K$ es única. Si $d$ es un objeto de $\cD$, $Kd$ es una
-  $T$-álgebra y $G'Kd=Gd$ implica que el objeto subyacente a $Kd$ es $Gd$, y si
-  $f$ es un morfismo, $G'Kf=Gf$ implica que $Kf=Gf$. Ahora bien, las dos
-  adjunciones consideradas tienen el mismo $\eta$, con lo que la caracterización
+  Queda ver que $K$ es único. Si $d$ es un objeto de $\cD$, $Kd$ debe ser una
+  $T$-álgebra con objeto subyacente $Gd$, pues $G'Kd=Gd$. Por otro lado, si $f$
+  es un morfismo, $G'Kf=Gf$ implica que $Kf=Gf$. Ahora bien, la caracterización
   de las transformaciones de adjunciones (\ref{prop:adj-transform}) aplicada a
-  estas dos adjunciones y a los funtores $1:\cC\to\cC$ y $K:\cD\to\cC^T$ nos da
-  $K\eps=\eps'K$, y entonces, para un objeto $d$, el mapa de estructura de $Kd$
-  es $Kd=\eps'_{Kd}=K\eps_d=G\eps_d$.
+  $(1_\cC,K)$ nos da $K\eps=\eps'K$, y entonces, para un objeto $d$, el mapa de
+  estructura de $Kd$ es $Kd=\eps'_{Kd}=K\eps_d=G\eps_d$.
 \end{proof}
 
-El que estas categorías son una generalización de las variedades algebraicas
-viene dado
+La siguiente proposición muestra que, de hecho, estas categorías son una
+generalización del concepto de variedad algebraica.
 
 \begin{proposition}
   Sean $(\Omega,E)\dash\bAlg$ una variedad algebraica y $T$ la mónada generada
@@ -314,16 +316,17 @@ viene dado
   anterior es un isomorfismo de categorías.
 \end{proposition}
 \begin{proof}
-  Sean $s_1,\dots,s_k$ las operaciones en $\Omega$, con aridades respectivas
-  $n_1,\dots,n_k$, y sea $(F,U,\eta,\eps)$ la adjunción mencionada, de modo que
-  $T=(UF,\eta,G\eps F)$, queremos definir un isomorfismo
-  $K:(\Omega,E)\dash\bAlg\to\cC^T$ en las condiciones del teorema anterior.
+  Sean $s_1,\dots,s_k$ las operaciones en $\Omega$ y $n_1,\dots,n_k$ sus
+  aridades respectivas, y sea $(F,U,\eta,\eps)$ la adjunción mencionada, de modo
+  que $T=(UF,\eta,U\eps F)$.
 
   Si $(S,(\nu_1,\dots,\nu_k))$ es una $(\Omega,E)$-álgebra, con cada
   $\mu_i:S^{n_i}\to S$, los elementos de $UFS$ son las (clases de equivalencia
-  de) expresiones formales con operadores $s_1,\dots,s_k$ y elementos de $c$,
-  por lo que podemos definir $K(S,(\nu_i)_i)$ como la <<función de evaluación>>
-  $UFS\to S$ por los operadores $\nu_1,\dots,\nu_k$.
+  de) expresiones formales construidas a partir de los operadores
+  $s_1,\dots,s_k$ y los elementos de $c$, por lo que podemos definir
+  $K(S,(\nu_i)_i)$ como la <<función de evaluación>> $e:UFS\to S$ que lleva cada
+  elemento de $c$ a sí mismo y cada expresión $s_i(x_1,\dots,x_{n_i})$ a
+  $\nu_i(e(x_1),\dots,e(x_{n_i}))$.
 
   En este contexto, la propiedad asociativa de las $T$-álgebras nos dice que,
   dada una expresión formal sobre expresiones formales sobre elementos de $S$,
@@ -337,7 +340,7 @@ viene dado
   $s_i(x_1,\dots,x_{n_i})$ con los $x_j\in S$, lo que nos da una serie de
   operaciones $\nu_i:S^{n_i}\to S$ que, además, cumplen las igualdades en $E$ al
   estar $e$ definida sobre clases de equivalencia, de modo que estas igualdades
-  definen una $(\Omega,E)$-álgebra y claramente $K$ es biyectiva sobre objetos.
+  definen una $(\Omega,E)$-álgebra y $K$ es biyectiva sobre objetos.
 
   Para los morfismos $f:(S,(\nu_i)_i)\to(S',(\nu'_i)_i)$, podemos definir
   $Kf:S\to S'$ como la propia $f$, que es un morfismo
@@ -346,8 +349,8 @@ viene dado
   propiedad conmutativa que define los morfismos de $T$-álgebras es precisamente
   la que define los morfismos de $(\Omega,E)$-álgebras.
 
-  Así, $K$ es un isomorfismo, pero $K$ se ha definido de igual forma que en la
-  prueba del teorema anterior, por lo que es el mismo $K$.
+  Así, $K$ es un isomorfismo, y claramente esta definición de $K$ coincide con
+  la del teorema anterior.
 \end{proof}
 
 \section{Categorías de Kleisli}
@@ -355,9 +358,9 @@ viene dado
 Hemos visto que, dada una mónada en una categoría $\cC$, la adjunción de
 Eilenberg-Moore asociada es un objeto final de la categoría de las adjunciones
 que definen dicha mónada junto con las transformaciones de mónadas que son la
-identidad en $\cC$. Dicha categoría también tiene un objeto inicial, la
-categoría de Kleisli, que como veremos en el siguiente capítulo es de gran
-importancia en teoría de la computación.
+identidad en $\cC$. Vamos a ver que esta categoría de adjunciones tiene también
+un objeto inicial, la categoría de Kleisli, de gran importancia en teoría de la
+computación.
 
 \begin{definition}
   Dada una mónada $(T,\eta,\mu)$ en $\cC$, llamamos \conc{categoría de Kleisli}
@@ -378,8 +381,8 @@ importancia en teoría de la computación.
 % $f\hat\circ\eta_x=\mu_y\circ Tf\circ\eta_x=\mu_y\circ\eta_{Ty}\circ f=f$ y
 % $\eta_y\hat\circ f=\mu_y\circ T\eta_y\circ f=f$.
 
-Es fácil comprobar que estas definiciones de composición e identidad son válidas
-y definen una categoría.
+Es rutinario comprobar que estas definiciones de composición e identidad definen
+una categoría.
 
 \begin{theorem}
   Sea $(T,\eta,\mu)$ una mónada en $\cC$. Si $F:\cC\to\cC_T$ lleva los objetos a
@@ -422,10 +425,10 @@ y definen una categoría.
   Queda ver que $L$ es única. Claramente lo es sobre objetos. Sobre morfismos,
   la caracterización de las transformaciones de adjunciones
   (\ref{prop:adj-transform}) nos da $L\eps'=\eps L$, por lo que para cada objeto
-  $c$, $L\eps'_c=\eps_{Lc}=\eps_{Fc}$. Ahora bien, si $L,L':\cC_T\to\cD$ son dos
-  funtores que cumplen la condición, por igualación $L\eps'_c=L'\eps'_c$ y, por
-  ser $\eps'_c$ una flecha universal desde un funtor, es un retracto y por tanto
-  un epimorfismo, con lo que $L=L'$.
+  $c$, $L\eps'_c=\eps_{Lc}=\eps_{Fc}$. Entonces, si $L,L':\cC_T\to\cD$ son dos
+  funtores que cumplen la condición, por igualación $L\eps'_c=L'\eps'_c$, pero
+  $\eps'_c$ una flecha universal desde un funtor y por tanto es un retracto y un
+  epimorfismo, con lo que $L=L'$.
 \end{proof}
 
 %%% Local Variables:
