@@ -71,7 +71,7 @@ en \cite[VI]{maclane}.
   \label{fig:monad}
 \end{figure}
 
-\begin{example}\;
+\begin{example}\label{ex:monads}\;
   \begin{enumerate}
   \item $\power:\bSet\to\bSet$ es una mónada, descrita en la introducción del
     capítulo.
@@ -96,20 +96,22 @@ en \cite[VI]{maclane}.
     de) otros árboles y sustituiría las hojas por los subárboles que
     representan. Es fácil ver que estas transformaciones son naturales y forman
     una mónada.
-  \item Sean $\cC$ una categoría con coproductos finitos y $d$ un objeto de
-    $\cC$. Sea $E:\cC\to\cC$ un endofuntor que a cada objeto $c$ le asocia
-    $c\oplus d$ y a cada morfismo $f:b\to c$ el morfismo <<suma>>
-    $Ef=f\oplus 1_d:b\oplus d\to c\oplus d$. Si $\eta_c:c\monicTo c\oplus d$ es
-    la inclusión canónica y $\mu_c:c\oplus d\oplus d\epicTo c\oplus d$ es la
-    función que <<identifica>> las dos copias de $d$ en el sentido evidente,
-    entonces $(E,\eta,\mu)$ es una mónada.
-  \item Sean $s$ un conjunto y $S\coloneqq\hom(s,-\times s)$ un endofuntor en
-    $\bSet$ que lleva cada conjunto $X$ al conjunto de funciones
-    $s\to X\times s$ y cada función $f$ a $\hom(s,f\times 1_s)$. Entonces $S$ es
-    una mónada con las transformaciones naturales $\eta:1\to S$ y $\mu:S^2\to S$
-    dadas por la formación de pares $\eta_X(x)(y)\coloneqq(x,y)$ y la <<doble
-    evaluación>> $\mu_X(f)(y)\coloneqq (p_1fy)(p_2fy)$, donde $p_1$ y $p_2$ son
-    las proyecciones canónicas de $\hom(X,s)\times s$.
+  \item \label{enu:monad-result} Sean $\cC$ una categoría con coproductos
+    finitos y $d$ un objeto de $\cC$. Sea $E:\cC\to\cC$ un endofuntor que a cada
+    objeto $c$ le asocia $c\oplus d$ y a cada morfismo $f:b\to c$ el morfismo
+    <<suma>> $Ef=f\oplus 1_d:b\oplus d\to c\oplus d$. Si
+    $\eta_c:c\monicTo c\oplus d$ es la inclusión canónica y
+    $\mu_c:c\oplus d\oplus d\epicTo c\oplus d$ es la función que <<identifica>>
+    las dos copias de $d$ en el sentido evidente, entonces $(E,\eta,\mu)$ es una
+    mónada.
+  \item \label{enu:monad-state} Sean $s$ un conjunto y
+    $S\coloneqq\hom(s,-\times s)$ un endofuntor en $\bSet$ que lleva cada
+    conjunto $X$ al conjunto de funciones $s\to X\times s$ y cada función $f$ a
+    $\hom(s,f\times 1_s)$. Entonces $S$ es una mónada con las transformaciones
+    naturales $\eta:1\to S$ y $\mu:S^2\to S$ dadas por la formación de pares
+    $\eta_X(x)(y)\coloneqq(x,y)$ y la <<doble evaluación>>
+    $\mu_X(f)(y)\coloneqq (p_1fy)(p_2fy)$, donde $p_1$ y $p_2$ son las
+    proyecciones canónicas de $\hom(X,s)\times s$.
     % \begin{proof}
     %   Escribiendo $e(f,y)\coloneqq f(y)$, se tiene $\mu_X(f)(y)\equiv e(f(y))$ y
     %   $\mu_X(f)\equiv e\circ f$ (por abuso de notación, $e$ no representa una

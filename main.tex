@@ -97,6 +97,7 @@ decorate, decoration={
 \dCat{\bCAT}{CAT}
 \dCat{\bCls}{Cls}
 \dCat{\bTopVec}{TopVec}
+\dCat{\bType}{Type}
 \newcommand{\cA}{\mathcal{A}}
 \newcommand{\cB}{\mathcal{B}}
 \newcommand{\cC}{\mathcal{C}}
@@ -136,6 +137,7 @@ decorate, decoration={
         \xrightarrow[\;{#2}\hfil]{\;{#1}\hfil}}}}}
 \newcommand{\nattwos}[2]{\nattwog{\downarrow\,{#1}}{\downarrow\,{#2}}{}{}}
 \newcommand{\nattwoi}[2]{\nattwog{\cong\,{#1}}{\cong\,{#2}}{}{}}
+\newcommand{\logicrule}[2]{\frac{\displaystyle{#1}}{\displaystyle{#2}}}
 
 \begin{document}
 \begin{titlepage}
@@ -196,7 +198,7 @@ decorate, decoration={
 \input{ch6_monads}
 
 \chapter{Categorías en programación}
-% TODO
+\input{ch7_programming}
 
 \appendix
 %\chapter{Bibliografía}

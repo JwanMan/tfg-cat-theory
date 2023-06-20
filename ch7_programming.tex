@@ -1,0 +1,640 @@
+Al nivel más básico, un programa es simplemente una serie de instrucciones a
+ejecutar por un ordenador. Sin embargo, estos programas suelen ser complejos y
+es común introducir fallos a la hora de crearlos, por lo que son necesarias
+herramientas para reducir el número de fallos y, en sistemas críticos, para
+demostrar su ausencia mediante pruebas de corrección.
+
+Para probar la corrección de un programa, primero debemos modelarlo
+matemáticamente, y para ello existen varias alternativas:
+
+\begin{description}
+\item[Semántica axiomática] Usa reglas lógicas para describir el efecto de los
+  comandos ejecutados sobre proposiciones lógicas, definiendo relaciones entre
+  las proposiciones que son verdad antes y después de su ejecución. Por ejemplo,
+  uno de los axiomas podría ser <<si $E$ es una expresión, $v$ es una variable y
+  $P$ es una propiedad, si se cumple $P(E)$, tras ejecutar $v\gets E$ se cumple
+  $P(v)$>>.
+\item[Semántica denotativa] Los programas se interpretan como descripciones de
+  objetos matemáticos en ciertos dominios, como funciones entre la entrada y la
+  salida.
+\item[Semántica operacional] El programa en sí se considera como un objeto
+  matemático, y las pruebas se construyen a partir de axiomas que definen su
+  comportamiento.
+\end{description}
+
+Tradicionalmente los programas se han escrito de forma imperativa, como
+secuencias de comandos que modifican el estado (los valores de las variables) y
+se comunican con los dispositivos de entrada y salida. Para estos programas es
+común usar la semántica axiomática, que encaja bien al estar también basada en
+comandos.
+
+Sin embargo, en general razonar sobre programas imperativos complejos es
+difícil, pues, por ejemplo, a la hora de razonar no siempre es válido sustituir
+una variable por la expresión que se le ha asignado, pues el valor de dicha
+expresión puede cambiar y, además, ejecutar la expresión puede modificar otras
+partes del estado del programa.
+
+Para facilitar el razonamiento surge la programación funcional. En esta los
+procedimientos actúan como funciones matemáticas, en el sentido de que no se
+comunican con el exterior y el valor devuelto depende exclusivamente de los
+valores de los parámetros de entrada. Además, los valores de las variables no se
+pueden modificar una vez se ha definido la variable, permitiendo sustituir
+libremente las variables por su expresión de forma relativamente sencilla.
+
+La semántica axiomática no es apropiada para la programación funcional, pero la
+semántica denotativa proporciona un modelo muy elegante y sencillo de usar.
+Este paradigma de programación no se creó sólo para facilitar demostraciones
+rigurosas sobre los programas, sino también para facilitar el razonamiento
+intuitivo y la verificación automática y de este modo reducir notablemente la
+cantidad de fallos que se introducen en el programa en primer lugar.
+
+La programación funcional no sólo tiene ventajas respecto a corrección, sino que
+también permite reducir notablemente el tamaño de los programas tratando las
+funciones como valores y operando sobre ellas. Para ello se usa una variedad de
+técnicas heredadas de la teoría de categorías, como funtores, transformaciones
+naturales y mónadas.
+
+El lector habrá notado que, si los procedimientos son funciones que no se
+comunican con el exterior, es imposible crear programas interactivos. Sin
+embargo, la idea no es definir el programa completo de forma funcional, sino
+reducir al mínimo las partes no funcionales. Respecto a la formalización, las
+partes no funcionales se pueden formalizar de otra forma más tradicional o
+mediante una construcción que involucra categorías de Kleisli, como veremos a
+continuación.
+
+\section{La categoría $\bType$}
+
+Por lo general, los tratamientos categóricos de la programación funcional se
+basan en una categoría $\bType$ cuyos objetos son tipos de datos y cuyos
+morfismos son funciones computables. La estructura concreta de $\bType$ depende
+del lenguaje de programación utilizado, por lo que primero definiremos un
+lenguaje de programación funcional sencillo que consideramos representativo.
+
+El lenguaje que definiremos no es especialmente potente o minimalista, aunque
+permite describir la mayoría de construcciones usadas en lenguajes de
+programación funcional sin tener que entrar en aspectos de lógica formal que, si
+bien son interesantes, se salen del ámbito de este trabajo.
+
+El lenguaje que vemos no permite construcciones avanzadas como pueden ser tratar
+una mónada como un valor; sin embargo, podemos hablar de mónadas de forma
+extrínseca. Para este tipo de construcciones necesitamos un lenguaje como el
+descrito en \cite{hindley-milner}, o incluso el descrito en \cite{coc}, que
+además puede usarse como fundamento para la lógica formal, aunque estos
+lenguajes no permiten identificar los tipos con su dominio de valores de forma
+directa.\cite{polynoset}
+
+Toda expresión $e$ válida en lenguaje tiene un tipo $T$ asociado, y escribimos
+$e:T$ para expresar esto. Además, todo tipo $T$ tiene un dominio $D_T$ asociado,
+y evaluar una expresión $e:T$ en un cierto contexto resulta en un valor de
+$D_T$. Los tipos que se pueden definir son:
+\begin{itemize}
+\item \conc{Tipos producto.} Si $t_1,\dots,t_k$ son tipos, $(t_1,\dots,t_k)$ es
+  un tipo con dominio $D_{t_1}\times\dots\times D_{t_k}$, y en particular existe
+  un \conc{tipo unidad} $()$ con un sólo elemento. Los tipos producto existen en
+  la mayoría de lenguaje de programación con el nombre de \emph{estructuras}.
+\item \conc{Tipos suma.} Si $t_1,\dots,t_k$ son tipos, $[t_1|\dots|t_k]$ es un
+  tipo cuyo dominio es la unión disjunta $D_{t_1}\oplus\dots\oplus D_{t_k}$, y
+  en particular existe un \conc{tipo vacío} $[]$ con dominio vacío. Los tipos
+  coproducto son poco comunes fuera de lenguajes de programación funcionales,
+  aunque se pueden aproximar mediante uniones en lenguajes de bajo nivel o
+  jerarquías de clases en lenguajes orientados a objetos.
+\item \conc{Tipos función.} Si $a$ y $b$ son tipos, $a\to b$ es un tipo cuyo
+  dominio son las funciones $D_a\to D_b$ que son \emph{computables}, que son
+  precisamente las que pueden ser expresadas en este lenguaje.
+\item \conc{Tipos sinónimo.} Una sentencia $\mathtt{type\ }T=t$, donde $T$ es un
+  identificador y $t$ es una expresión que representa un tipo, crea un tipo $T$
+  con el mismo dominio que $t$, y morfismos $T^*:t\to T$ y $T_*:T\to t$ que
+  actúan sobre los dominios como la identidad.  Crucialmente, las sentencias de
+  este tipo pueden hacer referencia unas a otras y $t$ puede hacer referencia a
+  $T$, lo que permite definir tipos recursivos cuyo dominio es similar al de un
+  tipo suma con infinitas alternativas. Para que una alternativa esté habitada
+  debe tener un caso base; por ejemplo, la sentencia $\mathtt{type\ }T=T$ es
+  válida pero crea un tipo vacío.
+
+  Como extensión de esta sintaxis podemos sustituir $T$ por $T_{a_1,\dots,a_k}$,
+  que para tipos cualesquiera $\sigma_1,\dots,\sigma_k$ define
+  $T_{\sigma_1,\dots,\sigma_k}$ como sinónimo de
+  $t[\sigma_1/a_1]\cdots[\sigma_k/a_k]$.
+\end{itemize}
+
+Las expresiones del lenguaje son de la forma siguiente:
+\begin{itemize}
+\item En un contexto en que el identificador $x$ está vinculado a una expresión
+  de tipo $T$, $x$ es una expresión de tipo $T$ que representa el valor
+  vinculado al identificador en el contexto actual.
+\item Si $f:S\to T$ y $e:S$, entonces $fe$ es una expresión de tipo $T$ que
+  evalúa $f$ y $e$ y devuelve el resultado de aplicar la función dada por $f$ al
+  valor dado por $e$.
+\item Sean $x$ un identificador y $e$ una expresión que puede mencionar a $x$,
+  si cuando $x:S$ entonces $e:T$, la expresión $\lambda x:S.e$ es de tipo
+  $S\to T$ y representa una función que recibe un valor de tipo $x$ y
+  devuelve el valor de $e$ cuando $x$ está vinculado a dicho valor.
+\item Dadas expresiones $e_1:T_1,\dots,e_k:T_k$,
+  $(e_1,\dots,e_k):(T_1,\dots,T_k)$ representa el valor que en cada posición $i$
+  contiene el valor resultante de evaluar $e_i$, mientras que si
+  $e:(T_1,\dots,T_k)$ e $i\in\{1,\dots,k\}$, la expresión $e_i:T_i$ recupera el
+  valor en la componente $i$-ésima.
+\item Dada una expresión $e:T_i$, la expresión
+  $\langle e\rangle_i^{T_1,\dots,T_k}:[T_1|\dots|T_k]$ representa la inclusión
+  del valor de $e$ en la componente $i$-ésima de un tipo suma, mientras que si
+  $e:[T_1,\dots,T_k]$ y cada $x_i:T_i\to\gamma$,
+  $\mathtt{match\ }e\mathtt{\ \{}x_1\mathtt{;\ }\dots\mathtt{;\ }x_k\mathtt{\}}:\gamma$
+  es una expresión que evalúa $e$ y, según la componente
+  del tipo suma en que se encuentre el valor devuelto, ejecuta una de las
+  funciones con dicho valor y devuelve el valor devuelto por dicha función.
+\item Dadas expresiones $c:[(),()]$ y $t,e:T$, la expresión
+  $\mathtt{if\ }c\mathtt{\ then\ }t\mathtt{\ else\ }e$ equivale a
+  $(\mathtt{match\ }e\mathtt{\ \{}\lambda\_:().t\mathtt{;\ }\lambda\_:().e\mathtt{\}}()$.
+  Dicho de otro modo, esta función evalúa $c$ y, según el resultado, evalúa $t$
+  o $e$ y devuelve el resultado.
+\item Si, dados identificadores $x_1,\dots,x_k$ a los que le asignamos tipos
+  respectivos $T_1,\dots,T_k$, las expresiones $e_1,\dots,e_k,f$ tienen tipos
+  respectivos $T_1,\dots,T_k,S$, entonces
+  \[
+    \mathtt{let\ }x_1:T_1=e_1\mathtt{\ and\ }\dots\mathtt{\ and\ }x_k:T_k=e_k\mathtt{\ in\ }f
+  \]
+  es una expresión de tipo $S$ que evalúa cada $e_i$ y le asigna el valor al
+  correspondiente $x_i$, en orden, y finalmente evalúa $f$ y devuelve su
+  valor. Todas las evaluaciones se hacen con los $x_i$ vinculados a los
+  correspondientes valores, y es un error si evaluar uno de los $e_i$ requiere
+  evaluar un $x_j$ con $j\geq i$. Pese a ello, es posible hacer referencia a
+  dicho $x_j$ en $e_i$ si es dentro de una función, lo que permite definir
+  funciones recursivas.
+\end{itemize}
+
+En ocasiones omitiremos las declaraciones de tipos, escribiendo por ejemplo
+$\lambda x.e$ en vez de $\lambda x:T.e$. Además, escribiremos $x^*$ y $x_*$ en
+vez de $T^*x$ y $T_*x$ cuando quede claro de qué tipo se está hablando.
+
+Un programa está formado por una serie de sentencias que definen tipos sinónimo
+y sentencias que definen constantes, de la forma $\mathtt{const\ }x:T=e$ o,
+incluso, de la forma $\mathtt{const\ }x_{a_1,\dots,a_k}:T=e$, donde los $a_i$
+son variables de tipo para definir una constante por cada asignación de los
+tipos. Es importante destacar que estas constantes se definen de manera
+uniforme, es decir, la expresión $e$ y el tipo $T$ se definen igual para cada
+asignación de tipos $a_i$ y el resultado equivale a definir
+$\mathtt{const\ }x_{\sigma_1,\dots,\sigma_k}:T[\sigma_i/a_i]=e[\sigma_i/a_i]$
+para cada asignación de tipos $\sigma_1,\dots,\sigma_k$ donde los $\sigma_i$ no
+contienen ningún $a_j$ como variable libre.
+
+Las expresiones recursivas son particularmente importantes, pues equivalen a la
+iteración en programación iterativa. Por ejemplo, podemos obtener el último
+elemento de una lista como sigue:
+\begin{align*}
+  \texttt{type\ list}_a & = [() | (a, \texttt{list}_a)]\\
+  \texttt{const\ }\bot_a : a & = \texttt{let\ }f:()\to a=\lambda x:().fx\texttt{\ in\ }f()\\
+  \texttt{const last}_a : \texttt{list}_a \to a & = \lambda l.\texttt{match }l\ \{
+    \bot_{()\to a};\
+    \lambda c.\texttt{match }c_2\ \{\lambda x.c_1;\ \lambda c'.\texttt{last}_a c'\}
+  \}
+\end{align*}
+
+La primera línea define el tipo lista como la lista vacía o el par formado por
+el primer elemento de la lista y el resto de elementos. La segunda requiere ser
+analizada con más detalle. Esta define un elemento de cada tipo (¡incluso de los
+tipos con dominio vacío!) como el resultado de evaluar una expresión que nunca
+termina. El problema es que la recursividad introduce la posibilidad de crear
+expresiones que nunca terminan, pero a la vez es necesaria para no limitar el
+lenguaje.
+
+Para acomodar esto establecemos que el dominio de cada tipo tiene un (y sólo
+un\footnote{En lenguajes como Haskell puede haber varios valores similares a
+  $\bot$; por ejemplo, un elemento de tipo $(a,b)$ puede ser $\bot$, $(x,\bot)$,
+  $(\bot,y)$, etc. Esto se debe a que Haskell sólo evalúa las partes de las
+  expresiones que son necesarias y por tanto puede que no se llegue a evaluar la
+  parte que no termina. En nuestro caso el lenguaje es estricto y esto no
+  ocurre.}) elemento $\bot$ que representa cómputos que no terminan. Entonces,
+una evaluación $ef$ en que $e$ o $f$ es $\bot$ devuelve $\bot$;
+$(e_1,\dots,e_k)_i$ devuelve $\bot$ si y sólo si algún $e_i=\bot$,
+$\lambda x.\bot$ no devuelve $\bot$ (pero su aplicación sobre algún valor sí),
+$\langle\bot\rangle_i=\bot$, y una sentencia
+$\mathtt{match\ }e\mathtt{\ \{}x_1\mathtt{;\ }\dots\mathtt{;\ }x_k\mathtt{\ \}}$
+devuelve $\bot$ si y sólo si $e$ devuelve $\bot$ o $e=\langle e_0\rangle_i$ para
+cierto $e_0$ y $x_ie_0$ devuelve $\bot$.
+
+Finalmente, la tercera línea define la función buscada. Si la lista es vacía,
+devuelve el único valor que puede devolver, $\bot$, y de lo contrario comprueba
+si la lista tiene más de un elemento, devolviendo en tal caso el último elemento
+del resto de la lista y en otro caso el único elemento que hay. El uso de $\bot$
+para indicar un valor de retorno no definido es bastante habitual.
+
+Igual que hemos definido las listas, podemos definir los números naturales como
+$\mathtt{list}_{()}$ identificando cada número $n$ con la lista de longitud $n$,
+los booleanos como $[()|()]$, etc. Ya estamos en condiciones de definir
+$\bType$.
+
+\begin{definition}
+  La categoría $\bType$ (asociada a un programa) es aquella que tiene como
+  objetos los tipos que se pueden definir en el lenguaje usando los tipos
+  sinónimo definidos en el programa, como morfismos $a\to b$ los elementos de
+  $D_{a\to b}$, como composición de dos morfismos $f:a\to b$ y $g:b\to c$ el
+  morfismo dado por la expresión $\lambda x.g(fx)$, y como identidad el morfismo
+  $\lambda x.x$.
+\end{definition}
+\begin{align*}
+  \mathtt{const\ }(\circ)_{a,b,c}:(b\to c)\to(a\to b)\to(a\to c) & = \lambda x.g(fx)\\
+  \mathtt{const\ }1_a:a\to a & = \lambda x.x\\
+\end{align*}
+
+\section{Funtores}
+
+Podemos definir un funtor en nuestro lenguaje como un sinónimo de tipo de un
+parámetro $F_a$ junto con una familia de constantes
+$F_{a,b}:(a\to b)\to(F_a\to F_b)$, suponiendo que cumplan las condiciones
+necesarias. Esto nos da un endofuntor $\bType\to\bType$.
+
+\begin{example}
+  Algunos funtores comúnmente usados son los siguientes:
+  \begin{enumerate}
+  \item Las listas, definidas anteriormente, junto con la evaluación de funtores
+    componente a componente:
+    \begin{multline*}
+      \mathtt{const\ map}_{a,b}=
+      \lambda f:a\to b.\lambda l:\mathtt{list}_a.\,
+      \mathtt{match\ }l\ \{\lambda x.\langle()\rangle_1;\ \lambda c.\langle(fc_1,\mathtt{map}\,f\,c_2)\rangle_2\}
+        % \lambda f.\\\mathtt{let\ mapf}:\mathtt{list}_a\to\mathtt{list}_b=
+        % \lambda l.\mathtt{match}\ l\ \{\lambda x.\langle()\rangle_1;\ %
+        % \lambda c.\langle(fc_1,\mathtt{mapf}c_2)\rangle_2\}\\
+        % \mathtt{\ in\ }f\fill
+      \end{multline*}
+      Esto equivale en cierto modo al funtor libre $\bSet\to\bMon$.
+    \item Si tenemos un objeto de tipo $[A|E]$, donde un elemento de $A$
+      representa el resultado de un cálculo completado con éxito y uno de $E$
+      representa que ha habido un error, es común querer realizar alguna
+      operación con el resultado exitoso pero devolver los errores tal
+      cual. Esto se puede hacer con un funtor para cada tipo de error $e$.
+      \begin{align*}
+        \mathtt{type\ result}_{e,a} & = [\,a\,|\,e\,]\\
+        \mathtt{const\ rmap}_{e,a,b} & = \lambda f:a\to b.\lambda r:
+                                       \mathtt{result}_{e,a}.\,\mathtt{match}\ r_*\ \{
+                                       \lambda x.\langle fx\rangle_1;\ \lambda y.\langle y\rangle_2\}^*
+      \end{align*}
+      Cuando no nos interesan los detalles sobre el error y simplemente queremos
+      representar un valor que puede existir o no, podemos tomar $()$ como tipo de error.
+      \begin{align*}
+        \mathtt{type\ option}_a & = \mathtt{result}_{(),a};
+        & \mathtt{const\ optmap}_{a,b} & = \mathtt{rmap}_{(),a,b} \\
+        \mathtt{const\ some}_a : a\to\mathtt{option}_a & = \lambda x.\langle x\rangle_1^{**};
+        & \mathtt{const\ none}_a : \mathtt{option}_a & = \langle()\rangle_2^{**}
+      \end{align*}
+    \item Por supuesto, podemos definir el funtor identidad.
+      \begin{align*}
+        \mathtt{type\ id}_a & = a; & \mathtt{const\ idmap}_{a,b} & = \lambda f.\lambda x.(fx_*)^*
+      \end{align*}
+      Sin embargo, no podemos definir la composición de funtores dentro del
+      lenguaje ya que los funtores no son valores, por lo que debemos razonar
+      sobre ella desde fuera.
+    \item No todos los funtores que podemos definir en el lenguaje responden a
+      esta forma. Por ejemplo, consideremos la siguiente función:
+      \begin{align*}
+        \mathtt{const\ length}_a : \mathtt{list}_a \to \sNat
+        & = \lambda l.\,\mathtt{match}\ l\ \{\lambda x. 0;\ \lambda c. 1+\mathtt{length}_ac_2\}
+      \end{align*}
+      Cada $\mathtt{length}_a$ devuelve el número de elementos de una lista y es
+      pues un homomorfismo de monoides de un monoide libre a $\sNat$, por lo que
+      es un funtor entre monoides vistos como categorías. Como identificamos los
+      naturales con $\mathtt{list}_{()}$, esta función también se puede definir
+      de la siguiente forma:
+      \begin{align*}
+        \mathtt{const\ length}_a & = \mathtt{map}_{a,()}(\lambda x.())
+      \end{align*}
+  \end{enumerate}
+\end{example}
+
+Al permitir llevar funciones de una categoría a otra, los funtores favorecen la
+reusabilidad del código y evitan tener que escribir cierto código
+rutinario. Además, las subcategorías así definidas permiten definir funciones de
+forma más limpia. Por ejemplo, la función $\mathtt{last}_a$ vista anteriormente
+se puede escribir mejor como sigue:
+\begin{multline*}
+  \mathtt{const\ last}_a:\mathtt{list}_a\to\mathtt{option}_a =\\
+  \lambda l.\,\mathtt{match}\ l\ \{\lambda x.\mathtt{none}_a;\,\lambda c.\,\mathtt{match}\ c_2\ \{
+  \lambda x.\mathtt{some}_ac_1;\ \mathtt{last}_a\}\}.
+\end{multline*}
+La definición es similar, pero en vez de devolver $\bot$ en caso de error,
+devuelve $\mathtt{none}_a$, permitiendo a quien llamó a la función recuperarse
+del error o propagarlo con \texttt{optmap}. Otra observación es que
+$\mathtt{last}_a$ es una transformación natural, es decir, para todo morfismo
+$f:a\to b$,
+$\mathtt{last}_b\circ\mathtt{map}_{a,b}f=\mathtt{optmap}_{a,b}f\circ\mathtt{last}_a$.
+Intuitivamente esto tiene sentido, pues las transformaciones naturales son
+funciones que <<actúan igual>> sobre todos los tipos y las funciones con un
+parámetro de tipo cumplen esto. Lo curioso, sin embargo, es que de hecho esto
+ocurre con todas las funciones de esta forma.
+
+\begin{theorem}
+  Dadas dos expresiones de tipo $S(a)$ y $T(a)$ que dependen de una variable
+  libre $a$, si $S$ y $T$ son las funciones sobre objetos de dos endofuntores
+  $S,T:\bType\to\bType$, entonces toda familia de funciones $f_a:S(a)\to T(a)$
+  define una transformación natural $f:S\to T$.
+\end{theorem}
+
+La demostración de este teorema es complicada y se basa en el teorema de
+parametricidad de Reynolds\cite{typeabs}, que permite demostrar propiedades de
+valores a partir de sus tipos.
+
+\section{Mónadas}
+
+El uso de endofuntores permite trasladar funciones para usarlas en subcategorías
+que nos resulten más convenientes. Sin embargo, también puede ser deseable
+trabajar en categorías que no sean subcategorías de $\bType$, y en ese aspecto
+las categorías de Kleisli son muy útiles en la práctica, como se muestra en
+\cite{monad}. Esto se debe a que el uso de estas categorías permite tratar
+funciones de tipo $a\to Tb$ <<como si fueran>> de tipo $a\to b$, lo que es útil
+porque $Tb$ suele representar un resultado del tipo $b$ <<con alguna pega>>,
+como que en vez de un valor de tipo $b$ puede haber un error, o una cantidad
+variable de elementos de tipo $b$.
+
+Veamos cómo implementar categorías de Kleisli de forma eficiente. Una secuencia
+de transformaciones sobre una entrada podría tener el aspecto siguiente:
+\[
+  \mathtt{let }x_1=e_1\mathtt{ and }x_2=e_2\mathtt{ and }\dots\mathtt{ in }gx_n.
+\]
+Esta expresión equivale a
+$(\lambda x_1.(\lambda x_2.\dots((\lambda x_n.gx_n)(e_n)\dots))(e_2))(e_1)$,
+aunque es más fácil de leer y de escribir, y si cada $e_{i+1}$ solo depende de
+$x_i$, esto equivale a
+$(g\circ(\lambda x_{n-1}.e_n)\circ\dots\circ(\lambda x_1.e_2))(e_1)$, de modo
+que las secuencias de transformaciones son, en cierto modo, análogas a
+composiciones de funciones.
+
+Si ahora $(T,\eta,\mu)$ es una mónada en $\bType$ y $\hat\circ$ es la
+composición en $\bType$, una composición de la forma
+$f_n\hat\circ\dots\hat\circ f_2\hat\circ f_1$ con cada $f_i:a_{i-1}\to Ta_i$ en
+$\bType$ equivale a
+$\mu_{a_n}\circ Tf_n\circ\dots\circ\mu_{a_2}\circ Tf_2\circ f_1$. Parece
+entonces razonable definir una función parametrizada
+$\sigma_{a,b}:(a\to Tb)\to(Ta\to Tb)$ como
+$\sigma_{a,b}f\coloneqq\mu_b\circ Tf$, y entonces
+$f_n\hat\circ\dots\hat\circ f_2\hat\circ f_1$ equivale a
+$\sigma f_n\circ\dots\circ\sigma f_2\circ f_1$.
+
+Esta expresión todavía está en orden inverso de lo que seria lo intuitivo para
+definir secuencias de transformaciones, por lo que en la práctica se define una
+función $(\Rightarrow)_{a,b}:T_a\to(a\to T_b)\to T_b$ como
+$x\Rightarrow_{a,b} f\coloneqq\mu_b((Tf)(x))$, y una secuencia de
+transformaciones en $\cC_T$ se puede expresar de forma relativamente conveniente
+como
+$e_1\Rightarrow(\lambda x_1.e_2\Rightarrow(\lambda x_2.\dots(\lambda
+x_n.gx_n)))$, o si cada expresión sólo depende del resultado de la anterior,
+como $e_1\Rightarrow(\lambda x_1.e_2)\Rightarrow\dots\Rightarrow g$.
+
+A partir de $(\Rightarrow)$ se pueden recuperar $\mu$ y la actuación de $T$
+sobre morfismos. En efecto, para un tipo $a$ y un valor $x:T^2a$,
+$(x\Rightarrow 1_{Ta})=\mu_{Ta}(1_{T^2a}x)=\mu_{Ta}x$, y para un morfismo
+$f:a\to b$ y un valor $x:a$,
+$(x\Rightarrow(\eta_b\circ f))=\mu_b(T\eta_b((Tf)(x)))=(Tf)(x)$. Es por ello
+que, en lenguajes de programación funcionales como Haskell, las mónadas se
+definen como un sinónimo de tipo con un parámetro junto con definiciones para
+$\eta$ y $(\Rightarrow)$.\cite[p. 6]{haskmon}
+
+\begin{example}
+  Algunos de los ejemplos en (\ref{ex:monads}) son mónadas.
+  \begin{enumerate}
+  \item En la mónada identidad, $x\Rightarrow f$ es la evaluación $f(x)$.
+  \item El funtor $\mathtt{result}_d$ admite la mónada dada por el ejemplo
+    \ref{enu:monad-result} en dicha lista. Sean $d$ es el tipo de los errores,
+    $x:[\,b\,|\,d\,]$ y $f:b\to[\,c|\,d]$, si $x$ es un elemento de $b$,
+    $x\Rightarrow b$ equivale a $fx$ viendo $x$ como elemento de $b$, y si $x$
+    está en $d$, $x\Rightarrow f$ devuelve $x$ visto como elemento de
+    $[\,c|\,d\,]$.
+    \begin{align*}
+      \eta_a & = \lambda x.\langle x\rangle_1
+      & (\Rightarrow)_{a,b} & = \lambda x.\lambda f.\,\mathtt{match}\ x\ \{f;\ \lambda e.e\}
+    \end{align*}
+    La idea es que, si ocurre un error en un paso de la secuencia de
+    operaciones, la ejecución termina inmediatamente devolviendo el error, y
+    cuando una operación termina con éxito, el resultado pasa al siguiente paso.
+  \item El funtor \texttt{option} también admite una mónada, en tanto que es un
+    caso especial de \texttt{result}.
+  \item El funtor \texttt{list}, en tanto que se puede considerar como un funtor
+    libre, admite una mónada. Entonces $x\Rightarrow f$ aplica $f$ a cada
+    elemento de la lista $x$ y concatena las listas de resultados. Esta mónada
+    se puede usar para representar secuencias de operaciones en las que cada
+    operación no devuelve necesariamente un sólo resultado, sino que devuelve
+    una cantidad variable, generalmente pequeña, de resultados.
+  \item La mónada $\power$ se puede usar en un contexto teórico para representar
+    cómputos no deterministas. El funcionamiento de esta mónada es similar al de
+    \texttt{list} pero basándose en un conjunto en vez de en una lista.
+  \item La mónada $S$ definida en el ejemplo \ref{enu:monad-state} de
+    (\ref{ex:monads}) permite representar un estado como un elemento de $s$. La
+    expresión $x\Rightarrow f$ devuelve una función que primero evalúa $x$ sobre
+    su parámetro para obtener un par $(x',s')$ y entonces ejecuta
+    $f(x')(s')$. La idea es que esto actúa como una especie de composición de
+    funciones, de modo que el valor devuelto por una secuencia de operaciones es
+    una función compuesta $s\to(x,s)$, que recibe un estado inicial de tipo $s$
+    y devuelve un valor resultado $x$ y un estado final, también de tipo
+    $s$. Las operaciones definidas por $\eta$, no usan el estado, pero otras
+    operaciones pueden acceder al estado y devolver de vuelta un estado
+    modificado. Esto permite representar casos en los que tener un estado e ir
+    modificándolo es conveniente.
+  \end{enumerate}
+\end{example}
+
+Hemos mencionado en la introducción de este capítulo que es posible modelar la
+interactividad mediante categorías de Kleisli. Esto se suele hacer con una
+mónada especial, generalmente llamada \texttt{IO}, cuyos valores representan
+acciones, secuencias de acciones o programas enteros. Dado un tipo $a$, el tipo
+$\mathtt{IO}_a$ es el tipo de las acciones que, al ejecutarlas, realizan
+cálculos, leen datos de entrada, escriben datos de salida, etc., y finalmente
+devuelven un elemento de tipo $a$.
+
+Generalmente $\mathtt{IO}_a$ se define de forma extrínseca a partir de los
+valores que se pueden construir, que dependen de las operaciones que se quieran
+soportar. A nivel más básico, si \texttt{Char} es el tipo de los caracteres,
+podemos definir las operaciones
+\begin{align*}
+  \mathtt{putChar} & : \mathtt{Char} \to \mathtt{IO}_{()}, & \mathtt{getChar} & : \mathtt{IO}_{\mathtt{Char}},
+\end{align*}
+que imprimen un caracter en la terminal y leen un caracter del teclado,
+respectivamente, aunque también se pueden definir operaciones básicas para otros
+propósitos como dibujar en la pantalla para crear interfaces gráficas, recibir
+movimientos del ratón, manipular ficheros y directorios, conectarse a Internet,
+etc.
+
+Las operaciones en \texttt{IO} son las siguientes:
+\begin{enumerate}
+\item $\eta_a:a\to\mathtt{IO}\,a$ recibe un valor y devuelve la acción que, sin
+  hacer nada, devuelve dicho valor.
+\item Si $x:\mathtt{IO}\,a$ y $f:a\to\mathtt{IO}\,b$, $x\Rightarrow f$ devuelve
+  la acción consistente en ejecutar la acción $x$, pasar el resultado devuelto a
+  $f$ y ejecutar la acción devuelta por $f$, devolviendo su valor.
+\item Si $x:\mathtt{IO}(\mathtt{IO}\,a)$, $\mu_ax$ es la acción que ejecuta $x$
+  y, a continuación, ejecuta la acción devuelta por $x$, devolviendo su valor.
+\item Si $f:a\to b$, $\mathtt{IO}\,f:\mathtt{IO}\,a\to\mathtt{IO}\,b$ toma una
+  acción $x$ y devuelve una acción que ejecuta $x$ y devuelve el resultado de
+  aplicar $f$ al valor devuelto por la acción.
+\end{enumerate}
+
+En la práctica es común querer combinar la acción de varias mónadas. Para ello
+se usan \conc{transformadores de mónadas}, que no son otra cosa que
+transformaciones naturales en $\Mnd{\bType}$ cuyo dominio es el funtor
+identidad. Por ejemplo, en vez de definir la mónada \texttt{list} directamente,
+se define una transformación natural $\mathtt{listT}:1_{\Mnd{\bType}}\to F$ para
+cierto endofuntor $F$ en $\Mnd{\bType}$ de forma que, si $I$ es la mónada
+identidad, $FI=\mathtt{list}$.\cite{monad-trans} Es común aplicar varios de
+estos transformadores de mónadas a la vez sobre la mónada identidad o sobre la
+mónada \texttt{IO}.
+
+Finalmente, decir que las mónadas y categorías de Kleisli no sólo son útiles
+para programación funcional, sino que también lo son para razonar sobre
+programas en paradigmas convencionales y, de hecho, esta es la motivación que se
+usa en \cite{monads}, el artículo que introduce las mónadas en la teoría de la
+computación. La idea es que, por lo general, los aspectos no funcionales de los
+lenguajes de programación habituales se pueden representar mediante mónadas. Por
+ejemplo, \texttt{IO} permite comunicarse con el exterior, \texttt{state} permite
+manipular un estado global, $\power$ permite representar cómputos no
+deterministas, \texttt{result} puede usarse para modelar las excepciones,
+etc. Combinar estos efectos mediante transformadores de mónadas permite definir
+una semántica denotativa para lenguajes de programación imperativos, lo que a su
+vez permite razonar sobre programas imperativos con un alto nivel de abstracción.
+
+% Lo primero que debemos hacer es fijar
+% % un conjunto $P$ de \conc{tipos primitivos},
+% un conjunto infinito $V$ de \conc{variables de tipo}, y entonces:
+% % y un conjunto $L$ de
+% % \conc{literales},
+
+% \begin{definition}
+%   Una \conc{expresión de tipo} es una expresión de alguna de las siguientes
+%   formas:
+%   \begin{enumerate}
+%   \item Un elemento % de $P$ o
+%     de $V$.
+%   \item Una expresión $a\to b$, donde $a$ y $b$ son expresiones de tipo.
+%   \item Una expresión $\forall a.x$, donde $a$ es una variable de tipo y $x$ es
+%     una expresión de tipo.
+%   \end{enumerate}
+%   Un \emph{tipo} es una expresión de tipo en que toda aparición de una variable
+%   de tipo $v$ está dentro de una expresión de tipo de la forma $\forall v.x$.
+% \end{definition}
+
+% \begin{definition}
+%   Una \conc{expresión del lenguaje} es una expresión de alguna de las siguientes
+%   formas:
+%   \begin{enumerate}
+%   \item Un elemento de $I$% o de $L$
+%     .
+%   \item El identificador \texttt{fix}.
+%   \item Una expresión $ef$, donde $e$ y $f$ son expresiones del lenguaje.
+%   \item Una expresión $\lambda x.e$, donde $x$ es un identificador y $e$ es una
+%     expresión del lenguaje.
+%   \end{enumerate}
+%   Una expresión del lenguaje es \conc{cerrada} si toda aparición de un
+%   identificador $x$ se encuentra dentro de una expresión de la forma
+%   $\lambda x.e$.
+% \end{definition}
+
+% Las expresiones $\lambda x.e$ y $\Lambda\alpha.\tau$ establecen blindajes de la
+% variable $x$ o $\alpha$ en la expresión $e$ o $\tau$. Entonces los conceptos de
+% variable libre y cerrada se definen de la forma habitual en lógica, y esto a su
+% vez nos permite definir sustituciones de variables $e[f/x]$ y
+% $\tau[\sigma/\alpha]$ de la manera habitual.
+
+% Para una expresión $e$ y un tipo $T$, decimos que $e$ es de tipo $T$, $e:T$, si
+% lo es de acuerdo a las siguientes reglas de inferencia:
+
+% \begin{description}
+% \item[Tautología] $\Gamma,x:T\vdash x:T$.
+% \item[Instanciación]
+%   $\logicrule{\Gamma\vdash
+%     e:\forall\alpha_1.\dots\forall\alpha_n.\tau}{\Gamma\vdash
+%     e:\forall\beta_1.\dots\forall\beta_m.\nu}$, si expresiones de tipo
+%   $\sigma_1,\dots,\sigma_n$ tales que $\nu=\tau[\sigma_i/\alpha_i]_i$ y
+%   $\forall\beta_1.\dots\forall\beta_m.\nu$ es un tipo.
+% \item[Generalización] $\logicrule{\Gamma\vdash e:T}{\Gamma\vdash\forall\alpha.T}$.
+% \item[Combinación]
+%   $\logicrule{\Gamma\vdash e:T\to T',\quad\Gamma\vdash e':T}{\Gamma\vdash
+%     ee':T'}$.
+% \item[Abstracción] $\logicrule{\Gamma,x:T\vdash e:T'}{\Gamma\vdash\lambda x.e:T\to T'}$.
+% \item[Recursión] $\mathtt{fix}:\forall\alpha.((\alpha\to\alpha)\to\alpha)$.
+% \end{description}
+
+% % La idea es que se parte de un conjunto de axiomas formado por un axioma de la
+% % forma $x:T$ para cada $x\in L$.
+% La sintaxis $\lambda x.e$ es similar a la sintaxis $x\mapsto e$ para funciones
+% matemáticas, y la yuxtaposición de expresiones equivale a la aplicación de una
+% función. La instanciación y generalización tienen que ver con el polimorfismo,
+% para poder definir funciones genéricas, y \texttt{fix} hace al lenguaje
+% Turing-completo al permitir la recursividad, como veremos posteriormente.
+
+% También definimos una noción de expresiones equivalentes, que <<representan el
+% mismo valor>>. % Para tipos primitivos, esta definición viene dada por un conjunto
+% % $E$ de pares $(e,f)$ de expresiones del mismo tipo, y para expresiones generales
+% % tenemos la definición siguiente.
+
+% \begin{definition}
+%   Dos expresiones del lenguaje $e$ y $f$ del mismo tipo son \emph{equivalentes}
+%   si están en la misma clase de equivalencia bajo la menor relación de
+%   equivalencia $~$ tal que:
+%   \begin{enumerate}
+%   \item $\lambda x.e~\lambda y.e[y/x]$, si $y$ no es libre en $e$.
+%   \item $(\lambda x.e)f~e[f/x]$.
+%   \item $\lambda x.(ex)~e$, si $x$ no es libre en $e$.
+%   \item Si se puede pasar de $e$ a $f$ sustituyendo una subexpresión de $e$ por
+%     otra equivalente, entonces $e$ y $f$ son equivalentes.
+%     % \item Si $(e,f)\in E$ entonces $e~f$.
+%   \item $\mathtt{fix}f~f(\mathtt{fix}f)$.
+%   \end{enumerate}
+% \end{definition}
+
+% Aunque no vamos a demostrarlo aquí, esta definición de equivalencia asegura que,
+% si $f,g:a\to b$, $f~g$ si y sólo si, para todo $x:b$, $fx~gx$.
+
+% \begin{definition}
+%   La categoría $\bType$ tiene como objetos los tipos del sistema definido y como
+%   morfismos $a\to b$ el conjunto cociente de las expresiones de tipo $a\to b$
+%   bajo la equivalencia de expresiones. Si $\overline e$ es la clase de
+%   equivalencia de una expresión $e$, la composición de dos morfismos
+%   $\overline f:a\to b$ y $\overline g:b\to c$ viene dada por
+%   $\overline g\circ\overline f\coloneqq\lambda x.g(fx)$, y la identidad en un
+%   objeto $a$ viene dada por $1_a\coloneqq\overline{\lambda x.x}$.
+% \end{definition}
+
+% Con esto, si a cada tipo le asociamos el conjunto cociente de las expresiones de
+% ese tipo bajo equivalencia de expresiones, es posible interpretar los morfismos
+% como funciones entre dichos conjuntos. Esto define un funtor olvidadizo
+% $\bType\to\bSet$ que, sin embargo no admite un funtor libre, pues $\Ob{\bType}$
+% es numerable y $\Ob{\bSet}$ no lo es.
+
+% Una expresión es normalizable si es equivalente a una que no contiene
+% subexpresiones de la forma $(\lambda x.e)f$. La idea es que calcular el valor de
+% una expresión consiste en eliminar las subexpresiones de esta forma de izquierda
+% a derecha hasta que no quede ninguna, y las expresiones no normalizables se
+% corresponden con cálculos que no terminan.
+
+% \begin{example} Pese a que $\Ob{\bType}$ no es numerable, podemos definir
+%   bastantes construcciones, como vemos a continuación.
+%   \begin{enumerate}
+%   \item Pongamos que queremos definir una función $f=\lambda x.e:a\to b$
+%     recursiva, cuya definición contenga la propia $f$. Para ello, como
+%     $\mathtt{fix}:((a\to b)\to(a\to b))\to(a\to b)$, basta definir la función
+%     como $F\coloneqq\mathtt{fix}(\lambda f.\lambda x.e)$ y por las
+%     equivalencias, $F~\lambda x.e[F/f]$.
+%   \item %TODO Función identidad
+%   \item %TODO Unidad
+%   \item %TODO Vacío
+%   \item %TODO Producto
+%   \item %TODO Coproducto
+%   \item %TODO Condicionales
+%   \item El tipo $\forall\alpha.(\alpha\to\alpha)\to\alpha\to\alpha$ define los
+%     números naturales. En efecto, las expresiones normalizables de este tipo son
+%     esencialmente las de la forma $\lambda f.\lambda x.e$, donde $e$ solo
+%     depende de $f$ y de $x$, pero $e$ no puede generar un elemento arbitrario
+%     (normalizable) de $\alpha$ porque $\alpha$ es un tipo arbitrario, de modo
+%     que debe aplicar $f$ un número de veces a $x$. Entonces la suma se define
+%     como $(n+m)f\coloneqq nf\circ mf$ y el producto como $nm\coloneqq n\circ m$,
+%     y otras operaciones se definen de manera similar.
+%   \item %TODO Listas
+%   \end{enumerate}
+% \end{example}
+
+% TODO Explicar vagamente la ausencia de coproductos
+% TODO Funtores sobre listas
+% TODO Transformaciones naturales
+% TODO Las mónadas típicas
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
