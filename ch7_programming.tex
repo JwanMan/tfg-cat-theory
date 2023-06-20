@@ -62,7 +62,7 @@ partes no funcionales se pueden formalizar de otra forma más tradicional o
 mediante una construcción que involucra categorías de Kleisli, como veremos a
 continuación.
 
-\section{La categoría $\bType$}
+\section{La categoría Type} % Text mode Type so that header is in uppercase
 
 Por lo general, los tratamientos categóricos de la programación funcional se
 basan en una categoría $\bType$ cuyos objetos son tipos de datos y cuyos
@@ -235,6 +235,13 @@ $\bType$.
   \mathtt{const\ }(\circ)_{a,b,c}:(b\to c)\to(a\to b)\to(a\to c) & = \lambda x.g(fx)\\
   \mathtt{const\ }1_a:a\to a & = \lambda x.x\\
 \end{align*}
+La definición de $(\circ)$ muestra un patrón común en programación funcional, en
+el que una función de varios parámetros no se define como de tipo $(a,b)\to c$
+sino de tipo $a\to b\to c$, notación que equivale a $a\to(b\to c)$. Esto tiene
+la ventaja de ser más cómodo, pues si $f:a\to b\to c$, $x:a$ e $y:b$, podemos
+escribir $fxy$ en vez de $f(x,y)$. Sin embargo, la mayor ventaja viene de
+poder definir funciones parciales como $fx:b\to c$, que son útiles en algunos
+casos.
 
 \section{Funtores}
 
@@ -339,7 +346,7 @@ El uso de endofuntores permite trasladar funciones para usarlas en subcategoría
 que nos resulten más convenientes. Sin embargo, también puede ser deseable
 trabajar en categorías que no sean subcategorías de $\bType$, y en ese aspecto
 las categorías de Kleisli son muy útiles en la práctica, como se muestra en
-\cite{monad}. Esto se debe a que el uso de estas categorías permite tratar
+\cite{monads}. Esto se debe a que el uso de estas categorías permite tratar
 funciones de tipo $a\to Tb$ <<como si fueran>> de tipo $a\to b$, lo que es útil
 porque $Tb$ suele representar un resultado del tipo $b$ <<con alguna pega>>,
 como que en vez de un valor de tipo $b$ puede haber un error, o una cantidad
@@ -389,15 +396,16 @@ definen como un sinónimo de tipo con un parámetro junto con definiciones para
 $\eta$ y $(\Rightarrow)$.\cite[p. 6]{haskmon}
 
 \begin{example}
-  Algunos de los ejemplos en (\ref{ex:monads}) son mónadas.
+  Algunos de los ejemplos en (\ref{ex:monads}) son muy comunes en programación
+  funcional.\cite[pp. 17--24]{haskmon}
   \begin{enumerate}
   \item En la mónada identidad, $x\Rightarrow f$ es la evaluación $f(x)$.
   \item El funtor $\mathtt{result}_d$ admite la mónada dada por el ejemplo
     \ref{enu:monad-result} en dicha lista. Sean $d$ es el tipo de los errores,
-    $x:[\,b\,|\,d\,]$ y $f:b\to[\,c|\,d]$, si $x$ es un elemento de $b$,
+    $x:[\,b\,|\,d\,]$ y $f:b\to[\,c|\,d\,]$, si $x$ es un elemento de $b$,
     $x\Rightarrow b$ equivale a $fx$ viendo $x$ como elemento de $b$, y si $x$
     está en $d$, $x\Rightarrow f$ devuelve $x$ visto como elemento de
-    $[\,c|\,d\,]$.
+    $[\,c\,|\,d\,]$.
     \begin{align*}
       \eta_a & = \lambda x.\langle x\rangle_1
       & (\Rightarrow)_{a,b} & = \lambda x.\lambda f.\,\mathtt{match}\ x\ \{f;\ \lambda e.e\}
@@ -451,20 +459,53 @@ respectivamente, aunque también se pueden definir operaciones básicas para otr
 propósitos como dibujar en la pantalla para crear interfaces gráficas, recibir
 movimientos del ratón, manipular ficheros y directorios, conectarse a Internet,
 etc.
+\begin{samepage}
+  Las operaciones de la mónada \texttt{IO} son las siguientes:
+  \begin{enumerate}
+  \item $\eta_a:a\to\mathtt{IO}\,a$ recibe un valor y devuelve la acción que,
+    sin hacer nada, devuelve dicho valor.
+  \item Si $x:\mathtt{IO}\,a$ y $f:a\to\mathtt{IO}\,b$, $x\Rightarrow f$
+    devuelve la acción consistente en ejecutar la acción $x$, pasar el resultado
+    devuelto a $f$ y ejecutar la acción devuelta por $f$, devolviendo su valor.
+  \item Si $x:\mathtt{IO}\,(\mathtt{IO}\,a)$, $\mu_ax$ es la acción que ejecuta $x$
+    y, a continuación, ejecuta la acción devuelta por $x$, devolviendo su valor.
+  \item Si $f:a\to b$, $\mathtt{IO}\,f:\mathtt{IO}\,a\to\mathtt{IO}\,b$ toma una
+    acción $x$ y devuelve una acción que ejecuta $x$ y devuelve el resultado de
+    aplicar $f$ al valor devuelto por la acción.
+  \end{enumerate}
+\end{samepage}
 
-Las operaciones en \texttt{IO} son las siguientes:
-\begin{enumerate}
-\item $\eta_a:a\to\mathtt{IO}\,a$ recibe un valor y devuelve la acción que, sin
-  hacer nada, devuelve dicho valor.
-\item Si $x:\mathtt{IO}\,a$ y $f:a\to\mathtt{IO}\,b$, $x\Rightarrow f$ devuelve
-  la acción consistente en ejecutar la acción $x$, pasar el resultado devuelto a
-  $f$ y ejecutar la acción devuelta por $f$, devolviendo su valor.
-\item Si $x:\mathtt{IO}(\mathtt{IO}\,a)$, $\mu_ax$ es la acción que ejecuta $x$
-  y, a continuación, ejecuta la acción devuelta por $x$, devolviendo su valor.
-\item Si $f:a\to b$, $\mathtt{IO}\,f:\mathtt{IO}\,a\to\mathtt{IO}\,b$ toma una
-  acción $x$ y devuelve una acción que ejecuta $x$ y devuelve el resultado de
-  aplicar $f$ al valor devuelto por la acción.
-\end{enumerate}
+Estas operaciones permiten definir cualquier programa interactivo. Por ejemplo,
+si $\mathtt{unit}_a:a\to\mathtt{IO}_a$ y
+$\mathtt{bind}_{a,b}:\mathtt{IO}_a\to(a\to\mathtt{IO}_b)\to\mathtt{IO}_b$ son
+las operaciones $\eta$ y $(\Rightarrow)$ de \texttt{IO}, y extendemos la
+sintaxis para poder escribir $\mathtt{bind}_{a,b}\,x\,f$ como $x\Rightarrow f$,
+con asociatividad por la izquierda, podemos escribir una cadena de caracteres,
+representada como una lista de \texttt{Char}, con la siguiente función.
+\begin{align*}
+  & \mathtt{const\ forIO}_a:(a\to \mathtt{IO}_{()})\to\mathtt{list}_a\to\mathtt{IO}_{()} =\\
+  & \quad\quad \lambda l.\lambda f.\,\mathtt{match}\ l\ \{
+    \mathtt{unit};\ \lambda c.(\mathtt{putChar}\,c_1\Rightarrow\lambda x.\mathtt{forIO}_a\,f\,c_2)\}\\
+  & \mathtt{const\ putString} : \mathtt{list}_{\mathtt{Char}}\to\mathtt{IO}_{()}
+    = \mathtt{forIO}\,\mathtt{putChar}
+\end{align*}
+Del mismo modo podemos querer leer líneas completas de la entrada:
+\begin{align*}
+  & \mathtt{const\ getLine}:\mathtt{IO}_{\mathtt{list}_{\mathtt{Char}}} =
+    \mathtt{getChar}\Rightarrow\\
+  & \quad\quad (\lambda c.\,
+    \mathtt{if}\ \{c\text{ es un salto de línea}\}\ \mathtt{then}\ \mathtt{unit}\,\langle()\rangle_1\,
+  %\\& \quad\quad\phantom{(\lambda c.\,}
+    \mathtt{else}\ \mathtt{getLine}\Rightarrow\lambda s.\langle(c,s)\rangle_2)
+\end{align*}
+El programa principal sería entonces un elemento de tipo $\mathtt{IO}_{()}$,
+como el siguiente:
+\begin{multline*}
+  \mathtt{putString}\,\text{``¿Cómo te llamas? ''}\Rightarrow\lambda\_.
+  (\mathtt{getLine}\Rightarrow\\
+  \lambda n.\mathtt{putString}\,\text{``¡Hola, ''}\Rightarrow
+  (\lambda\_.\mathtt{putString}\ n)\Rightarrow(\lambda\_.\mathtt{putString}\,\text{``!''}))
+\end{multline*}
 
 En la práctica es común querer combinar la acción de varias mónadas. Para ello
 se usan \conc{transformadores de mónadas}, que no son otra cosa que
@@ -628,11 +669,6 @@ vez permite razonar sobre programas imperativos con un alto nivel de abstracció
 %   \item %TODO Listas
 %   \end{enumerate}
 % \end{example}
-
-% TODO Explicar vagamente la ausencia de coproductos
-% TODO Funtores sobre listas
-% TODO Transformaciones naturales
-% TODO Las mónadas típicas
 
 %%% Local Variables:
 %%% mode: latex

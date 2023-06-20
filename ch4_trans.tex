@@ -304,8 +304,6 @@ transformación natural identidad en un funtor identidad es una identidad de est
 composición, por lo que las transformaciones naturales son los morfismos de una
 categoría cuyos objetos son categorías.
 
-La siguiente proposición es fácil de probar.
-
 \begin{proposition}[Ley del intercambio]
   Dadas las transformaciones naturales
   \[
@@ -313,30 +311,16 @@ La siguiente proposición es fácil de probar.
   \]
   se tiene $(\tau'\cdot\sigma')\circ(\tau\cdot\sigma)=(\tau'\circ\tau)\cdot(\sigma'\circ\sigma)$.
 \end{proposition}
+\begin{proof}
+  Ver el diagrama en la portada del trabajo.
+\end{proof}
 % \begin{proof}
 %   La figura \ref{fig:nat-interchange} conmuta.
 %   \begin{figure}
 %     \centering
-%     \begin{diagram}
-%       \path (0,4) node(SS){$S'Sb$} (2,4) node(TS){$T'Sb$} (4,4) node(US){$U'Sb$};
-%       \path (2,2) node(TT){$T'Tb$} (4,2) node(UT){$U'Tb$};
-%       \path (4,0) node(UU){$U'Ub$};
-%       \draw[->] (SS) -- node[above]{$\sigma'_{Sb}$} (TS);
-%       \draw[->] (TS) -- node[above]{$\tau'_{Sb}$} (US);
-%       \draw[->] (US) -- node[right]{$U'\sigma_b$} (UT);
-%       \draw[->] (UT) -- node[right]{$U'\tau_b$} (UU);
-%       \draw[->] (TS) -- node[right]{$T'\sigma_b$} (TT);
-%       \draw[->] (TT) -- node[above]{$\tau'_{Tb}$} (UT);
-%       \draw[->] (SS) -- node[above]{$\sigma'\circ\sigma$} (TT);
-%       \draw[->] (TT) -- node[above]{$\tau'\circ\tau$} (UU);
-%       \path (0,2) node(ST){$S'Tb$} (0,0) node(SU){$S'Ub$} (2,0) node(TU){$T'Ub$};
-%       \draw[->] (SS) -- node[left]{$S'\sigma_b$} (ST);
-%       \draw[->] (ST) -- node[left]{$S'\tau_b$} (SU);
-%       \draw[->] (SU) -- node[below]{$\sigma'_{Ub}$} (TU);
-%       \draw[->] (TU) -- node[below]{$\tau'_{Ub}$} (UU);
-%       \draw[->] (ST) -- node[below]{$\sigma'_{Tb}$} (TT);
-%       \draw[->] (TT) -- node[left]{$T'\tau_b$} (TU);
-%     \end{diagram}
+
+
+
 %     \caption{Ley del intercambio.}
 %     \label{fig:nat-interchange}
 %   \end{figure}

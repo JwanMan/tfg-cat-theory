@@ -1,0 +1,197 @@
+Category theory can be roughly defined as the study of mathematical
+structures. If we look at the structure of the objects of study in several
+fields of mathematics, we quickly notice that, in some intuitive sense, many of
+these structures are quite similar. For example, most of the time the objects of
+study are sets equipped with some additional elements, like binary operations
+satisfying certain properties, multiplication by elements of a given field of
+scalars, a collection of subsets that are considered open, etc. In addition, we
+typically study the class of the functions between those sets that ``play well''
+with the additional elements, generally called homomorphisms, continuous
+functions, etc., to such an extent that, whenever a function is considered, the
+first question to ask is, does this function belong in the class of functions of
+interest? Going deeper, there are constructions on those objects that are,
+intuitively speaking, ``equivalent'' to another construction in another kind of
+objects, even if the structures of the objects involved are nothing
+alike. Category theory attempts to formalize and thus clarify these intuitions.
+
+Category theory was introduced by mathematicians Saunders Eilenberg and Saunders
+Mac Lane in a paper published in 1942, where they introduced several of the core
+concepts of the field as part of their studies in homological
+algebra.\cite[p. 29]{maclane} Category theory has also been referred to as
+``abstract nonsense'' or ``general abstract nonsense'', a term coined by
+mathematician Norman Steenrod to affectionately refer to the kinds of very
+abstract constructions and methods developed in category theory and related
+fields of mathematics.\cite[preface, p. x]{riehl}
+
+Nevertheless, the study of abstract nonsense is useful for a number of
+reasons. First of all, it provides a common vocabulary for the different fields
+of mathematics, which is useful for learning as having the same name for the
+``same'' concept allows to better develop an intuition of the concept. Category
+theory is usually not covered by undergraduate curricula, but because the other
+subjects are studied with a consistent vocabulary, students grasp the idea of
+concepts that are actually category-theoretic.
+
+Second, it serves as a tool for mathematical thought. Because similar concepts
+in different fields often have similar properties, it is natural for someone
+with a good understanding of structures to relate to ask oneself if something
+that happens in another field of mathematics, or another category, also happens
+in the one being considered.
+
+Third, because category theory is not about intuitions but about formalisms, it
+provides mechanisms to transfer mathematical knowledge from one context to
+another, as well as general, abstract theorems that, when appropriately made
+concrete, allow proving a great variety of results. One example of this is the
+Yoneda lemma, which can be used to prove that every group can be viewed as a
+subgroup of a permutation proof but also that every row operation on matrices
+can be defined by left multiplication by a square matrix.
+
+Fourth, the methods of reasoning developed in category theory can sometimes be
+applied to other fields
+
+Finally, when a new field or a new kind of mathematical object is discovered, or
+invented, it is often possible to use category theory to guide the study of this
+new kind of object and to ``automatically'' derive properties for it. An example
+of this is explored in appendix \ref{ch:programming}. Most of computer science
+has been developed after category theory, so there are many concepts that have
+been developed by applying general concepts of category theory to a suitable
+category. To be fair, a lot of computer science theory is independent from
+category theory, either because it was developed before category theory was
+widely known by mathematicians or because it was not developed by mathematicians
+in the first place, and a lot of it is simply unrelated to
+categories. Nevertheless, as soon as the usefulness of category theory to write
+and analyze computer programs was realized, a lot of its concepts, both simple
+and advanced, have been imported and successfully applied to create programs
+with less bugs and that are easier to maintain, as well as to design programming
+languages that support these concepts and formal reasoning tools that use
+category theory to support the task of verifying correctness of programs in
+critical systems.
+
+The basic object of study of category theory is a category, which consists of a
+collection of objects, a collection of morphisms, operations domain ($\dom$) and
+codomain ($\cod$) that take morphisms to objects, an identity operation ($1$)
+that takes objects to morphisms, and a composition operation ($\circ$) that
+takes pairs of morphisms $(g,f)$ with $\dom g=\cod f$ to morphisms. Furthermore,
+these operations have to satisfy some properties. First, the domain and codomain
+of an object's identity are both equal to the object. Second, the domain of a
+composition is that of the second operand, and its codomain is that of the first
+operand. Third, the composition is associative. And finally, the composition of
+a morphism with the identity of its domain, as well as that of the identity of
+its codomain with the morphism, are both equal to the original morphism. This
+definition is independent of set theory as it only relies on predicate logic,
+although we generally interpret it over set theory for convenience.
+
+Categories represent particular mathematical concepts. Here objects might be
+sets with some structure and morphisms might be functions between those sets
+with certain properties, so we might have categories for e.g. groups,
+topological spaces, fields, vector spaces, Banach spaces, or even for all
+sets. However, objects need not be sets and morphisms need not be functions, so
+we could have a category where objects are the natural numbers and morphisms
+from one number to another (that is, morphisms with the first number as the
+domain and the second one as the codomain) are matrices (over some ring) with so
+many columns and rows, respectively. Then identities of objects would be the
+corresponding identity matrices and composition would be the matrix product.
+
+By abstracting away from the way objects and morphisms are represented in a
+given category, and looking only at the relationships between those, we can
+define constructions in the same way for several categories, thus formalizing
+the notion of these constructions being intuitively equivalent. For example, the
+product of a family a objects is defined as an object along with a family of
+morphisms, called the projections, going from the product object to each object
+in the family, such that for any other family of morphisms from any object to
+the family of objects, there is a morphism from the domain object to the product
+that, when composed with the projections, yields this family of morphisms. This
+defines the Cartesian product of sets, the product topological space, the
+product of groups, of ring modules, and the infimum of a subset of a
+partially-ordered set.
+
+If we ``invert'' the morphisms in a category by swapping domain and codomain and
+inverting the direction of composition, the products of this category are called
+coproducts of the original one, and they represent the disjoint union of sets,
+the disjoint union topological space, the direct sum of groups or ring modules,
+and the supremum of a subset of a partially-ordered set. Turns out many useful
+concepts can be derived from others this way.
+
+These definitions can often be described and reasoned about visually with
+commutative diagrams. If we represent morphisms as arrows between its domain and
+its codomain, we can draw diagrams that look like graphs where vertices are
+objects of the category and edges are morphisms, and we say that a diagram
+commutes if any two paths between two vertices yield the same morphism when all
+the morphisms across each path are composed together. If the morphisms are
+functions, we can fix an element of a commutative diagram and ``propagate'' its
+value following arrows to get a desired equality, a method known
+
+In order to relate concepts from different categories we use functors, which are
+functions between the objects and morphisms of the two categories that respect
+the operations. A nice aspect of category theory is that it is reflexive, in the
+sense that it can be used to analyze itself, so we can define a category whose
+objects are smaller categories and whose morphisms are functors and we
+automatically get concepts like products of categories.
+
+We can even define categories where the objects are functors between two given
+categories, and then the morphisms are natural transformations. Natural
+transformations are means to relate the images of two functors in a way that
+plays well with the functors. Whenever some operation in a category is
+considered ``natural'', or the ``natural'' way to do it, natural transformations
+are usually involved. The go-to example is the standard isomorphism between a
+finite-dimensional vector space and its double dual. This concept is so
+important that, according to Mac Lane (\cite[p. 18]{maclane}), `` `category' has
+been defined in order to define `functor' and `functor' has been defined in
+order to define `natural transformation' ''.
+
+Functors allow us to define the concept of limit, which generalizes that of
+product as well as other concepts such as that of equalizer, which itself
+extends the algebraic concept of kernel of a homomorphism. Similarly we have the
+concept of colimits, which extends concepts like coproducts and quotient sets
+and spaces.
+
+Limits and colimits are themselves a special case of universal arrows in a
+category of functors. Roughly speaking, universal arrows formalize the general
+idea of an entity that satisfies some property and such that any other entity
+satisfying the property is related to that one entity in a unique way. The most
+common instance of this rather abstract description is that of a free object in
+a construct, such as a the free group generated by a set or the free $R$-module
+of a given dimension.
+
+Universal arrows are defined in terms of a functor, and when every object in the
+codomain of the functor admits a universal arrow, we can build an adjunction, a
+bidirectional ``bridge'' between two categories that satisfies some coherence
+properties.
+
+In turn, adjunctions can be used to reason about monads, abstract structures
+made up of an endofunctor---a functor from a category to itself---and two
+natural transformations that allow to move, via morphisms, from an object to its
+image under the functor, and to ``coalesce'' repeated applications of an
+endofunctor over an object into only one application. Monads have two main
+applications. The first one, most relevant to mathematics in general, is that
+they can be used to describe a lot of common algebraic categories from other
+categories, typically the category of sets. Since the category of sets is
+well-understood, monads can be used to reason about these other categories. The
+second application, more relevant to computer science, is that it allows
+reasoning about the endofunctor itself. Endofunctors in programming are often
+used to provide a ``context'' for computations, and monads can be used to thread
+computations over that context by leveraging the two natural transformations.
+
+This work is guided by two main goals. The first goal is to understand and
+explain the main concepts of category theory and relate them to as many other
+fields of mathematics as reasonably possible, illustrating the unifying
+character of category theory. The second goal is to show how several concepts of
+category theory can be applied in practice to computer science, and in
+particular to programming language design and formal verification. This has been
+the main motivation for covering monads, as they are incredibly useful to model
+computations and interactivity in particular, even though the topic of monads is
+worth studying by itself for the reasons mentioned above. On the other hand,
+since the concrete explanation of how monads are used in programming is more
+computer-scientific and not as mathematical in nature, this topic has been
+included as an appendix.
+
+% TODO Informal definition of category (mention that they don't have to be sets
+% but they commonly are) and then rough ideas of how it works. Finally look at
+% functional programming, hint at how the application was posterior to category
+% theory and how polymorphic types are examples of non-constructs
+
+% \cite{joyofcats}
+% \cite{maclane}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
