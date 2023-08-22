@@ -1,0 +1,28 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}[scale=1.8]\selectlanguage{english}
+  \path (0,4) node(SS){$S'Sb$} (2,4) node(TS){$T'Sb$} (4,4) node(US){$U'Sb$};
+  \path (2,2) node(TT){$T'Tb$} (4,2) node(UT){$U'Tb$};
+  \path (4,0) node(UU){$U'Ub$};
+  \draw[->] (SS) -- node[above]{$\sigma'_{Sb}$} (TS);
+  \draw[->] (TS) -- node[above]{$\tau'_{Sb}$} (US);
+  \draw[->] (US) -- node[right]{$U'\sigma_b$} (UT);
+  \draw[->] (UT) -- node[right]{$U'\tau_b$} (UU);
+  \draw[->] (TS) -- node[right]{$T'\sigma_b$} (TT);
+  \draw[->] (TT) -- node[above]{$\tau'_{Tb}$} (UT);
+  \draw[->] (SS) -- node[above]{$\sigma'\circ\sigma$} (TT);
+  \draw[->] (TT) -- node[above]{$\tau'\circ\tau$} (UU);
+  \path (0,2) node(ST){$S'Tb$} (0,0) node(SU){$S'Ub$} (2,0) node(TU){$T'Ub$};
+  \draw[->] (SS) -- node[left]{$S'\sigma_b$} (ST);
+  \draw[->] (ST) -- node[left]{$S'\tau_b$} (SU);
+  \draw[->] (SU) -- node[below]{$\sigma'_{Ub}$} (TU);
+  \draw[->] (TU) -- node[below]{$\tau'_{Ub}$} (UU);
+  \draw[->] (ST) -- node[below]{$\sigma'_{Tb}$} (TT);
+  \draw[->] (TT) -- node[left]{$T'\tau_b$} (TU);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

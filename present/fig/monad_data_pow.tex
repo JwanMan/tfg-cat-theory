@@ -1,0 +1,16 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(TTT){$\mathcal{S}$} (2,2) node(TTP){$\{\bigcup S\}_{S\in\mathcal{S}}$};
+  \path (0,0) node(PTT){$\bigcup\mathcal{S}$} (2,0) node(T){$\bigcup\bigcup\mathcal{S}$};
+  \tikzsquig (TTT) -- node[above]{$\power\mu_X$} (TTP);
+  \tikzsquig (TTT) -- node[left]{$\mu_{\power X}$}(PTT);
+  \tikzsquig (TTP) -- node[right]{$\mu_X$} (T);
+  \tikzsquig (PTT) -- node[below]{$\mu_X$} (T);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

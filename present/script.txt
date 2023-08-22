@@ -1,0 +1,205 @@
+(1) Buenos días, mi nombre es Juan Marín Noguera y voy a presentar mi
+TFG sobre Teoría de Categorías, tutorizado por Alberto del Valle.
+
+(2) Category theory is the study of mathematical structure. [SPC] It
+is also called abstract nonsense because of its very abstract nature
+but it has a wide range of application in mathematical practice, [SPC]
+such as providing a common vocabulary of terms [SPC] like isomorphism,
+product, kernel, or quotient space. [SPC] This facilitates learning
+and applying some intuition acquired in one field of mathematics to
+another one. [SPC] However, category theory goes beyond that and
+provides mechanisms to formally transfer knowledge across fields, like
+functors and adjunctions.
+
+(3) In addition, category theory provides general results applicable
+to a wide variety of fields, [SPC] which allow abbreviating routine
+parts of proofs by referring to these results [SPC] as well as to
+start exploring areas of mathematics, as we will see in the part about
+computation theory. [SPC] Category theory also provides proof methods
+like diagram chasing which is very common in algebra.
+
+(4) My work is based primarily on the classical books [SPC] "The Joy
+of Cats" and [SPC] "Categories for the Working Mathematician", [SPC]
+with some examples taken from this more modern book by Riehl. [SPC] I
+have also developed some examples on my own and some proofs of results
+that were not given by the bibliography. Finally, the last part about
+functional programming is not based on any particular book but rather
+on common knowledge in the field and relevant papers.
+
+(5) The most fundamental concept in category theory is that of a
+category. [SPC] Categories are made up of a collection of objects and
+one of morphisms, [SPC] each with a domain and a codomain from the
+collection of objects [SPC] specified with this notation, [SPC] and
+there are also operations of composition of arrows [SPC] and identity
+such that [SPC] composition is associative and [SPC] the identities
+are identities of the composition. This is expressed by commutative
+diagrams like these, which explain that for any two paths with the
+same domain and codomain, the composition of the arrows is the
+same. [SPC] Typical categories are constructs, where objects are sets
+with some structure and morphisms are functions between those
+sets. For example, we have the construct of all sets along with all
+functions, or that of vector spaces and lineal transformations.
+
+(6) With this we can define general concepts just in terms of objects
+and morphisms. [SPC] For example, a monomorphism is a left-cancellable
+arrow [SPC] and an epimorphism is a right-cancellable arrow. [SPC]
+These terms are very similar and show a general pattern in category
+theory where many concepts come in pairs, one being the dual the
+other. [SPC] Formally, the dual of a category is another category with
+the same objects and morphisms but with the domain and codomain of
+morphisms swapped, and with composition taking the inputs in the
+opposite order. [SPC] Then the dual of a property is the same property
+in the dual category.
+
+(7) In constructs, monomorphisms are usually the injective functions
+and epimorphisms are the surjective functions, but this need not be
+the case. [SPC] For example, in the category of rings and ring
+homomorphisms, if we have this inclusion and these two arrows, [SPC]
+then g and h are given by their composition with u, [SPC] so u is an
+epimorphism despite not being surjective. [SPC] u is also clearly a
+monomorphism, which illustrates that a monomorphism that is also an
+epimorphism is not always an isomorphism, as u does not have an
+inverse.
+
+(8) Ahora vuelvo al español. Para relacionar distintas categorías
+tenemos los funtores, que son como morfismos de categorías. [SPC]
+Están formados por una función sobre los objetos y, [SPC] para cada
+par de objetos en el dominio, una función que lleva morfismos entre
+esos dos objetos a morfismos entre sus imágenes por la función
+anterior. [SPC] Además, estas funciones deben respetar la identidad
+[SPC] y la composición. [SPC] Los funtores se pueden componer y para
+cada categoría existe un funtor identidad, por lo que podemos definir
+una categoría de categorías más pequeñas (que no se incluye a sí misma
+por la paradoja de Russell) y así los funtores verdaderamente son
+morfismos de categorías.
+
+(9) A partir de aquí podemos definir el concepto de transformación
+natural, un concepto fundamental que de hecho fue el que motivó el
+desarrollo de la teoría de categorías. Para ilustrarlo vemos que [SPC]
+un espacio vectorial de dimensión finita [SPC] es isomorfo a su dual,
+formado por las transformaciones lineales del espacio al cuerpo, pero
+no hay una forma canónica de tomar el isomorfismo. [SPC] Sin embargo,
+para el doble dual sí que la hay. [SPC] Estos "morfismos que se
+definen igual" para todos los objetos son muy comunes en matemáticas,
+[SPC] y los definimos como una función que lleva cada objeto de una
+categoría a un morfismo entre la imagen del objeto por dos funtores de
+tal forma que para todo morfismo f el diagrama conmuta.
+
+(10) Otro concepto importante es el de flecha universal. Una flecha
+universal de un objeto b a un funtor U es un morfismo u como el del
+diagrama tal que para cada morfismo f de b a un punto en la imagen del
+funtor, existe un f gorro tal que el diagrama conmuta. Entonces el
+objeto c es el objeto libre sobre b. Normalmente el funtor será un
+funtor olvidadizo sobre un constructo, que lleva cada objeto del
+constructo a su conjunto subyacente y cada morfismo a sí mismo como
+función. [SPC] Entonces si tenemos, por ejemplo, el funtor olvidadizo
+del constructo de monoides, el objeto libre de un conjunto está
+formado por las listas de elementos del conjunto con la concatenación
+de listas, y la flecha universal lleva cada elemento a una lista de
+longitud 1. [SPC] Y si tenemos el del constructo de los módulos sobre
+un cierto anillo conmutativo, el objeto libre de un conjunto es el
+módulo libre con cierta dimensión y la flecha universal lleva cada
+elemento a un elemento de la base. [SPC] El concepto dual al de flecha
+universal de un objeto a un funtor es el de flecha universal de un
+funtor a un objeto.
+
+(11) Si un funtor G admite una flecha universal desde cada objeto de
+su codominio, [SPC] podemos definir una adjunción. [SPC] Esta está
+formada por dicho funtor, [SPC] un funtor en sentido inverso llamado
+funtor libre que lleva cada objeto a su objeto libre hacia G y [SPC]
+dos transformaciones naturales llamadas unidad [SPC] y counidad [SPC]
+que cumplen estas dos identidades. Entonces cada eta sub x es una
+flecha universal de x a G y cada épsilon sub y es una flecha universal
+de F a y.
+
+(12) A partir de las adjunciones podemos definir el concepto de
+mónada. Las mónadas vienen dadas por un endofuntor (un funtor de una
+categoría a sí misma) y dos transformaciones naturales eta y mu, donde
+la primera va del funtor identidad al endofuntor y la segunda del
+endofuntor aplicado dos veces al mismo aplicado una vez, [SPC] y que
+cumplen estas dos condiciones de coherencia. [SPC] Un ejemplo sencillo
+es la potencia, basada en el endofuntor en la categoría de conjuntos
+que lleva cada conjunto a su conjunto potencia y cada función a la
+"función potencia" que asocia a cada subconjunto su imagen por la
+función original. Entonces eta lleva cada elemento de un conjunto al
+conjunto unipuntual y mu da la unión de un conjunto de
+conjuntos. [SPC] La primera propiedad muestra que, dado un conjunto de
+conjuntos de conjuntos, da lo mismo unir los conjuntos "de fuera" y
+luego "los de dentro" que unir primero por dentro y luego por
+fuera. Las otras dos propiedades muestran que unir un conjunto
+unipuntual o uno formado por conjuntos unipuntuales da el conjunto
+original. [SPC] Por otro lado, si tenemos una adjunción podemos
+obtener una mónada componiendo el funtor libre y el olvidadizo y
+tomando como eta la unidad de la adjunción y como mu esta expresión en
+función de la counidad.
+
+(13) A continuación vamos a ver ahora la utilidad de las mónadas en
+ciencias de la computación, para lo que primero explico la
+programación funcional. [SPC] La forma tradicional de programar se
+conoce como programación imperativa. [SPC] En ella hay un estado
+formado por los valores de las variables [SPC] y usamos comandos que
+modifican el estado. Por ejemplo este código calcula una suma
+modificando sucesivamente los valores de i y sum. [SPC] Además,
+podemos agrupar listas de comandos en procedimientos. Esta forma de
+programar es intuitiva y concuerda más o menos con cómo funcionan
+internamente ordenadores, pero el que los valores de las variables
+cambien hace que sea difícil razonar con el código y fácil introducir
+fallos, [SPC] por lo que surge la programación funcional. [SPC] En
+esta las variables simplemente representan valores descritos mediante
+una expresión, [SPC] y las expresiones se asimilan a expresiones
+matemáticas. Por ejemplo, esta línea asocia a cada elemento de la
+lista su precio y luego suma los precios. [SPC] Finalmente, en vez de
+procedimientos se usan funciones puras, que sirven como funciones
+matemáticas en que simplemente asocian a cada entrada una salida, sin
+modificar variables ni causar otros efectos colaterales.
+
+(14) La programación funcional se basa en dos fundamentos. [SPC]
+Primero tenemos el cálculo lambda, [SPC] que define las variables, la
+definición de funciones y la aplicación de una variable a un valor
+como las expresiones fundamentales para expresar programas y define
+[SPC] una serie [SPC] de reglas [SPC] de reducción sobre
+expresiones. [SPC] El otro fundamento es la teoría de
+categorías. [SPC] La idea es que para evitar más fallos cada expresión
+tiene un tipo, como entero, cadena de caracteres, vector en R^3,
+etc. [SPC] Las funciones que llevan elementos de un tipo a a un tipo b
+tienen tipo "a a b". [SPC] Entonces podemos definir una categoría
+cuyos objetos son los tipos de dato, [SPC] y cuyos morfismos son las
+funciones de un tipo a otro que se pueden expresar mediante cálculo
+lambda, y la composición y la identidad son las obvias.
+
+(15) La programación funcional como la hemos descrito tiene un
+problema, [SPC] y es que define los programas como funciones puras,
+por lo que no se pueden representar programas interactivos. [SPC] Para
+representarlos, para cada tipo a definimos un tipo IO de a que
+representa las acciones que se comunican con el exterior de alguna
+forma y finalmente devuelven un elemento de tipo a. Existen funciones
+que devuelven acciones básicas como leer o escribir un caracter, crear
+una ventana, etc., [SPC] y para combinarlas usamos una mónada. [SPC]
+Para que IO sea un endofuntor, lo definimos sobre morfismos de esta
+forma, lo que permite mapear el valor devuelto por una acción. [SPC]
+Entonces definimos eta sobre un valor como la acción que simplemente
+devuelve el valor tal cual [SPC] y mu como una función que toma una
+acción que devuelve otra acción y ejecuta las dos acciones en
+secuencia, y con esto se puede definir cualquier programa interactivo
+como un valor de tipo IO.
+
+(16) Aunque la mónada IO es la única "necesaria" en programación
+funcional, hay otras mónadas que también son útiles. [SPC] Por
+ejemplo, muchas veces una función puede no devolver un valor del tipo
+esperado sino dar un error, que representamos como un elemento de tipo
+e que contiene errores como división entre 0, o que una cadena de
+entrada no tiene el formato correcto, etc. El símbolo de suma directa
+es una unión disjunta de tipos. [SPC] Entonces podemos facilitar el
+manejo de errores con una mónada. [SPC] El endofuntor actúa sobre una
+función devolviendo una función que actúa como la original sobre
+elementos del dominio y deja los elementos del tipo de error tal
+cual. [SPC] Eta se define como la inclusión en la unión disjunta [SPC]
+y mu toma un valor con dos posibles fuentes de error y "se olvida" de
+cuál es la fuente del error. [SPC] Finalmente, en la práctica el uso
+de mónadas se hace con esta notación. En este caso se toma un valor x
+que puede ser un error, en caso de que no lo sea se le aplica una
+función f que puede devolver otro error, y se aplica mu para juntar
+los dos errores porque bastante tenemos ya con un error.
+
+(17) Esto concluye la presentación y me parece que ahora los que no
+están en el grado se libran de escuchar el turno de preguntas.

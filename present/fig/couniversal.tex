@@ -1,0 +1,16 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,-2) node(B){$c$} (-2,-2) node(UC){$Tb$} (-4,-2) node(C){$b$};
+  \path                     (-2,0) node(UX){$Tx$}  (-4,0) node(X){$x$};
+  \draw[<-] (B) -- node[below]{$v$} (UC);
+  \draw[<-] (B) -- node[right]{$g$} (UX);
+  \draw[<-,dotted] (UC) -- node[left]{$T\hat g$} (UX);
+  \draw[<-,dotted] (C) -- node[left]{$\hat g$} (X);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

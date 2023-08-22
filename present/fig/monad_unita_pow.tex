@@ -1,0 +1,15 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(IT){$S$} (2,2) node(TT){$\{S\}$};
+  \path                            (2,0) node(T){$S$} node[below]{$\phantom{\mu}$};
+  \tikzsquig (IT) -- node[above]{$\eta_{\power X}$} (TT);
+  \tikzsquig (TT) -- node[right]{$\mu_X$} (T);
+  \tikzsquig (IT) -- node[left]{$1_{\power X}$} (T);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

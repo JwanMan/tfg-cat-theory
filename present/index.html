@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <style>
+      li li, .small { font-size: 80%; }
+      img, object[type="image/svg+xml"] { filter: invert(1); max-width: 80%; }
+      .credits { vertical-align: bottom; margin-bottom: 5%; font-size: 80%; display:flex; }
+      .credits p { padding: 20pt; margin: 0pt; }
+      #creditleft { text-align: right; padding-top: calc(20pt + 0.5em); }
+      #creditright { text-align: left; }
+      #credit-intersp { background-color: white; margin: 0pt; border: 0pt; width: 6px; }
+      .horiz-list { display:flex !important; flex-direction: row; justify-content: space-around; }
+      .horiz-list > li { list-style-type: none; }
+      .has-diagrams { display:flex; flex-direction: column; height: 95%; }
+      .diagrams { display:flex; flex-direction: row; justify-content: space-around; width: 90%; flex-grow: 1; }
+    </style>
+  </head>
+  <body lang-="es">
+    <div class="reveal">
+      <div class="slides">
+	<section>
+	  <h2>Teoría de categorías</h2>
+	  <p class="small">Una visión general con aplicaciones a la computación</p>
+	  <object type="image/svg+xml" data="fig/front.svg"></object>
+	  <div class="credits">
+	    <p id="creditleft">
+	      <strong>Juan Marín Noguera</strong><br>
+		Julio de 2023
+	    </p>
+	    <div id="credit-intersp"></div>
+	    <p id="creditright">
+	      <strong>Tutor:</strong> Alberto del Valle Robles<br>
+	      Facultad de Matemáticas <br>
+	      Universidad de Murcia
+	    </p>
+	  </div>
+	</section>
+	<section lang="en">
+	  <h2>Motivation</h2>
+	  <ul>
+	    <li class="fragment">Known as <em>abstract nonsense</em>.</li>
+	    <li class="fragment">Common vocabulary
+	      <ul class="fragment">
+		<li>Isomorphisms</li>
+		<li>Products</li>
+		<li>Kernels</li>
+		<li>Quotients</li>
+		<li>etc.</li>
+	      </ul>
+	    <li class="fragment">Intuitive reasoning across fields</li>
+	    <li class="fragment">Rigorous transfer of knowledge across fields</li>
+	  </ul>
+	</section lang="en">
+	<section>
+	  <h2>Motivation</h2>
+	  <p>General results, appliable to a lot of fields</p>
+	  <ul>
+	    <li class="fragment">Abbreviate routine parts of proofs</li>
+	    <li class="fragment">Exploration of new areas</li>
+	    <li class="fragment">Diagram chasing</li>
+	  </ul>
+	</section>
+	<section lang="en">
+	  <h2>Bibliography</h2>
+	  <ul>
+	    <li class="fragment">Adámek, Jiří & Herrlich, Horst & Strecker,
+	    George. <em>Abstract and Concrete Categories: The Joy of Cats</em>
+	    (1990).</li> <!-- Many examples. "It also has drawings of cats,
+	    which is cute" -->
+	    <li class="fragment">Mac Lane, Saunders. <em>Categories for the
+	    Working Mathematician</em> (1971).</li>
+	    <li class="fragment">Riehl, Emily. <em>Category Theory in Context</em>
+	      (2014).</li>
+	    <li class="fragment">Some proofs and examples are mine.</li>
+	  </ul>
+	</section>
+	<section lang="en" style="height: 100%;">
+	  <div class="has-diagrams">
+	    <h2>Categories</h2>
+	    <ul>
+	      <li class="fragment">Collections $\text{Ob}(\mathcal{C})$ and
+		$\text{Mor}(\mathcal{C})$.</li>
+	      <li class="fragment">Functions $\text{dom},\text{cod}:\text{Mor}(\mathcal{C})\to\text{Ob}(\mathcal{C})$.
+		<ul class="fragment"><li>$f:a\to b$ means $\text{dom}\,f=a$ and $\text{cod}\,f=b$.</li></ul>
+	      </li>
+	      <li class="fragment">For $f:a\to b$ and $g:b\to c$, $g\circ f:a\to c$.</li>
+	      <li class="fragment">For every $a\in\text{Ob}(\mathcal{C})$, $1_a:a\to a$.</li>
+	    </ul>
+	    <div class="diagrams">
+	      <img class="fragment" type="img/svg+xml" src="fig/cat-assoc.svg">
+	      <img class="fragment" type="img/svg+xml" src="fig/cat-ident.svg">
+	    </div>
+	    <ul>
+	      <li class="fragment"><strong>Construct:</strong> Category <q>made
+	      up of sets and functions.</q></li>
+	    </ul>
+	  </div>
+	</section>
+	<section>
+	  <section>
+	    <h2>Monomorfismos y epimorfismos</h2>
+	    <ul>
+	      <li class="fragment"><strong>Monomorfismo:</strong>
+		$f:a\rightarrowtail b$ tal que para cada $g,h:k\to a$, $f\circ
+		g=f\circ h\implies g=h$.</li>
+	      <li class="fragment"><strong>Epimorfismo:</strong> $f:a\twoheadrightarrow
+		b$ tal que para cada $g,h:b\to q$, $g\circ f=h\circ f\implies
+		g=h$.</li>
+	      <li class="fragment"><strong>Categoría dual:</strong> la misma pero con
+		el sentido de las flechas (y la composición) invertido.</li>
+	      <li class="fragment"><strong>Propiedad dual:</strong> La
+	      misma propiedad en la categoría dual.</li>
+	    </ul>
+	  </section>
+	  <section>
+	    <h2>Monomorfismos y epimorfismos</h2>
+	    <ul>
+	      <li>En constructos suelen ser los morfismos inyectivos y suprayectivos.</li>
+	      <li class="fragment">No es el caso, por ejemplo, en $\mathbf{Rng}$.
+		<div class="fragment" style="text-align:center;width:100%;">
+		  $\mathbb{Z}\overset{u}{\hookrightarrow}\mathbb{Q}\underset{h}{\overset{g}{\rightrightarrows}}A$
+		</div>
+		<ul>
+		  <li class="fragment">$g(\frac{p}{q})=\frac{g(p)}{g(q)}=\frac{(g\circ u)(p)}{(g\circ u)(q)}$, e igualmente para $h$.</li>
+		  <li class="fragment">Por tanto $g\circ u=h\circ u\implies g=h$ y $u$ es un epimorfismo.</li>
+		</ul>
+	      </li>
+	      <li class="fragment">Monomorfismo + epimorfismo $\neq$ isomorfismo.</li>
+	    </ul>
+	  </section>
+	</section>
+	<section>
+	  <h2>Funtores</h2>
+	  <p><q>Morfismos</q> de categorías.</p>
+	  <ul>
+	    <li class="fragment">Función $T_0:\text{Ob}(\mathcal{C})\to\text{Ob}(\mathcal{D})$.</li>
+	    <li class="fragment">Para $a,b\in\text{Ob}(\mathcal{C})$, \[T_{a,b}:\hom(a,b)\to\hom(T_0a,T_0b).\]</li>
+	    <li class="fragment">$1_{T(a)}=T(1_a)$.</li>
+	    <li class="fragment">$T(g)\circ T(f)=T(g\circ f)$.</li>
+	    <li class="fragment">Categoría $\mathbf{Cat}$ de categorías pequeñas y funtores.</li>
+	  </ul>
+	</section>
+	<section style="height:100%;">
+	  <div class="has-diagrams">
+	    <h2 style="display:inline-block;max-height:1em;margin-left:-1em;margin-right:-1em;"
+		>Transformaciones naturales</h2>
+	    <ul>
+	      <li class="fragment" data-fragment-index="1">Sea $V$ un espacio vectorial de dimensión finita.
+		<ul>
+		  <li class="fragment" data-fragment-index="2">$V\cong V^*$, pero en general no hay un isomorfismo <q>canónico</q>.</li>
+		  <li class="fragment" data-fragment-index="3">$V\cong V^{**}$, isomorfismo <q>natural</q>
+		    $v\mapsto(f\mapsto f(v))$.</li>
+		</ul>
+	      <li class="fragment" data-fragment-index="4">Morfismos que <q>actúan siempre igual</q>.</li>
+	      <li class="fragment" data-fragment-index="5">Dados dos funtores
+	      $S,T:\mathcal{C}\to\mathcal{D}$,
+		función
+		<span style="display:inline-block">$\tau:\text{Ob}(\mathcal{C})\to\text{Mor}(\mathcal{D})$</span>
+	      tal que:
+	      </li>
+	    </ul>
+	    <div class="fragment diagrams" data-fragment-index="5">
+	      <img src="fig/natural.svg">
+	    </div>
+	  </div>
+	</section>
+	<section style="height:100%;">
+	  <div class="r-stack" style="height:100%;">
+	    <div class="has-diagrams fragment fade-out" data-fragment-index="3">
+	      <h2>Flechas universales</h2>
+	      <p>Sean $U:\mathcal{C}\to\mathcal{B}$ un funtor y
+	      $b\in\text{Ob}(\mathcal{B})$.</p>
+	      <div class="diagrams">
+		<img src="fig/universal.svg">
+	      </div>
+	      <ul>
+		<li class="fragment" data-fragment-index="1">
+		  $\mathbf{Mon}\to\mathbf{Set}$:
+		  $c=\left(\bigcup_nb^n,\bullet\right)$, $ux=(x)$.
+		</li>
+		<li class="fragment" data-fragment-index="2">
+		  $R\text{-}\mathbf{Mod}\to\mathbf{Set}$: $c=R^b$, $ux$ en la
+		  base.
+		</li>
+	      </ul>
+	    </div>
+	    <div class="has-diagrams fragment" data-fragment-index="3">
+	      <h2>Flechas universales</h2>
+	      <p>Sean $T:\mathcal{B}\to\mathcal{C}$ un funtor y
+		$c\in\text{Ob}(\mathcal{C})$.</p>
+	      <div class="diagrams">
+		<img src="fig/couniversal.svg">
+	      </div>
+	      <ul style="visibility:hidden;">
+		<li>
+		  $\mathbf{Mon}\to\mathbf{Set}$:
+		  $c=\left(\bigcup_nb^n,\bullet\right)$, $ux=(x)$.
+		</li>
+		<li>
+		  $R\text{-}\mathbf{Mod}\to\mathbf{Set}$: $c=R^b$, $ux$ en la
+		  base.
+		</li>
+	      </ul>
+	    </div>
+	  </div>
+	</section>
+	<section>
+	  <h2>Adjunciones</h2>
+	  <p>Si todo objeto de $\mathcal{B}$ admite flecha
+	    universal hacia $G$...</p>
+	  <div class="fragment">\[(F,G,\eta,\varepsilon):\mathcal{B}\to\mathcal{C}\]</div>
+	  <ul>
+	    <li class="fragment">$G:\mathcal{C}\to\mathcal{B}$ suele ser un <em>funtor olvidadizo</em>.</li>
+	    <li class="fragment">$F:\mathcal{B}\to\mathcal{C}$ es el <em>funtor libre</em>.</li>
+	    <li class="fragment">$\eta:1_{\mathcal{B}}\to GF$ es la <em>unidad</em>.
+	      <!--<ul><li class="fragment">Cada $\eta_b$ es una flecha universal de $b$ a $G$.</li></ul>-->
+	    </li>
+	    <li class="fragment">$\varepsilon:FG\to 1_{\mathcal{C}}$ es la <em>counidad</em>.
+	      <!--<ul><li class="fragment">Cada $\varepsilon_c$ es una flecha universal de $F$ a $c$.</li></ul>-->
+	    </li>
+	  </ul>
+	  <div class="fragment"> 
+	    <ul class="horiz-list">
+	      <li>$G\varepsilon\cdot\eta G=1_G$</li>
+	      <li>$\varepsilon F\cdot F\eta=1_F$</li>
+	    </ul>
+	  </div>
+	</section>
+	<section style="height:90%">
+	  <div class="has-diagrams" style="width:100%">
+	    <h2>Mónadas</h2>
+	    <ul class="horiz-list">
+	      <li>$T:\mathcal{C}\to\mathcal{C}$</li>
+	      <li>$\eta:1_{\mathcal{C}}\to T$</li>
+	      <li>$\mu:T^2\to T$</li>
+	    </ul>
+	    <div class="diagrams" style="width:100%">
+	      <div class="r-stack" style="width:100%;height:100%;">
+		<div class="diagrams fragment" style="height:100%" data-fragment-index="0">
+		  <div class="diagrams fragment fade-out" style="height:100%" data-fragment-index="2">
+		    <img src="fig/monad_data.svg">
+		    <img src="fig/monad_unit.svg">
+		  </div>
+		</div>
+		<div class="diagrams fragment fade-in-then-out" style="height:100%" data-fragment-index="2">
+		  <img src="fig/monad_data_pow.svg">
+		  <img src="fig/monad_unita_pow.svg">
+		  <img src="fig/monad_unitb_pow.svg">
+		</div>
+		<div class="diagrams fragment" style="height:100%" data-fragment-index="3">
+		  <img src="fig/monad_data_adj.svg">
+		  <img src="fig/monad_unita_adj.svg">
+		</div>
+	      </div>
+	    </div>
+	    <div class="r-stack">
+	      <div class="fragment" data-fragment-index="1" style="width:100%">
+		<ul class="horiz-list fragment fade-out" data-fragment-index="3">
+		  <li>$T=\mathcal{P}$</li>
+		  <li>$\eta_X(x)=\{x\}$</li>
+		  <li>$\mu_X(\mathcal{X})=\bigcup\mathcal{X}$</li>
+		</ul>
+	      </div>
+	      <ul class="horiz-list fragment" data-fragment-index="3" style="width:100%">
+		<li>$T=GF$</li>
+		<li>$\eta=\eta$</li>
+		<li>$\mu=G\varepsilon F$</li>
+	      </ul>
+	    </div>
+	  </div>
+	</section>
+	<section>
+	  <h2>Categorías en programación</h2>
+	  <table class="small">
+	    <colgroup>
+	      <col span="2" style="width: 50%;">
+	    </colgroup>
+	    <tbody>
+	      <tr>
+		<th class="fragment" data-fragment-index="1">Programación imperativa</th>
+		<th class="fragment" data-fragment-index="5">Programación funcional</th>
+	      </tr>
+	      <tr>
+		<td class="fragment" data-fragment-index="2">Estado accedido por variables.
+		  <pre>List&lt;Item&gt; list = new List<>();<br>int index;</pre>
+		</td>
+		<td class="fragment" data-fragment-index="6">Variables que representan valores.
+		  <pre>let list = [item1, item2, ...]</pre>
+		</td>
+	      </tr>
+	      <tr>
+		<td class="fragment" data-fragment-index="3">Comandos que modifican el estado.
+		  <pre>list.insert(index, item1);<br>int sum = 0;<br>for (int i = 0; i < list.size(); i++)<br>    sum += list[i].price();</pre>
+		</td>
+		<td class="fragment" data-fragment-index="7">Expresiones matemáticas.
+		  <span class="small">$\sum_{x\in\text{list}}\text{price}(x)\rightsquigarrow$</span><pre>List.sum(List.map Item.price list)</pre>
+		</td>
+	      </tr>
+	      <tr>
+		<td class="fragment" data-fragment-index="4">Procedimientos.
+		  <pre>void printItem(Item item) {<br>    System.out.println(item.name().toString());<br>}</pre>
+		</td>
+		<td class="fragment" data-fragment-index="8">Funciones puras.
+		  <pre>itemData item =<br>    Int.to_string (item.name)</pre>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</section>
+	<section>
+	  <h2>Programación funcional</h2>
+	  <ul style="width:90%;">
+	    <li class="fragment">Cálculo lambda
+	      <ul class="horiz-list fragment" style="padding-bottom:1ex;">
+		<li>$x$</li>
+		<li>$(\lambda x.M)$</li>
+		<li>$(M\,N)$</li>
+	      </ul>
+	      <ul>
+		<li class="fragment">$(\lambda x.M[x])\to_\alpha(\lambda y.M[y])$</li>
+		<li class="fragment">$((\lambda x.M)\,E)\to_\beta(M\{E/x\})$</li>
+		<li class="fragment">$(\lambda x.M[x])\to_\eta M$</li>
+	      </ul>
+	    </li>
+	    <li class="fragment">Teoría de categorías
+	      <ul>
+		<li class="fragment">Cada expresión tiene un tipo.</li>
+		<li class="fragment">Las funciones (computables) de un
+		tipo $a$ a un tipo $b$ tienen tipo $a\to b$.</li>
+		<li class="fragment"><strong>Objetos:</strong> Tipos de dato.</li>
+		<li class="fragment"><strong>Morfismos:</strong>
+		  Elementos de tipo $a\to b$.
+		</li>
+		<!--<li class="fragment">Se definen tipos producto, coproducto, etc.</li>-->
+	      </ul>
+	    </li>
+	  </ul>
+	</section>
+	<section>
+	  <h2>Mónada IO</h2>
+	  <ul>
+	    <li class="fragment">Las funciones puras no pueden, p. ej., mostrar
+	      datos por pantalla o interactuar con el usuario.</li>
+	    <li class="fragment">Para cada tipo $a$, un tipo $\mathtt{IO}\,a$ de
+	    las acciones que devuelven un elemento de tipo $a$.
+	    </li>
+	    <li class="fragment">Mónada $(\mathtt{IO},\eta,\mu)$.
+	      <ul>
+		<li class="fragment">Para $f:a\to b$, $(\mathtt{IO}\,f)(x)$
+		  ejecuta $x$ y aplica $f$ al resultado.</li>
+		<li class="fragment">$\eta_a(x)$ es una acción que no hace nada
+		  y devuelve $x$.</li>
+		<li class="fragment">$\mu_a(x)$ ejecuta $x$ y ejecuta el
+		resultado de $x$.</li>
+	    </li>
+	  </ul>
+	</section>
+	<section>
+	  <h2>Mónada de manejo errores</h2>
+	  <ul>
+	    <li class="fragment">Una función $f:a\to b\oplus e$ devuelve un
+	      valor de tipo $b$, o falla con un valor de tipo $e$.</li>
+	    <li class="fragment">Mónada $((\oplus\,e),\eta,\mu)$.
+	      <ul>
+		<li class="fragment">Para $f:a\to b$, $\,f\oplus
+		  e:x_a\rightsquigarrow f(x_a),x_e\rightsquigarrow x_e$.</li>
+		<li class="fragment">$\eta_a:a\hookrightarrow a\oplus e$ es la inclusión en la unión disjunta.</li>
+		<li class="fragment">$\mu_a:(a\oplus e)\oplus e\to a\oplus e$ <q>identifica</q> las dos copias de $e$.</li>
+	      </ul>
+	    </li>
+	    <li class="fragment"><strong>Notación:</strong> Si $x:Ta$ y $f:a\to Tb$,
+	      $$(x\Rightarrow f)\coloneqq \mu_b(Tf(x)).$$</li>
+	  </ul>
+	</section>
+	<section>
+	  <h1>Preguntas</h1>
+	</section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+	  hash: true,
+
+	  // Learn about plugins: https://revealjs.com/plugins/
+	  plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+      });
+    </script>
+  </body>
+</html>

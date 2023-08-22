@@ -1,0 +1,16 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(B){$b$} (2,2) node(UC){$Uc$} (4,2) node(C){$c$};
+  \path                    (2,0) node(UX){$Ux$} (4,0) node(X){$x$};
+  \draw[->] (B) -- node[above]{$u$} (UC);
+  \draw[->] (B) -- node[left]{$f$} (UX);
+  \draw[->,dotted] (UC) -- node[right]{$U\hat f$} (UX);
+  \draw[->,dotted] (C) -- node[right]{$\hat f$} (X);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

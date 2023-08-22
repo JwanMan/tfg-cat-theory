@@ -1,0 +1,16 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(TTT){$T^3$} (2,2) node(TTP){$T^2$};
+  \path (0,0) node(PTT){$T^2$} (2,0) node(T){$T$};
+  \draw[->] (TTT) -- node[above]{$T\mu$} (TTP);
+  \draw[->] (TTT) -- node[left]{$\mu T$}(PTT);
+  \draw[->] (TTP) -- node[right]{$\mu$} (T);
+  \draw[->] (PTT) -- node[below]{$\mu$} (T);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

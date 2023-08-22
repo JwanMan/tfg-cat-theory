@@ -8,13 +8,13 @@ scalars, a collection of subsets that are considered open, etc. In addition, we
 typically study the class of the functions between those sets that ``play well''
 with the additional elements, generally called homomorphisms, continuous
 functions, etc., to such an extent that, whenever a function is considered, the
-first question to ask is, does this function belong in the class of functions of
+first question to ask is, does this function belong to the class of functions of
 interest? Going deeper, there are constructions on those objects that are,
 intuitively speaking, ``equivalent'' to another construction in another kind of
 objects, even if the structures of the objects involved are nothing
 alike. Category theory attempts to formalize and thus clarify these intuitions.
 
-Category theory was introduced by mathematicians Saunders Eilenberg and Saunders
+Category theory was introduced by mathematicians Samuel Eilenberg and Saunders
 Mac Lane in a paper published in 1942, where they introduced several of the core
 concepts of the field as part of their studies in homological
 algebra.\cite[p. 29]{maclane} Category theory has also been referred to as
@@ -108,8 +108,8 @@ If we ``invert'' the morphisms in a category by swapping domain and codomain and
 inverting the direction of composition, the products of this category are called
 coproducts of the original one, and they represent the disjoint union of sets,
 the disjoint union topological space, the direct sum of groups or ring modules,
-and the supremum of a subset of a partially-ordered set. Turns out many useful
-concepts can be derived from others this way.
+and the supremum of a subset of a partially-ordered set. It turns out that many
+useful concepts can be derived from others this way.
 
 These definitions can often be described and reasoned about visually with
 commutative diagrams. If we represent morphisms as arrows between its domain and
@@ -118,7 +118,8 @@ objects of the category and edges are morphisms, and we say that a diagram
 commutes if any two paths between two vertices yield the same morphism when all
 the morphisms across each path are composed together. If the morphisms are
 functions, we can fix an element of a commutative diagram and ``propagate'' its
-value following arrows to get a desired equality, a method known
+value following arrows to get a desired equality, a method known as diagram
+chasing.
 
 In order to relate concepts from different categories we use functors, which are
 functions between the objects and morphisms of the two categories that respect

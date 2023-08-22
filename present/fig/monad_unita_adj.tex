@@ -1,0 +1,17 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(IT){$GF$} (2,2) node(TT){$(GF)^2$} (4,2) node(TI){$GF$};
+  \path                      (2,0) node(T){$GF$} node[below]{$\phantom{\mu}$};
+  \draw[->] (IT) -- node[above]{$\eta GF$} (TT);
+  \draw[->] (TI) -- node[above]{$GF\eta$} (TT);
+  \draw[->] (TT) -- node{$G\varepsilon F$} (T);
+  \draw[->] (IT) -- node[left]{$1$} (T);
+  \draw[->] (TI) -- node[right]{$1$} (T);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,17 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(A){$a$} (2,2) node(SA){$Sa$} (4,2) node(TA){$Ta$};
+  \path (0,0) node(B){$b$} (2,0) node(SB){$Sb$} (4,0) node(TB){$Tb$};
+  \draw[->] (A) -- node[right]{$f$} (B);
+  \draw[->] (SA) -- node[left]{$Sf$} (SB);
+  \draw[->] (TA) -- node[right]{$Tf$} (TB);
+  \draw[->] (SA) -- node[above]{$\tau_a$} (TA);
+  \draw[->] (SB) -- node[below]{$\tau_b$} (TB);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

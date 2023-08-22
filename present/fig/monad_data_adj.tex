@@ -1,0 +1,16 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(TTT){$(GF)^3$} (3,2) node(TTP){$(GF)^2$};
+  \path (0,0) node(PTT){$(GF)^2$} (3,0) node(T){$GF$};
+  \draw[->] (TTT) -- node[above]{$GFG\varepsilon F$} (TTP);
+  \draw[->] (TTT) -- node[left]{$G\varepsilon FGF$}(PTT);
+  \draw[->] (TTP) -- node[right]{$G\varepsilon F$} (T);
+  \draw[->] (PTT) -- node[below]{$G\varepsilon F$} (T);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

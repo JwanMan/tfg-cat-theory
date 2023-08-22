@@ -1,0 +1,128 @@
+\usepackage[utf8]{inputenc}
+\usepackage[english,spanish]{babel}
+\usepackage{microtype}
+%\renewcommand{\fullwidthdisplay}{}
+
+% Formatting
+\usepackage{tikz}
+
+\newenvironment{diagram}{\begin{tikzpicture}\selectlanguage{english}}{\end{tikzpicture}}
+\usetikzlibrary{decorations.pathmorphing}
+\newcommand{\tikzsquig}{\draw[->,
+line join=round,
+decorate, decoration={
+    zigzag,
+    segment length=4,
+    amplitude=.9,post=lineto,
+    post length=2pt
+}]} % https://tex.stackexchange.com/questions/12678/squiggly-arrows-in-tikz#12680
+
+% Math packages
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stackrel}
+
+% Theorem styles
+%\newtheorem{proposition}{Proposición}[chapter]
+%\newtheorem{theorem}[proposition]{Teorema}
+%\newtheorem{corollary}[proposition]{Corolario}
+%\newtheorem{lemma}[proposition]{Lema}
+%\theoremstyle{definition}
+%\newtheorem{definition}[proposition]{Definición}
+%\newtheorem{axiom}[proposition]{Axioma}
+%\theoremstyle{remark}
+%\newtheorem{example}[proposition]{Ejemplo}
+
+% Math macros
+\newcommand{\E}{\text{e}}
+\newcommand{\I}{\text{i}}
+\newcommand{\dash}{\text{-}}
+\newcommand{\dCat}[2]{\newcommand{#1}{{\bf #2}}}
+\newcommand{\conc}[1]{\emph{#1}\newglossaryentry{#1}{name=#1,description={\,}}}
+\newcommand{\concsuffix}[1]{\emph{#1}}
+\newcommand{\eps}{\varepsilon}
+\dCat{\bAlg}{Alg}
+\dCat{\bSet}{Set}
+\dCat{\bRel}{Rel}
+\dCat{\bPrord}{Prord}
+\dCat{\bOrd}{Ord}
+\dCat{\bLat}{Lat}
+\dCat{\bGrph}{Grph}
+\dCat{\bMGrph}{MGrph}
+\dCat{\bMat}{Mat}
+\dCat{\bSmgrp}{Smgrp}
+\dCat{\bMon}{Mon}
+\dCat{\bGrp}{Grp}
+\dCat{\bAb}{Ab}
+\dCat{\bRing}{Rng} % Backwards compat
+\dCat{\bRng}{Rng}
+\dCat{\bCRng}{CRng}
+\dCat{\bDom}{Dom}
+\dCat{\bField}{Field}
+\dCat{\bMod}{Mod}
+\dCat{\bVec}{Vec}
+\dCat{\bVecf}{Vec_f}
+\dCat{\bTop}{Top}
+\dCat{\bTopm}{Top_m}
+\dCat{\bMetc}{Met_c}
+\dCat{\bMetu}{Met_u}
+\dCat{\bMet}{Met}
+\dCat{\bBanu}{Ban}
+\dCat{\bBan}{Ban}
+\dCat{\bBanb}{Ban_b}
+\dCat{\bZero}{0}
+\dCat{\bOne}{1}
+\dCat{\bTwo}{2}
+\dCat{\bDown}{\downarrow}
+\dCat{\bDDown}{\downdownarrows}
+\dCat{\bCat}{Cat}
+\dCat{\bCAT}{CAT}
+\dCat{\bCls}{Cls}
+\dCat{\bTopVec}{TopVec}
+\dCat{\bType}{Type}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\dKey}[2]{\newcommand{#1}{\text{#2}}}
+\newcommand{\dKeyPar}[2]{\newcommand{#1}[1]{\text{#2}({##1})}}
+\dKeyPar{\Ob}{Ob}
+\dKeyPar{\Mor}{Mor}
+\dKeyPar{\Mnd}{Mnd}
+\dKey{\dom}{dom}
+\dKey{\cod}{cod}
+\dKey{\Img}{Im\,}
+\newcommand{\dStdSet}[2]{\newcommand{#1}{\mathbb{#2}}}
+\dStdSet{\sNat}{N}
+\dStdSet{\sInt}{Z}
+\dStdSet{\sRat}{Q}
+\dStdSet{\sReal}{R}
+\dStdSet{\sComplex}{C}
+\dStdSet{\sCirc}{S}
+\dStdSet{\sTorus}{T}
+\newcommand{\monicTo}{\rightarrowtail}
+\newcommand{\epicTo}{\twoheadrightarrow}
+\newcommand{\inTo}{\hookrightarrow}
+\renewcommand{\mapsto}{\rightsquigarrow}
+\renewcommand{\Im}{\error{You probably meant \backslash{}Img}}
+\newcommand{\dual}[1]{#1^{\mathrm{op}}}
+\newcommand{\power}{\mathcal{P}}
+\newcommand{\copower}{\mathcal{Q}}
+\newcommand{\UNIVERSE}{\mathcal{U}}
+\newcommand{\natg}[3]{%
+  \stackrel[#3]{#2}{\overrightarrow{\underrightarrow{\;{#1}\;}}}}
+\newcommand{\nats}[1]{\natg{\downarrow\,{#1}}{}{}}
+\newcommand{\nati}[1]{\natg{\cong\,{#1}}{}{}}
+\newcommand{\nattwog}[4]{%
+  \stackrel[#4]{#3}{\overrightarrow{\underrightarrow{%
+        \xrightarrow[\;{#2}\hfil]{\;{#1}\hfil}}}}}
+\newcommand{\nattwos}[2]{\nattwog{\downarrow\,{#1}}{\downarrow\,{#2}}{}{}}
+\newcommand{\nattwoi}[2]{\nattwog{\cong\,{#1}}{\cong\,{#2}}{}{}}
+\newcommand{\logicrule}[2]{\frac{\displaystyle{#1}}{\displaystyle{#2}}}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

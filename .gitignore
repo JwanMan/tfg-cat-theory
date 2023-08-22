@@ -4,6 +4,9 @@ auto/
 *.bbl
 *.bcf
 *.blg
+*.glo
+*.glsdefs
+*.ist
 *.lof
 *.log
 *.lot

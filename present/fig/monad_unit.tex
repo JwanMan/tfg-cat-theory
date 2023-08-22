@@ -1,0 +1,17 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(IT){$1\circ T$} (2,2) node(TT){$T^2$} (4,2) node(TI){$T\circ 1$};
+  \path                            (2,0) node(T){$T$} node[below]{$\phantom{\mu}$};
+  \draw[->] (IT) -- node[above]{$\eta T$} (TT);
+  \draw[->] (TI) -- node[above]{$T\eta$} (TT);
+  \draw[->] (TT) -- node[right]{$\mu$} (T);
+  \draw[->] (IT) -- node[left]{$1$} (T);
+  \draw[->] (TI) -- node[right]{$1$} (T);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

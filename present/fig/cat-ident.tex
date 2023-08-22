@@ -1,0 +1,17 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(A){$a$} (2,2) node(AP){$a$}
+  (0,0) node(B){$b$} (2,0) node(BP){$b$};
+  \draw[->] (A) -- node[above]{$1_a$} (AP);
+  \draw[->] (AP) -- node[right]{$f$} (BP);
+  \draw[->] (A) -- node[left]{$f$} (B);
+  \draw[->] (B) -- node[below]{$1_b$} (BP);
+  \draw[->] (A) -- node[above]{$f$} (BP);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

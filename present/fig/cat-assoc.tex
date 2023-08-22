@@ -1,0 +1,16 @@
+\documentclass[12pt]{standalone}
+\input{head}
+\begin{document}
+\begin{tikzpicture}\selectlanguage{english}
+  \path (0,2) node(A) {$a$} (2,2) node(B) {$b$}
+  (0,0) node(C) {$c$} (2,0) node(D) {$d$};
+  \draw[->] (A) -- node[above]{$f$} (B);
+  \draw[->] (B) -- node[right]{$h\circ g$} (D);
+  \draw[->] (A) -- node[left]{$g\circ f$} (C);
+  \draw[->] (C) -- node[below]{$h$} (D);
+\end{tikzpicture}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
